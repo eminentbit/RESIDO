@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Money Payment</title>
+</head>
+<body>
+
+    <h1>Pay by Mobile Money</h1>
+
+    <form action="pay" method="post" data-monetbil="form" data-monetbil-service="{{ monetbil_service_key }}" data-monetbil-amount="{{ amount }}" data-monetbil-phonenumber="{{ phonenumber }}">
+        <button class="" type="submit">Pay by mobile money</button>
+    </form>
+
+    <script type="text/javascript" src="https://www.monetbil.com/widget/v2/monetbil.min.js"></script>
+
+</body>
+</html>
