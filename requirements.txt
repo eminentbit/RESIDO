@@ -7,3 +7,4 @@ googlemaps
 geopy
 python-decouple
 requests
+humanfriendly

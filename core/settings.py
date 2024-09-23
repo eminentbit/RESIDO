@@ -188,3 +188,8 @@ SIMPLE_JWT = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.UserAccount'
+
+LOGIN_URL = 'users/login'
+LOGOUT_URL = '/'
+
+BASE_COUNTRY = 'Cameroon'

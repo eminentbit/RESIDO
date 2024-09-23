@@ -1,9 +1,16 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.contrib.auth import get_user_model, logout
+from django.http import JsonResponse
+from django.shortcuts import render
+
+from user.forms import UserProfileForm
+from user.mixin import FormErrors
 User = get_user_model()
 from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
+from django.contrib.auth.decorators import login_required
 
 class RegisterView(APIView):
     permission_classes = (permissions.AllowAny, )
@@ -12,7 +19,8 @@ class RegisterView(APIView):
         try:
             data = request.data
 
-            name = data['name']
+            first_name = data['first_name']
+            last_name = data['last_name']
             email = data['email']
             email = email.lower()
             password = data['password']
@@ -28,14 +36,14 @@ class RegisterView(APIView):
                 if len(password) >= 8:
                     if not User.objects.filter(email=email).exists():
                         if not is_realtor:
-                            User.objects.create_user(name=name, email=email, password=password)
+                            User.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password)
 
                             return Response(
                                 {'success': 'User created successfully'},
                                 status=status.HTTP_201_CREATED
                             )
                         else:
-                            User.objects.create_realtor(name=name, email=email, password=password)
+                            User.objects.create_realtor(first_name=first_name, last_name=last_name, email=email, password=password)
 
                             return Response(
                                 {'success': 'Realtor account created successfully'},
@@ -77,3 +85,40 @@ class RetrieveUserView(APIView):
                 {'error': 'Something went wrong when retrieving user details'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+        
+def profile_view(request):
+    '''
+    Function view to allow users to update their profile
+    '''
+    user = request.user
+    up = user.userprofile
+
+    form = UserProfileForm(instance = up)
+
+    if request.is_ajax():
+        form = UserProfileForm(data=request.POST, instance=up)
+        if form.is_valid():
+            obj = form.save()
+            obj.has_profile = True
+            obj.save()
+            result = 'Success'
+            message = 'Your Profile has been updated'
+        else:
+            message = FormErrors(form)
+        data = {'result': result, 'message': message}
+        return JsonResponse(data)
+    
+    else:
+        context = {'form': form}
+        context['google_api_key'] = settings.GOOGLE_API_KEY
+        context['base_country'] = settings.BASE_COUNTRY
+
+        return render(request, 'user/profile.html', context)
+
+
+def signup_view(request):
+    return render(request, 'user/signup.html')
+
+
+def signout(request):
+    logout(request)
