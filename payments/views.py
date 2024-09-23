@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.conf import settings
 from .services import initiate_mtn_payment, initiate_orange_payment
 import requests
@@ -36,6 +36,37 @@ def initiate_monetbil_payment(request):
             return JsonResponse({"error": "Payment initiation failed"}, status=response.status_code)
     
     return JsonResponse({"error": "Invalid request method"}, status=400)
+
+def payment_error(request):
+    return render(request, 'payments/payment_error.html')
+
+def payment_success(request):
+    return render(request, 'payments/payment_success.html')
+
+
+def monetbil_payment(request):
+    # Data to be sent to Monetbil
+    data = {
+        'amount': 1000,  # The amount you want the customer to pay
+        'phone': '680991499',  # Optional: customer phone number
+        'currency': 'XAF',  # Currency
+    }
+
+    # Correct URL construction with version and service_key
+    monetbil_url = f"https://api.monetbil.com/widget/v2.1/{settings.MONETBIL_SERVICE_KEY}"
+    
+    # Make a POST request to Monetbil API
+    response = requests.post(monetbil_url, data=data)
+    
+    if response.status_code == 200:
+        payment_url = response.json().get('payment_url')
+        if payment_url:
+            # Redirect to Monetbil payment page
+            return redirect(payment_url)
+        else:
+            return render(request, 'payments/payment_error.html', {'error': 'No payment URL in response'})
+    else:
+        return render(request, 'payments/payment_error.html', {'error': 'Failed to communicate with Monetbil API'})
 
 def process_payment(request):
     if request.method == "POST":

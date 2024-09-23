@@ -6,28 +6,26 @@ from . import models
 
 
 class UserAdmin(admin.ModelAdmin):
-    using = 'users'
     list_display = ('id', 'name', 'email', )
     list_display_links = ('id', 'name', 'email', )
     search_fields = ('name', 'email', )
     list_per_page = 25
 
     def save_model(self, request, obj, form, change):
-        obj.save(using=self.using)
+        obj.save()  # Removed 'using'
 
     def delete_model(self, request, obj):
         email = obj.email
-        obj.delete(using=self.using)
+        obj.delete()  # Removed 'using'
         delete_realtors_listing_data(email)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).using(self.using)
+        return super().get_queryset(request)  # Removed 'using'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        return super().formfield_for_foreignkey(db_field, request, using=self.using, **kwargs)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)  # Removed 'using'
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        return super().formfield_for_manytomany(db_field, request, using=self.using, **kwargs)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)  # Removed 'using'
 
-admin.site.register(User, UserAdmin),
-# admin.site.register(models.UserAccount)
+admin.site.register(User, UserAdmin)

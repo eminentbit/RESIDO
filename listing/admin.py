@@ -3,7 +3,6 @@ from .models import Listing
 
 
 class ListingAdmin(admin.ModelAdmin):
-    using = 'listings'
     list_display = ('id', 'realtor', 'title', 'slug', )
     list_display_links = ('id', 'realtor', 'title', 'slug', )
     list_filter = ('realtor', )
@@ -11,18 +10,18 @@ class ListingAdmin(admin.ModelAdmin):
     list_per_page = 25
 
     def save_model(self, request, obj, form, change):
-        obj.save(using=self.using)
+        obj.save()  # Removed 'using'
 
     def delete_model(self, request, obj):
-        obj.delete(using=self.using)
+        obj.delete()  # Removed 'using'
 
     def get_queryset(self, request):
-        return super().get_queryset(request).using(self.using)
+        return super().get_queryset(request)  # Removed 'using'
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        return super().formfield_for_foreignkey(db_field, request, using=self.using, **kwargs)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)  # Removed 'using'
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        return super().formfield_for_manytomany(db_field, request, using=self.using, **kwargs)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)  # Removed 'using'
 
 admin.site.register(Listing, ListingAdmin)
