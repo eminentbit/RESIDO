@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nacary Elite House</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.property-card {
+    max-width: 400px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.image-container {
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.property-image {
+    width: 100%;
+    height: auto;
+}
+
+.property-details {
+    padding: 20px;
+}
+
+.property-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.property-location {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.property-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.property-info p {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.icon-bed, .icon-bath, .icon-area {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.property-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+} 
+</style>
+<body>
+
+    <div class="property-card">
+        <div class="image-container">
+            <img src="{% static 'images/property-image.jpg' %}" alt="Nacary Elite House" class="property-image">
+        </div>
+        <div class="property-details">
+            <h2 class="property-title">Nacary Elite House</h2>
+            <p class="property-location">45-20 43rd St Unit 4A, Queens, NY 11104</p>
+            <div class="property-info">
+                <span class="icon-bed"></span>
+                <p>2 Beds</p>
+                <span class="icon-bath"></span>
+                <p>1 Bath</p>
+                <span class="icon-area"></span>
+                <p>1,250 ft²</p>
+            </div>
+            <p class="property-description">Don't miss this fantastic home with too much to discuss, and it is a must-see for yourself.</p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
