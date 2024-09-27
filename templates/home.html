@@ -1,0 +1,123 @@
+{% load static %}
+
+
+
+    {% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESIDO - Find Your Perfect Home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+</head>
+{% endblock %}
+
+{% block content %}
+
+
+<body>
+    <header>
+        <div class="logo">RESIDO</div>
+        <nav>
+            <ul>
+                <li><a href="#">Buy</a></li>
+                <li><a href="#">Rent</a></li>
+                <li><a href="#">Sell</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for homes, neighborhoods, etc.">
+            <button>Search</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Find Your Perfect Home with RESIDO</h1>
+        <button>Search Homes</button>
+        <button>Get Started</button>
+    </section>
+
+    <section class="featured-listings">
+        <h2>Featured Listings</h2>
+        <div class="listing">
+            <img src="{% static 'property1.jpg' %}" alt="Property 1">
+            <h3>3 Bedroom Apartment in Downtown</h3>
+            <p>$500,000</p>
+            <p>Location: Downtown</p>
+            <button type="button">View Details</button>
+        </div>
+        <div class="listing">
+            <img src="{% static 'property2.jpg' %}" alt="Property 2">
+            <h3>2 Bedroom Condo in Brooklyn</h3>
+            <p>$400,000</p>
+            <p>Location: Brooklyn</p>
+            <button type="button">View Details</button>
+        </div>
+        <!-- Add more listings as needed -->
+    </section>
+
+    <section class="popular-areas">
+        <h2>Popular Areas</h2>
+        <div class="area">
+            <h3>Brooklyn Heights</h3>
+            <p>Charming brownstones and vibrant parks.</p>
+        </div>
+        <div class="area">
+            <h3>Upper West Side</h3>
+            <p>Classic architecture and proximity to Central Park.</p>
+        </div>
+        <!-- Add more areas as needed -->
+    </section>
+
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <p>Step 1: Search for homes based on your criteria.</p>
+        <p>Step 2: Schedule a viewing with our agents.</p>
+        <p>Step 3: Close the deal and move into your new home!</p>
+    </section>
+
+    <section class="testimonials">
+        <h2>Testimonials</h2>
+        <blockquote>
+            <p>"RESIDO helped me find my dream home! The process was so easy."</p>
+            <cite>- John Doe, New York</cite>
+        </blockquote>
+        <blockquote>
+            <p>"Fantastic service and friendly staff. Highly recommended!"</p>
+            <cite>- Jane Smith, Brooklyn</cite>
+        </blockquote>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Buy</a></li>
+                <li><a href="#">Rent</a></li>
+                <li><a href="#">Sell</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="social-media">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+        <div class="contact-info">
+            <p>Email: info@resido.com</p>
+            <p>Phone: +237 6 90 75 30 98</p>
+        </div>
+        <div class="newsletter">
+            <h3>Sign Up for Our Newsletter</h3>
+            <input type="email" placeholder="Enter your email">
+            <button>Subscribe</button>
+        </div>
+    </footer>
+</body>
+{% endblock %}
+</html>

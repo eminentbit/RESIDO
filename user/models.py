@@ -60,7 +60,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 class UserProfile(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', null=True, blank=True)
     address = models.CharField(verbose_name='Address', max_length=100, null=True, blank=True)
     town = models.CharField(verbose_name='Town/City', max_length=100, null=True, blank=True)
     country = models.CharField(verbose_name='Country', max_length=100, null=True, blank=True)

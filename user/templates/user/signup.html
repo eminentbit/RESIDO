@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Data Fetch Example</title>
+    <title>Sign Up Page</title>
+    <script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .error-message {
             color: #ff4d4d;
@@ -31,92 +33,97 @@
 </head>
 <body>
     <h1>Register</h1>
-    <div id="response-message" class="error-message">{{message}}</div>
-    <form id="registerForm">
+    <div id="response-message" class="error-message">{{error}}</div> <!-- Initially empty to show messages -->
+    
+    <form id="registerForm" action="/register" method="POST"> <!-- Add method -->
+        {% csrf_token %}
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required><br><br>
-
+        <input type="text" id="first_name" name="first_name" placeholder="First Name" required><br><br>
+    
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required><br><br>
-
+        <input type="text" id="last_name" name="last_name" placeholder="Last Name" required><br><br>
+    
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
+        <input type="email" id="email" name="email" placeholder="Email" required><br><br>
+    
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="confirmPass">Confirm Password:</label>
-        <input type="password" id="confirmPass" name="confirmPass" required><br><br>
-
+        <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+    
+        <label for="re_password">Confirm Password:</label>
+        <input type="password" id="re_password" name="re_password" placeholder="Confirm Password" required><br><br>
+    
         <label for="is_realtor">Are you a Realtor?</label>
         <select id="is_realtor" name="is_realtor" required>
             <option value="False">No</option>
             <option value="True">Yes</option>
         </select><br><br>
 
-        <button id="button" type="button">Register</button>
+        {{form.token}}
+    
+        <button id="button" type="submit">Register</button> 
     </form>
-
+    
     <script>
-        document.getElementById('button').addEventListener('click', function(event) {
+        var recaptcha_site_key = '{{recaptcha_site_key|safe}}'
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
             event.preventDefault();  // Prevent default form submission
-
-            // Retrieve form data
+    
+            // Retrieve form data elements
             let fName = document.getElementById('first_name');
             let lName = document.getElementById('last_name');
             let email = document.getElementById('email');
             let password = document.getElementById('password');
-            let confirmPass = document.getElementById('confirmPass');
+            let re_password = document.getElementById('re_password');
             let isRealtor = document.getElementById('is_realtor');
-
-            // Create the formData object
+    
+            // Create the formData object with actual values
             const formData = {
-                first_name: fName,
-                last_name: lName,
-                email: email,
-                password: password,
-                re_password: confirmPass,
-                is_realtor: isRealtor
+                first_name: fName.value, // Extracting values directly
+                last_name: lName.value,
+                email: email.value,
+                password: password.value,
+                re_password: re_password.value,
+                is_realtor: isRealtor.value
             };
-
-            // Log the form data to the console
-            console.log("Form Data:", formData);
-
-            // Get the CSRF token from the cookie
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
-
+    
+    
+            // Get the CSRF token from the hidden input field
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
             // Send the POST request to the API
             fetch('/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken // Use correct token
+                    'X-CSRFToken': csrfToken // Use the correct token
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData)  // Convert formData object to JSON string
             })
             .then(response => {
+                // Log the response for debugging
+                console.log("Response Status:", response.status);
                 // Check if the response is okay (status code 200-299)
                 if (!response.ok) {
-            return response.json().then(err => {
-                const messageDiv = document.querySelector('.error-message');
-                messageDiv.innerHTML = `<p>${data.error}</p>`
-                // messageDiv.classList.add('fade-out');
-            });
-        }
-                return response.json();
+                    return response.json().then(err => {
+                        console.log("Error Response:", err); // Log the error response
+                        const messageDiv = document.querySelector('.error-message');
+                        messageDiv.innerHTML = `<p>${err.error || "An unknown error occurred."}</p>`;
+                        throw new Error('Network response was not ok');
+                    });
+                }
+                return response.json();  // Ensure we parse response as JSON
             })
             .then(data => {
-                // If registration is successful, redirect
-                if (data.success) {
-                    window.location.href = '/';
+                // Log the parsed data for debugging
+                console.log("Parsed Data:", data);
+                // Check if data is defined before accessing properties
+                if (data && data.success) {
+                    // If registration is successful, redirect
+                    window.location.href = '/location/';
                 } else {
                     // Display error message on the same page
                     const messageDiv = document.querySelector('.error-message');
-                    messageDiv.innerHTML = `<p>${data.error}</p>`;
-                    messageDiv.classList.add('fade-out');
-                    setTimeout(() => {
-                        messageDiv.classList.remove('fade-out');
-                    }, 5);
+                    messageDiv.innerHTML = `<p>${data.error || "An error occurred."}</p>`;
                 }
             })
             .catch(error => {
@@ -126,5 +133,8 @@
             });
         });
     </script>
+    
+
+    
 </body>
 </html>

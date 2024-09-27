@@ -1,9 +1,8 @@
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block content %}
+
+    
 
   <!-- visit https://fonts.google.com/specimen/Courier+Prime?preview.text_type=custom to get script-->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -29,9 +28,8 @@
 
   <div class="div-container">
     
-    {% include 'logo.html' %}
 
-    {% block content %}
+    {% block content1 %}
 
     {% endblock %}
 
@@ -51,5 +49,4 @@
   <script src="{% static 'main.js' %}"></script>
   
 
-</body>
-</html>
+{% endblock %}

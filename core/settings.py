@@ -70,7 +70,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,9 +144,9 @@ MONETBIL_SERVICE_KEY = config('MONETBIL_SERVICE_KEY')
 
 RECAPTCHA_API_KEY = config('RECAPTCHA_API_KEY')
 
-RECAPTCHA_KEY = config('SITE_KEY')
+RECAPTCHA_PUBLIC_KEY = config('SITE_KEY')
 
-RECAPTCHA_SECRET_KEY = config('SITE_SECRET_KEY')
+RECAPTCHA_PRIVATE_KEY = config('SITE_SECRET_KEY')
 
 MONETBIL_API_URL = config('MONETBIL_API_URL')
 
@@ -155,7 +155,7 @@ MONETBIL_API_URL = config('MONETBIL_API_URL')
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR = [
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 

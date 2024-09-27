@@ -1,8 +1,28 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, get_user_model
 from django import forms
 from .models import UserAccount, UserProfile
+
+User = get_user_model()
+
+class AuthForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data.get('password')
+
+        user = authenticate(email=email, password=password)
+        if user is None:
+            raise forms.ValidationError("Invalid login credentials")
+        return self.cleaned_data
+    
+    class Meta:
+        model = UserAccount
+        fields = {'email', 'password'}
 
 class UserForm(UserCreationForm):
     '''
@@ -24,16 +44,6 @@ class UserForm(UserCreationForm):
         fields = {'first_name', 'last_name', 'email', 'password1', 'password2', 'is_staff', 'is_realtor'}
 
 
-class AuthForm(AuthenticationForm):
-    '''
-    Form that uses built-in AuthenticationForm to handle user auth
-    '''
-    email = forms.EmailField(max_length=254, required=True, widget=forms.TextInput(attrs={'placeholder': '*Email'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Password', 'class': 'password'}))
-
-    class Meta:
-        model = UserAccount
-        fields = {'email', 'password'}
 
 
 class UserProfileForm(forms.ModelForm):

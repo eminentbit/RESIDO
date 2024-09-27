@@ -1,0 +1,55 @@
+{% load static %}
+
+
+{% block extend_head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<h3>RESIDO - Sign In</h3>
+
+<div class="container">
+
+  <div id="response-message" class="error-message">{{error}}</div>
+
+  <form id="signinForm" method="POST" action="/login">
+    {% csrf_token %}
+    <label for="email">Email</label>
+    {{form.email}}
+
+    <label for="password">Password</label>
+    {{form.password}}
+
+    <label class="check-container">Show Passwords
+     <input type="checkbox" onclick="showPassword()">
+     <span class="checkmark"></span>
+   </label>
+
+   <button type="submit">Sign in</button>
+ </form>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block extend_footer %}
+
+<script>
+  function showPassword() {
+    var x = document.getElementsByClassName("password");
+    for (let i = 0; i < x.length; i++){
+      console.log('Clicked');
+      if (x[i].type === "password") {
+          x[i].type = "text";
+        } else {
+          x[i].type = "password";
+        }
+    }
+  }
+</script>
+
+{% endblock %}

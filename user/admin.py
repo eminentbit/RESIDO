@@ -29,3 +29,4 @@ class UserAdmin(admin.ModelAdmin):
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 admin.site.register(User, UserAdmin)
+admin.site.register(models.UserProfile)

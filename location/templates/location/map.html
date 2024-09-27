@@ -1,22 +1,45 @@
-<!DOCTYPE html>
-<html>
+{% load static %}
+
+{% block head %}
+
 <head>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>Add Markers on Click</title>
     <style>
         /* Set the size of the map */
         #map {
-            height: 500px;
+            height: 80vh;
             width: 100%;
+            position: fixed;
+        }
+
+        body {
+            position: relative;
+        }
+
+        button {
+            position: absolute;
+            left: 0;
         }
     </style>
+     <!-- Load Google Maps API with async and defer -->
+     <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&loading=async&callback=initMap">
+    </script>
 </head>
+{% endblock %}
+
+{% block content %}
+
 <body>
 
     <!-- Div where the map will be displayed -->
     <div id="map"></div>
 
+    <button id="button" type="button">Current Position</button>
+
+<!-- 
     <script>
         // Initialize and add the map
         let map;
@@ -70,14 +93,8 @@
               markers.pop();
             })
         }
-    </script>
+    </script> -->
 
-    <!-- Load Google Maps API with async and defer -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap"
-        async
-        defer>
-    </script>
+   <script  type="module" src="{% static 'map/index.js' %}"></script>
 
-</body>
-</html>
+{% endblock %}
