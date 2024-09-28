@@ -23,6 +23,8 @@ class Listing(models.Model):
     description = models.TextField()
     price = models.IntegerField()
     bedrooms = models.IntegerField()
+    sqft = models.IntegerField()
+    lot_size = models.DecimalField(max_digits=5, decimal_places=1)
     parking_space = models.IntegerField(null = True , blank = True)
     bathrooms = models.DecimalField(max_digits=20, decimal_places=1)
     sale_type = models.CharField(max_length=1000, choices=SaleType.choices, default=SaleType.FOR_SALE)

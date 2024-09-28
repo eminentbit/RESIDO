@@ -59,6 +59,8 @@ class ManageListingView(APIView):
         region = data['region']
         zipcode = data['zipcode']
         description = data['description']
+        sqft = data['sqft']
+        lot_size = data[lot_size]
 
         price = data['price']
         try:
@@ -142,6 +144,8 @@ class ManageListingView(APIView):
             'bedrooms': bedrooms,
             'parking_space':parking_space,
             'bathrooms': bathrooms,
+            'sqft' : sqft,
+            'lot_size' : lot_size,
             'sale_type': sale_type,
             'home_type': home_type,
             'main_photo': main_photo,
@@ -200,6 +204,8 @@ class ManageListingView(APIView):
             description = data['description']
             price = data['price']
             bedrooms = data['bedrooms']
+            sqft = data['sqft']
+            lot_size = data['lot_size']
             parking_space = data['parking_space']
             bathrooms = data['bathrooms']
             sale_type = data['sale_type']
@@ -237,6 +243,8 @@ class ManageListingView(APIView):
                 bedrooms=bedrooms,
                 parking_space=parking_space,
                 bathrooms=bathrooms,
+                sqft=sqft,
+                lot_size=lot_size,
                 sale_type=sale_type,
                 home_type=home_type,
                 main_photo=main_photo,
@@ -305,6 +313,8 @@ class ManageListingView(APIView):
             bedrooms = data['bedrooms']
             parking_space = data['parking_space']
             bathrooms = data['bathrooms']
+            sqft = data['sqft']
+            lot_size =['lot_size']
             sale_type = data['sale_type']
             home_type = data['home_type']
             main_photo = data['main_photo']
@@ -337,6 +347,8 @@ class ManageListingView(APIView):
                 description=description,
                 price=price,
                 bedrooms=bedrooms,
+                sqft=sqft,
+                lot_size=lot_size,
                 parking_space=parking_space,
                 bathrooms=bathrooms,
                 sale_type=sale_type,
@@ -510,6 +522,8 @@ class SearchListingsView(APIView):
         try:
             city = request.query_params.get('city')
             region = request.query_params.get('region')
+            sqft = request.query_params.get('sqft')
+            lot_size = request.query_params.get('sqft')
 
             max_price = request.query_params.get('max_price')
             try:
@@ -592,6 +606,8 @@ class SearchListingsView(APIView):
                 parking_space=parking_space,
                 bathrooms__gte=bathrooms,
                 sale_type=sale_type,
+                sqft=sqft,
+                lot_size=lot_size,
                 home_type=home_type,
                 is_published=True
             ).exists():
@@ -611,6 +627,8 @@ class SearchListingsView(APIView):
                 parking_space=parking_space,
                 bathrooms__gte=bathrooms,
                 sale_type=sale_type,
+                sqft=sqft,
+                lot_size=lot_size,
                 home_type=home_type,
                 is_published=True
             )
