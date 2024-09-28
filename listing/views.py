@@ -135,7 +135,7 @@ class ManageListingView(APIView):
             'slug': slug,
             'address': address,
             'city': city,
-            'state': state,
+            'region': region,
             'zipcode': zipcode,
             'description': description,
             'price': price,

@@ -18,7 +18,7 @@ class Listing(models.Model):
     slug = models.SlugField(unique=True)
     address = models.CharField(max_length=255000)
     city = models.CharField(max_length=255000)
-    state = models.CharField(max_length=255000)
+    region= models.CharField(max_length=255000)
     zipcode = models.CharField(max_length=20000)
     description = models.TextField()
     price = models.IntegerField()
