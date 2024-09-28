@@ -89,6 +89,41 @@
               </a>
             </div>
             {% endif %}
+            {% if listing.photo_7 %}
+            <div class="col-md-2">
+              <a href="{{ listing.photo_3.url }}" data-lightbox="home-images">
+                <img src="{{ listing.photo_3.url }}" alt="" class="img-fluid">
+              </a>
+            </div>
+            {% endif %}
+            {% if listing.photo_8 %}
+            <div class="col-md-2">
+              <a href="{{ listing.photo_4.url }}" data-lightbox="home-images">
+                <img src="{{ listing.photo_4.url }}" alt="" class="img-fluid">
+              </a>
+            </div>
+            {% endif %}
+            {% if listing.photo_9 %}
+            <div class="col-md-2">
+              <a href="{{ listing.photo_5.url }}" data-lightbox="home-images">
+                <img src="{{ listing.photo_5.url }}" alt="" class="img-fluid">
+              </a>
+            </div>
+            {% endif %}
+            {% if listing.photo_10%}
+            <div class="col-md-2">
+              <a href="{{ listing.photo_6.url }}" data-lightbox="home-images">
+                <img src="{{ listing.photo_6.url }}" alt="" class="img-fluid">
+              </a>
+            </div>
+            {% endif %}
+            {% if listing.video_files %}
+            <div class="col-md-2">
+              <a href="{{ listing.photo_5.url }}" data-lightbox="home-images">
+                <img src="{{ listing.photo_5.url }}" alt="" class="img-fluid">
+              </a>
+            </div>
+            {% endif %}
           </div>
           <!-- Fields -->
           <div class="row mb-5 fields">

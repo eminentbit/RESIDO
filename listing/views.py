@@ -586,7 +586,7 @@ class SearchListingsView(APIView):
             ).filter(
                 search=query,
                 city=city,
-                state=state,
+                region=region,
                 price__lte=max_price,
                 bedrooms__gte=bedrooms,
                 parking_space=parking_space,
