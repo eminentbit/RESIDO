@@ -12,6 +12,7 @@ class Listing(models.Model):
         HOUSE = 'House'
         APARTMENT = 'apartment'
         TOWNHOUSE = 'Townhouse'
+        OFFICE_SPACE ='office_space'
 
     realtor = models.EmailField(max_length=255000)
     title = models.CharField(max_length=255000)

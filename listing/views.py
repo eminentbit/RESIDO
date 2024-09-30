@@ -108,8 +108,8 @@ class ManageListingView(APIView):
             home_type = 'apartment'
         elif home_type == 'TOWNHOUSE':
             home_type = 'Townhouse'
-        elif home_type == 'BUSINESS':
-            home_type = 'business'
+        elif home_type == 'OFFICE_SPACE':
+            home_type = 'office_space'
         else:
             home_type = 'House'
         
@@ -580,8 +580,8 @@ class SearchListingsView(APIView):
                 home_type = 'House'
             elif home_type == 'APARTMENT':
                 home_type = 'APARTMENT'
-            elif home_type == 'BUSINESS':
-                home_type = 'business'
+            elif home_type == 'OFFICE_SPACE':
+                home_type = 'office_space'
             else:
                 home_type = 'Townhouse'
 
