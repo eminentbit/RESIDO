@@ -5,9 +5,9 @@ from django.forms.utils import ErrorList
 from django.http import HttpResponse, HttpResponseRedirect, request
 from .forms import LoginForm, SignUpForm
 from django.contrib.auth.decorators import login_required
-from chat.models import Post, Categories, PostComment
-from user import models
-from user.models import Profile
+from blogApp.models import Post, Categories, PostComment
+from app import models
+from app.models import Profile
 from django.contrib import messages
 
 def login_view(request):
@@ -23,11 +23,12 @@ def login_view(request):
                 login(request, user)
                 return redirect("/")
             else:
-                msg = 'اطلاعات معتبر نیست'
+                msg = 'Invalid login information'
         else:
-            msg = 'خطا در تأیید فرم'
+            msg = 'Form validation error'
 
     return render(request, "accounts/login.html", {"form": form, "msg" : msg })
+
 
 def register_user(request):
     msg     = None
@@ -41,18 +42,17 @@ def register_user(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
 
-            msg     = 'کاربر ایجاد شد - <a href="/login">ورود</a>.'
+            msg     = 'User created - <a href="/login">Login</a>.'
             success = True
 
             #return redirect("/login/")
 
         else:
-            msg = 'اطلاعات فرم معتبر نیست'
+            msg = 'Form data is not valid'
     else:
         form = SignUpForm()
 
     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
-
 
 
 
@@ -62,11 +62,9 @@ def password_change(request):
     if request.method == 'POST':
         current_user.set_password(request.POST['new_password'])
         current_user.save()
-        change_done = "رمز عبور با موفقیت تغییر یافت"
-        context = {'current_user': current_user, 'change_done':change_done }
+        change_done = "Password successfully changed"
+        context = {'current_user': current_user, 'change_done': change_done}
         return render(request, 'accounts/passchange.html', context)
 
     context = {'current_user': current_user }
     return render(request, 'accounts/passchange.html', context)
-
-
