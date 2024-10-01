@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'chat',
     'payments',
     'location',
+    'authentication',
 ]
 
 MIGRATION_MODULES = {
