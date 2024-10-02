@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
+    <title>Register</title>
     <style>
         * {
             margin: 0;
@@ -87,18 +87,16 @@
 </head>
 <body>
     <div class="auth-container">
-        <h2>Change Password</h2>
-        <form method="post">
+        <h2>Register</h2>
+        <form method="post" novalidate>
             {% csrf_token %}
-            <label for="new_password">New Password:</label>
-            <input type="password" id="new_password" name="new_password" required>
-            <label for="confirm_newPass">Confirm New Password:</label>
-            <input type="password" id="confirm_newPass" name="confirm_newPass" required>
-            <button type="submit">Change Password</button>
-            {% if change_done %}
-                <p class="success">{{ change_done }}</p>
+            {{ form.as_p }}
+            {% if msg %}
+                <p class="error">{{ msg }}</p>
             {% endif %}
+            <button type="submit">Register</button>
         </form>
+        <p>Already have an account? <a href="/login">Login here</a></p>
     </div>
 </body>
 </html>

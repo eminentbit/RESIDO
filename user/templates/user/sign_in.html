@@ -1,55 +1,42 @@
 {% load static %}
 
-
 {% block extend_head %}
-
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
 {% endblock %}
-
 
 {% block content %}
 
-<h3>RESIDO - Sign In</h3>
-
-<div class="container">
-
+<div class="auth-container">
+  <h3>RESIDO - Sign In</h3>
   <div id="response-message" class="error-message">{{error}}</div>
 
   <form id="signinForm" method="POST" action="/login">
     {% csrf_token %}
+    
     <label for="email">Email</label>
     {{form.email}}
 
     <label for="password">Password</label>
-    {{form.password}}
+    {{form.password}} <!-- Assuming form.password outputs an input of type 'password' -->
 
-    <label class="check-container">Show Passwords
-     <input type="checkbox" onclick="showPassword()">
-     <span class="checkmark"></span>
-   </label>
+    <!-- Show Password checkbox aligned with label -->
+    <div class="show-password-container">
+      <input type="checkbox" id="show-password-checkbox" onclick="togglePassword()">
+      <label for="show-password-checkbox">Show Password</label>
+    </div>
 
-   <button type="submit">Sign in</button>
- </form>
+    <button type="submit">Sign in</button>
+  </form>
+  <div class="forgot-pass">
+    <p><a href="{% url 'password_reset' %}">Forgot Password? </a></p>
+  </div>
 
+  <div class="signup">
+    <p>Don't have an account? <a href="{% url 'register' %}">Sign Up now</a></p>
+  </div>
 </div>
-
-
 {% endblock %}
 
-
 {% block extend_footer %}
-
-<script>
-  function showPassword() {
-    var x = document.getElementsByClassName("password");
-    for (let i = 0; i < x.length; i++){
-      console.log('Clicked');
-      if (x[i].type === "password") {
-          x[i].type = "text";
-        } else {
-          x[i].type = "password";
-        }
-    }
-  }
-</script>
-
+<script src="{% static 'login/main.js' %}"></script>
 {% endblock %}

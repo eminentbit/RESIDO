@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
-from decouple import config
+from decouple import config # type: ignore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -131,6 +131,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 
+# settings.py
+
+EMAIL_BACKEND = config('EMAIL_BACKEND')  # For development
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -145,9 +155,9 @@ MONETBIL_SERVICE_KEY = config('MONETBIL_SERVICE_KEY')
 
 RECAPTCHA_API_KEY = config('RECAPTCHA_API_KEY')
 
-RECAPTCHA_PUBLIC_KEY = config('SITE_KEY')
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 
-RECAPTCHA_PRIVATE_KEY = config('SITE_SECRET_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 
 MONETBIL_API_URL = config('MONETBIL_API_URL')
 
@@ -190,7 +200,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.UserAccount'
 
-LOGIN_URL = 'users/login'
+LOGIN_URL = '/login'
 LOGOUT_URL = '/'
+
+LOGIN_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = '/'
 
 BASE_COUNTRY = 'Cameroon'

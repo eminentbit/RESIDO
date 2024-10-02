@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, request
 from .forms import LoginForm, SignUpForm
 from django.contrib.auth.decorators import login_required
 from user import models
-from user.models import Profile
+from user.models import UserProfile
 from django.contrib import messages
 
 def login_view(request):
@@ -26,7 +26,7 @@ def login_view(request):
         else:
             msg = 'Form validation error'
 
-    return render(request, "accounts/login.html", {"form": form, "msg" : msg })
+    return render(request, "authentication/login.html", {"form": form, "msg" : msg })
 
 
 def register_user(request):
@@ -51,7 +51,7 @@ def register_user(request):
     else:
         form = SignUpForm()
 
-    return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
+    return render(request, "authentication/register.html", {"form": form, "msg" : msg, "success" : success })
 
 
 
@@ -59,11 +59,13 @@ def register_user(request):
 def password_change(request):
     current_user = request.user
     if request.method == 'POST':
-        current_user.set_password(request.POST['new_password'])
+        new_pass = request.POST['new_password']
+        confirm_new_pass = request.POST['confirm_newPass']
+        current_user.set_password()
         current_user.save()
         change_done = "Password successfully changed"
         context = {'current_user': current_user, 'change_done': change_done}
-        return render(request, 'accounts/passchange.html', context)
+        return render(request, 'authentication/change_password.html', context)
 
     context = {'current_user': current_user }
-    return render(request, 'accounts/passchange.html', context)
+    return render(request, 'authentication/change_password.html', context)

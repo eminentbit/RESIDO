@@ -5,6 +5,7 @@ from django.views import View
 from .models import *
 from django.conf import settings
 from user.mixin import Directions
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class HomeView(ListView):
@@ -14,7 +15,7 @@ class HomeView(ListView):
     success_url = '/'
 
     
-
+@login_required
 def map_view(request):
     return render(request, 'location/map.html', {'google_maps_api_key': settings.GOOGLE_API_KEY})
 
