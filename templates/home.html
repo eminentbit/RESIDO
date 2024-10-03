@@ -1,118 +1,136 @@
 {% load static %}
 
-
-
-    {% block head %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RESIDO - Find Your Perfect Home</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <style>
+        /* Hero Section */
+        .hero {
+            position: relative; /* Important to position the overlay */
+            text-align: center;
+            padding: 100px 20px;
+            color: white;
+            background: url("{% static 'home.png' %}") no-repeat center center/cover; /* Background image */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Overlay with reduced opacity */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+            z-index: 1; /* Layer the overlay behind the text */
+        }
+
+        /* Text and buttons inside the hero should be on top */
+        .hero * {
+            position: relative;
+            z-index: 2; /* Ensure content is above the overlay */
+        }
+    </style>
+    {% endblock %}
 </head>
-{% endblock %}
-
-{% block content %}
-
 
 <body>
+    {% block content %}
     <header>
-        <nav>
-            <ul>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Rent</a>
-                            <div class="dropdown-content">
-                                <a href="#">Homes for Rent</a>
-                                <a href="#">Apartment for Rent</a>
-                                <a href="#">TownHouses for rent</a>
-                                <a href="#">New construction</a>
-                                <a href="#">Office-space</a>
-                            </div>
-                        </li>
-                
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Sell</a>
-                            <div class="dropdown-content">
-                                <a href="#">Homes for sale</a>
-                                <a href="#">TownHouses</a>
-                                <a href="#">New construction</a>
-                                <a href="#">All homes</a>
-                            </div>
-                        </li>
-                
-                       
-                        <li class="dropdow">
-                            <a href="#" class="dropbtn">About Us</a>
-                            <div class="dropdown-content">
-                                <a href="#"></a>
-                            </div>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Contact</a>
-                            <div class="dropdown-content">
-                                <a href="#">Whatsapp</a>
-                                <a href="#">Tik-Tok</a>
-                                <a href="#">Facebook</a>
-                                <a href="#">Instagram</a>
-                            </div>
-                        </li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Find Agent</a>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="dropdown"><a href="#" class="dropbtn">Rent</a>
                     <div class="dropdown-content">
-                        <a href="#">Real estate agents</a>
+                        <a href="#">Homes for Rent</a>
+                        <a href="#">Apartments for Rent</a>
+                        <a href="#">Townhouses for Rent</a>
+                        <a href="#">New Construction</a>
+                        <a href="#">Office Spaces</a>
                     </div>
                 </li>
-                <li class="dropdowt">
-                    <a href="user/templates/user/sign_in.html" class="dropbtn">Sign In</a>
+                <li class="dropdown"><a href="#" class="dropbtn">Sell</a>
+                    <div class="dropdown-content">
+                        <a href="#">Homes for Sale</a>
+                        <a href="#">Townhouses</a>
+                        <a href="#">New Construction</a>
+                        <a href="#">All Homes</a>
+                    </div>
                 </li>
+                <li class="list-group-item logo"><a href="" class="logo">RESIDO</a></li>
+                <li class="dropdown"><a href="#" class="dropbtn">About Us</a></li>
+                <li class="dropdown"><a href="#" class="dropbtn">Contact</a>
+                    <div class="dropdown-content">
+                        <a href="#">WhatsApp</a>
+                        <a href="#">TikTok</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </li>
+                <li class="dropdown"><a href="#" class="dropbtn">Find Agent</a>
+                    <div class="dropdown-content">
+                        <a href="#">Real Estate Agents</a>
+                    </div>
+                </li>
+                <li class="list-group-item"><a href="user/templates/user/sign_in.html" class="dropbtn">Sign In</a></li>
             </ul>
         </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search for homes, neighborhoods, etc.">
-            <button>Search</button>
-        </div>
     </header>
 
     <section class="hero">
         <h1>Find Your Perfect Home with RESIDO</h1>
-        <button>Search Homes</button>
-        <button>Get Started</button>
+        <button class="cta-btn">Search Homes</button>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for homes, neighborhoods, etc.">
+            <button class="search-btn">Search</button>
+        </div>
+        <button class="cta-btn">Get Started</button>
     </section>
-     <!-- Add the image here -->
-     <div class="image-container">
-        <img src="{% static 'templates/static/home.png' %}" alt="Description of the image" style="width: 100%; height: auto;">
-    </div>
+
 
     <section class="featured-listings">
         <h2>Featured Listings</h2>
-        <div class="listing">
-            <img src="{% static 'property1.jpg' %}" alt="Property 1">
-            <h3>3 Bedroom Apartment in Downtown</h3>
-            <p>$500,000</p>
-            <p>Location: Downtown</p>
-            <button type="button">View Details</button>
+        <div class="listing-grid">
+            <div class="listing">
+                <img src="{% static 'property1.jpg' %}" alt="Property 1">
+                <h3>3 Bedroom Apartment in Downtown</h3>
+                <p>$500,000</p>
+                <p>Location: Downtown</p>
+                <button type="button">View Details</button>
+            </div>
+            <div class="listing">
+                <img src="{% static 'property2.jpg' %}" alt="Property 2">
+                <h3>2 Bedroom Condo in Brooklyn</h3>
+                <p>$400,000</p>
+                <p>Location: Brooklyn</p>
+                <button type="button">View Details</button>
+            </div>
         </div>
-        <div class="listing">
-            <img src="{% static 'property2.jpg' %}" alt="Property 2">
-            <h3>2 Bedroom Condo in Brooklyn</h3>
-            <p>$400,000</p>
-            <p>Location: Brooklyn</p>
-            <button type="button">View Details</button>
-        </div>
-        <!-- Add more listings as needed -->
     </section>
 
     <section class="popular-areas">
         <h2>Popular Areas</h2>
-        <div class="area">
-            <h3>Brooklyn Heights</h3>
-            <p>Charming brownstones and vibrant parks.</p>
+        <div class="area-grid">
+            <div class="area">
+                <h3>Brooklyn Heights</h3>
+                <p>Charming brownstones and vibrant parks.</p>
+            </div>
+            <div class="area">
+                <h3>Upper West Side</h3>
+                <p>Classic architecture and proximity to Central Park.</p>
+            </div>
         </div>
-        <div class="area">
-            <h3>Upper West Side</h3>
-            <p>Classic architecture and proximity to Central Park.</p>
-        </div>
-        <!-- Add more areas as needed -->
     </section>
 
     <section class="how-it-works">
@@ -124,36 +142,38 @@
 
     <section class="testimonials">
         <h2>Testimonials</h2>
-        <blockquote>
-            <p>"RESIDO helped me find my dream home! The process was so easy."</p>
-            <cite>- John Doe, New York</cite>
-        </blockquote>
-        <blockquote>
-            <p>"Fantastic service and friendly staff. Highly recommended!"</p>
-            <cite>- Jane Smith, Brooklyn</cite>
-        </blockquote>
+        <div class="testimonials-container">
+            <blockquote>
+                <p>"RESIDO helped me find my dream home! The process was so easy."</p>
+                <cite>- John Doe, New York</cite>
+            </blockquote>
+            <blockquote>
+                <p>"Fantastic service and friendly staff. Highly recommended!"</p>
+                <cite>- Jane Smith, Brooklyn</cite>
+            </blockquote>
+        </div>
     </section>
-    <div class="container">
+
+    <section class="cards-container">
         <div class="card">
-            <img src="rent.png" alt="Rent a home">
+            <img src="{% static 'rent.png' %}" alt="Rent a home">
             <h2>Rent a home</h2>
-            <p>We're creating a seamless online experience—from shopping on the largest rental network, to applying, to paying rent.</p>
+            <p>We're creating a seamless online experience—from shopping to applying to paying rent.</p>
             <a href="#">Find rentals</a>
         </div>
         <div class="card">
-            <img src="sell.png" alt="Sell a home">
+            <img src="{% static 'sell.png' %}" alt="Sell a home">
             <h2>Sell a home</h2>
-            <p>No matter what path you take to sell your home, we can help you navigate a successful sale.</p>
+            <p>We help you navigate a successful home sale.</p>
             <a href="#">See your options</a>
         </div>
         <div class="card">
-            <img src="buy.png" alt="Buy a home">
+            <img src="{% static 'buy.png' %}" alt="Buy a home">
             <h2>Buy a home</h2>
-            <p>Find your place with an immersive photo experience and the most listings, including things you won't find anywhere else.</p>
+            <p>Find your place with the most immersive home experience.</p>
             <a href="#">Browse homes</a>
         </div>
-    </div>
-
+    </section>
 
     <footer>
         <div class="footer-links">
@@ -184,105 +204,7 @@
             <button>Subscribe</button>
         </div>
     </footer>
-    <style>
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-        .card img {
-            width: 80px;
-            height: auto;
-        }
-        .card h2 {
-            font-size: 1.25em;
-            margin: 15px 0;
-        }
-        .card p {
-            color: #555;
-            font-size: 0.9em;
-            margin: 10px 0 20px;
-        }
-        .card a {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .card a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-        .container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: center;
-            margin: 150px;
-            align-self: center;
-        }
-                /* Add this to fix the dropdown */
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline-block;
-            position: relative;
-        }
-
-        nav ul li .dropbtn {
-            display: block;
-            color: white;
-            padding: 14px 16px;
-            text-decoration: none;
-            background-color: #007bff;
-        }
-
-        nav ul li .dropbtn:hover {
-            background-color: #6966ac;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 200px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-    </style>
-
+    {% endblock %}
 </body>
-{% endblock %}
+
 </html>
