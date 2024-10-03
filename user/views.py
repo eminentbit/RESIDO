@@ -182,34 +182,40 @@ class RetrieveUserView(APIView):
 def get_all_realtors(request):
     realtors = User.objects.filter(is_realtor=True)
 
-        
+
+@login_required        
 def profile_view(request):
     '''
     Function view to allow users to update their profile
     '''
     user = request.user
-    up = user.profile
+    up = request.user.profile  
 
-    form = UserProfileForm(instance = up)
+    if not up:
+        return JsonResponse({'result': 'error', 'message': 'Profile not found'}, status=404)
 
-    if request.is_ajax():
+    form = UserProfileForm(instance=up)
+    result = 'error'  # Default to error
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         form = UserProfileForm(data=request.POST, instance=up)
         if form.is_valid():
             obj = form.save()
             obj.has_profile = True
             obj.save()
-            result = 'Success'
+            result = 'success'
             message = 'Your Profile has been updated'
         else:
             message = FormErrors(form)
-        data = {'result': result, 'message': message}
-        return JsonResponse(data)
+        data = {'result': result, 'message': message, 'redirect_url': reverse_lazy('home')}
+        return render(request, 'profile_updated.html', data)
     
     else:
-        context = {'form': form}
-        context['google_api_key'] = settings.GOOGLE_API_KEY
-        context['base_country'] = settings.BASE_COUNTRY
-
+        context = {
+            'form': form,
+            'google_api_key': settings.GOOGLE_API_KEY,
+            'base_country': settings.BASE_COUNTRY
+        }
         return render(request, 'user/profile.html', context)
     
 
@@ -257,8 +263,8 @@ def password_change(request):
 
 
 def getRealtor(request):
-    
-    pass
+    realtors = User.objects.filter(isRealtor=True)
+    return render(request, '', {'realtors': realtors})
 
 def homes_for_sale(request):
     return render(request, 'homes_for_rent.html')
