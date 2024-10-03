@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Conversation,Message
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django import render
-from django import JsonResponse
+from django.shortcuts import render
+from django.http import JsonResponse
 from listing.models import Listing
 
 @login_required
@@ -21,6 +21,7 @@ def initiate_conversation(request, listing_id):
 
     # Redirect the user to the conversation page
     return redirect('conversation_detail', conversation_id=conversation.id)
+
 @login_required
 def conversation_detail(request, conversation_id):
     conversation = get_object_or_404(Conversation, id=conversation_id)

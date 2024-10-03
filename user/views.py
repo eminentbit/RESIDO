@@ -179,6 +179,10 @@ class RetrieveUserView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
+def get_all_realtors(request):
+    realtors = User.objects.filter(is_realtor=True)
+
+        
 def profile_view(request):
     '''
     Function view to allow users to update their profile
@@ -251,6 +255,10 @@ def password_change(request):
     context = {'current_user': current_user }
     return render(request, 'user/change_password.html', context)
 
+
+def getRealtor(request):
+    
+    pass
 
    
 
