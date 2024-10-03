@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Conversation,Message
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django import render
-from django import JsonResponse
+from django.http import JsonResponse
+from django.shortcuts import render
 from listing.models import Listing
 
 @login_required
