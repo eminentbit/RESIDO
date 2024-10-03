@@ -260,6 +260,9 @@ def getRealtor(request):
     
     pass
 
+def homes_for_sale(request):
+    return render(request, 'homes_for_rent.html')
+
    
 
 def signout(request):

@@ -4,6 +4,10 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    # Not directly related
+    path('homes_rent', homes_for_sale, name='homes_rent'),
+
+    # Directly related
     path('register', RegisterView.as_view(), name='register'),
     path('me', RetrieveUserView.as_view(), name='me'),
     path('profile', profile_view, name='profile'),
