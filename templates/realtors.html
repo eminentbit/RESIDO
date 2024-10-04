@@ -1,8 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/realtor.css' %}">
     <title>All our realtors</title>
 </head>
 <body>
@@ -63,7 +66,7 @@
                 <p>{{ realtor.first_name }} {{ realtor.last_name }}</p>
             </div>
         </div>
-        {% enfor %}
+        {% endfor %}
     </section>
 
 </body>
