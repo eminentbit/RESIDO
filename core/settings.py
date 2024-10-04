@@ -161,6 +161,19 @@ RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 
 MONETBIL_API_URL = config('MONETBIL_API_URL')
 
+# For the SESSION 
+# settings.py
+
+# Keep users logged in for a very long time, e.g., 5 years (in seconds)
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 * 5  # 5 years
+
+# Ensure the session does not expire when the browser is closed
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# Optional: Use database-based session engine to persist session data
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

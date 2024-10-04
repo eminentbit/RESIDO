@@ -179,8 +179,6 @@ class RetrieveUserView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
-def get_all_realtors(request):
-    realtors = User.objects.filter(is_realtor=True)
 
 
 @login_required        
@@ -234,15 +232,14 @@ class SignInView(View):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-                message = 'You are now logged in now'
-                return redirect(reverse_lazy('map_test'))
+                request.session.set_expiry(60 * 60 * 24 * 365 * 5)
+                return redirect('home')  # Redirect to a success page or home page
             else:
                 message = 'Invalid credentials'
                 return render(request, template_name='user/signup.html', context={'error': message})
         else:
             message = form.errors
             return render(request, template_name='user/signup.html', context={'error': message})
-
 
 def home_view(request):
     listings = Listing.objects.all()
@@ -262,9 +259,10 @@ def password_change(request):
     return render(request, 'user/change_password.html', context)
 
 
-def getRealtor(request):
-    realtors = User.objects.filter(isRealtor=True)
-    return render(request, '', {'realtors': realtors})
+def get_all_realtors(request):
+    realtors = User.objects.filter(is_realtor=True) 
+    return render(request, 'realtors.html', {'realtors': realtors})
+
 
 def homes_for_sale(request):
     return render(request, 'homes_for_rent.html')
@@ -276,4 +274,4 @@ def signout(request):
     Basic View for the user to Sign Out
     '''
     logout(request)
-    return redirect(reverse('sign-in'))
+    return redirect(reverse('login'))

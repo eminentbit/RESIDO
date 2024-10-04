@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All our realtors</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="dropdown"><a href="#" class="dropbtn">Rent</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'homes_rent' %}">Homes for Rent</a>
+                        <a href="#">Apartments for Rent</a>
+                        <a href="#">Townhouses for Rent</a>
+                        <a href="#">New Construction</a>
+                        <a href="#">Office Spaces</a>
+                    </div>
+                </li>
+                <li class="dropdown"><a href="#" class="dropbtn">Sell</a>
+                    <div class="dropdown-content">
+                        <a href="#">Homes for Sale</a>
+                        <a href="#">Townhouses</a>
+                        <a href="#">New Construction</a>
+                        <a href="#">All Homes</a>
+                    </div>
+                </li>
+                <li class="list-group-item logo"><a href="" class="logo">RESIDO</a></li>
+                <li class="list-group-item dropbtn"><a href="#">About Us</a></li>
+                <li class="dropdown dropbtn"><a href="#">Contact</a>
+                    <div class="dropdown-content">
+                        <a href="#">WhatsApp</a>
+                        <a href="#">TikTok</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </li>
+                <li class="dropdown"><a href="#" class="dropbtn">Find Agent</a>
+                    <div class="dropdown-content">
+                        <a href="#">Real Estate Agents</a>
+                    </div>
+                </li>
+                {% if not request.user.is_authenticated %}
+                <li class="list-group-item"><a href="{% url 'register' %}" class="dropbtn">Sign In</a></li>
+                {% else %}
+                <li class="dropdown"><a href="{% url 'profile' %}">{{ request.user.first_name }}</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'profile' %}">Edit Profile</a>
+                        <a href="{% url 'signout' %}">Signout</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        {% for realtor in realtors %}
+        <div class="card">
+            <img src="{{ realtor.image.url }}" alt="{{ request.user.name }}">
+            <div class="card-title">
+                <p>{{ realtor.first_name }} {{ realtor.last_name }}</p>
+            </div>
+        </div>
+        {% enfor %}
+    </section>
+
+</body>
+</html>

@@ -67,6 +67,7 @@ class UserProfile(models.Model):
     post_code = models.CharField(verbose_name='Post Code', max_length=8, null=True, blank=True)
     longitude = models.CharField(verbose_name='Longitude', max_length=50, null=True, blank=True)
     latitude = models.CharField(verbose_name='Latitude', max_length=50, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to='profile_pics')
 
     captcha_score = models.FloatField(default=0.0)
     has_profile = models.BooleanField(default=False)
