@@ -8,8 +8,8 @@ from .models import UserAccount, UserProfile
 User = get_user_model()
 
 class AuthForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(max_length=254, required=True, widget=forms.TextInput(attrs={'placeholder': '*Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Password', 'class': 'password'}))
 
     def clean(self):
         email = self.cleaned_data.get('email')
