@@ -135,13 +135,13 @@ from django.contrib.auth.decorators import login_required
 class RegisterView(FormView):
     template_name = 'user/signup.html'
     form_class = UserForm
-    success_url = reverse_lazy('map_test')
+    success_url = reverse_lazy('profile')
 
     def form_valid(self, form):
         try:
             user = form.save()
             userprofile = UserProfile.objects.create(user=user)
-            login(self.request, user)
+            login(self.request, user, userprofile)
             return super().form_valid(form)
         except Exception as e:
             form.add_error(None, str(e))
@@ -235,7 +235,7 @@ class SignInView(View):
             if user is not None:
                 login(request, user)
                 request.session.set_expiry(60 * 60 * 24 * 365 * 5)
-                return redirect('home')  # Redirect to a success page or home page
+                return redirect('dashboard_home')  # Redirect to a success page or home page
             else:
                 message = 'Invalid credentials'
                 return render(request, template_name='user/signup.html', context={'error': message})
@@ -273,9 +273,12 @@ def signout(request):
     logout(request)
     return redirect(reverse('login'))
 
+def my_listing(request):
+    return render('listing/my_listing.html')
+
 
 def all_homes_view(request):
-    return render('all_homes.html')
+    return render(request, 'all_homes.html')
 
 
 # SALE

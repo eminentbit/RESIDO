@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'chat',
     'payments',
     'location',
-    'authentication',
+    'dashboard',
 ]
 
 MIGRATION_MODULES = {

@@ -15,7 +15,7 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.sender.username}: {self.content[:20]}"
+        return f"{self.sender.first_name} {self.sender.last_name}: {self.content[:20]}"
 
 class ProblemReport(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -24,4 +24,4 @@ class ProblemReport(models.Model):
     resolved = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Problem by {self.user.username}: {self.description[:20]}"
+        return f"Problem by {self.user.first_name} {self.user.last_name}: {self.description[:20]}"

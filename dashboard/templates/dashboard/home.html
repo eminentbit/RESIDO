@@ -1,0 +1,51 @@
+{% extends 'dashboard/nav.html' %}
+{% load static %}
+
+{% block title %} - Main{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'dashboard/home.css' %}">
+
+<div class="main-content">
+    <header>
+        <h1>Welcome {{ request.user.first_name }}</h1>
+    </header>
+
+    <section class="listings-section">
+        <h2>Your Listings</h2>
+
+        <button class="add-listing-btn">Add New Listing</button>
+
+        <div class="listings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Date Posted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for listing in listings %}
+                    <tr>
+                        <td><img src="{{ listing.image.url }}" alt="Listing Image" class="listing-img"></td>
+                        <td>{{ listing.title }}</td>
+                        <td>{{ listing.location }}</td>
+                        <td>${{ listing.price }}</td>
+                        <td>{{ listing.date_posted }}</td>
+                        <td>
+                            <a href="#" class="edit-btn">Edit</a>
+                            <a href="#" class="delete-btn">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</div>
+{% endblock %}

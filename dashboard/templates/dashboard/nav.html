@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} RESIDO | Dashboard {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'dashboard/nav.css' %}">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>RESIDO Dashboard</h2>
+            <button class="toggle-btn" id="toggle-btn">☰</button> <!-- Toggle button (default shows ☰) -->
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
+            <li><a href="#">Listings</a></li>
+            <li><a href="{% url 'dashboard_profile' %}">Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#" onclick="showLogoutMsg()">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        {% block content %}
+        <!-- The main content of the page will be inserted here -->
+        {% endblock %}
+    </div>
+
+    <div class="modal" id="logout-modal" style="display: none;">
+        <p>Are you sure you want to logout?</p>
+        <button type="button" onclick="confirmLogout()">Yes</button>
+        <button type="button" onclick="closeModal()">No</button>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('toggle-btn');
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.createElement('div');
+        const mainContent = document.getElementById('main-content');
+        const logoutModal = document.getElementById('logout-modal');
+
+        backdrop.className = 'modal-backdrop';
+
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('closed');
+            mainContent.classList.toggle('expanded');
+
+            // Toggle the icon between ☰ (menu) and ✕ (cross)
+            if (sidebar.classList.contains('closed')) {
+                toggleBtn.textContent = '☰';
+            } else {
+                toggleBtn.textContent = '✕';
+                toggleBtn.style.top
+            }
+        });
+
+        function showLogoutMsg() {
+            logoutModal.style.display = 'block';
+            backdrop.style.display = 'block';
+        }
+        
+        function closeModal() {
+            logoutModal.style.display = 'none';
+            backdrop.style.display = 'block';
+        }
+
+        function confirmLogout() {
+            // Handle logout functionality
+            console.log("Logged out");
+            closeModal();
+
+            window.location.href = '/login/'
+        }
+
+        // Helper function to get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+</body>
+</html>

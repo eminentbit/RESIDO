@@ -492,29 +492,29 @@ class ListingDetailView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-class ListingsView(APIView):
-    permission_classes = (permissions.AllowAny, )
+# class ListingsView(APIView):
+#     permission_classes = (permissions.AllowAny, )
 
-    def get(self, request, format=None):
-        try:
-            if not Listing.objects.filter(is_published=True).exists():
-                return Response(
-                    {'error': 'No published listings in the database'},
-                    status=status.HTTP_404_NOT_FOUND
-                )
+#     def get(self, request, format=None):
+#         try:
+#             if not Listing.objects.filter(is_published=True).exists():
+#                 return Response(
+#                     {'error': 'No published listings in the database'},
+#                     status=status.HTTP_404_NOT_FOUND
+#                 )
 
-            listings = Listing.objects.order_by('-date_created').filter(is_published=True)
-            listings = ListingSerializer(listings, many=True)
+#             listings = Listing.objects.order_by('-date_created').filter(is_published=True)
+#             listings = ListingSerializer(listings, many=True)
 
-            return Response(
-                {'listings': listings.data},
-                status=status.HTTP_200_OK
-            )
-        except:
-            return Response(
-                {'error': 'Something went wrong when retrieving listings'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+#             return Response(
+#                 {'listings': listings.data},
+#                 status=status.HTTP_200_OK
+#             )
+#         except:
+#             return Response(
+#                 {'error': 'Something went wrong when retrieving listings'},
+#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
+#             )
 
 class SearchListingsView(APIView):
     permission_classes = (permissions.AllowAny, )
@@ -650,11 +650,24 @@ def search_view(request):
     return render(request, 'listing/search.html')
 
 def listings_view(request):
-    listings = Listing.objects.all()
-    return render(request, 'listing/listings.html', {'listings': listings})
+    try:
+            if not Listing.objects.filter(is_published=True).exists():
+                message = 'No published listings in the database'
+
+            listings = Listing.objects.order_by('-date_created').filter(is_published=True)
+            listings = ListingSerializer(listings, many=True)
+
+            listings = listings.data
+    except:
+        message = 'Something went wrong when retrieving listings'
+    return render(request, 'listing/listings.html', {'listings': listings, 'message': message})
 
 def listing_detail(request, id):
-    return render(request, 'listing/listing_detail.html')
+    listing = Listing.objects.filter(id=id)
+    return render(request, 'listing/listing_detail.html', {'listing': listing})
+
 
 def contact(request):
-    pass
+    name = request.POST['name']
+    email = request.POST['email']
+    message = request.POST['message']

@@ -34,6 +34,7 @@ def send_message(request, conversation_id):
     if request.method == 'POST':
         content = request.POST.get('content', '')
         message = Message.objects.create(conversation=conversation, sender=request.user, content=content)
-        return JsonResponse({"success": True, "message": {"sender": message.sender.username, "content": message.content}})
+        username = message.sender.first_name + message.sender.last_name
+        return JsonResponse({"success": True, "message": {"sender": username, "content": message.content}})
     return JsonResponse({"success": False, "error": "Invalid request"})
 

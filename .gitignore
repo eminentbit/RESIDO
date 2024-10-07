@@ -152,6 +152,7 @@ cython_debug/
 
 # Extras
 .DS_Store
+*/.DS_Store
 .hintrc
 
 # End of https://www.toptal.com/developers/gitignore/api/django
