@@ -179,6 +179,8 @@ class RetrieveUserView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
+def about_view(request):
+    return render(request, 'About_us.html')
 
 
 @login_required        
@@ -263,15 +265,50 @@ def get_all_realtors(request):
     realtors = User.objects.filter(is_realtor=True) 
     return render(request, 'realtors.html', {'realtors': realtors})
 
-
-def homes_for_sale(request):
-    return render(request, 'homes_for_rent.html')
-
-   
-
+  
 def signout(request):
     '''
     Basic View for the user to Sign Out
     '''
     logout(request)
     return redirect(reverse('login'))
+
+
+def all_homes_view(request):
+    return render('all_homes.html')
+
+
+# SALE
+def homes_for_sale(request):
+    return render(request, 'sale/homes.html')
+
+def construction_for_sale(request):
+    return render(request, 'sale/new_construction.html')
+
+def appartments_for_sale(request):
+    return render(request, 'sale/appartments.html')
+
+def townhouses_for_sale(request):
+    return render(request, 'sale/townhouses.html')
+
+def construction_for_sale(request):
+    return render(request, 'sale/new_construction.html')
+
+def office_for_sale(request):
+    return render(request, 'sale/office_spaces.html')
+
+# RENT
+def homes_for_rent(request):
+    return render(request, 'rent/homes.html')
+
+def construction_for_rent(request):
+    return render(request, 'rent/new_construction.html')
+
+def appartments_for_rent(request):
+    return render(request, 'rent/appartments.html')
+
+def townhouses_for_rent(request):
+    return render(request, 'rent/townhouses.html')
+
+def office_for_rent(request):
+    return render(request, 'rent/office_spaces.html')

@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -523,7 +524,7 @@ class SearchListingsView(APIView):
             city = request.query_params.get('city')
             region = request.query_params.get('region')
             sqft = request.query_params.get('sqft')
-            lot_size = request.query_params.get('sqft')
+            lot_size = request.query_params.get('lot_size')
 
             max_price = request.query_params.get('max_price')
             try:
@@ -643,3 +644,14 @@ class SearchListingsView(APIView):
                 {'error': 'Something went wrong when searching for listings'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+def search_view(request):
+    return render(request, 'listing/search.html')
+
+def listings_view(request):
+    listings = Listing.objects.all()
+    return render(request, 'listing/listing.html', {'listings': listings})
+
+def contact(request):
+    pass
