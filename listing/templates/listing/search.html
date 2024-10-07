@@ -3,6 +3,7 @@
 {% load static %}
 {% load humanize %}
 
+
 {% block title %} | Search Results {% endblock %}
 
 
@@ -10,15 +11,7 @@
 {% block content %}
 
 <style>
-  /* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Showcase Section */
-#showcase-inner {
+  #showcase-inner {
     background: url("{% static 'home.png' %}") no-repeat center center/cover;
     height: 300px;
     position: relative;
@@ -26,159 +19,9 @@
     justify-content: center;
     align-items: center;
 }
-
-#showcase-inner h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-#showcase-inner form {
-    margin-top: 30px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 15px;
-    border-radius: 5px;
-}
-
-#showcase-inner input[type="text"],
-#showcase-inner select {
-    border: 2px solid #fff;
-    color: #333;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #fff;
-    margin-bottom: 10px;
-}
-
-#showcase-inner input[type="text"]::placeholder,
-#showcase-inner select {
-    color: #555;
-}
-
-#showcase-inner button {
-    background-color: #27ae60;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
-#showcase-inner button:hover {
-    background-color: #2ecc71;
-}
-
-/* Breadcrumb */
-.breadcrumb {
-    background-color: transparent;
-    padding: 10px 0;
-    font-size: 1rem;
-}
-
-.breadcrumb a {
-    color: #2c3e50;
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-.breadcrumb-item.active {
-    color: #27ae60;
-}
-
-/* Listings Section */
-#listings .card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-#listings .card:hover {
-    transform: translateY(-5px);
-}
-
-#listings .card-img-top {
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-#listings .card-img-overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#listings h2 .badge {
-    font-size: 1.5rem;
-    background-color: #27ae60;
-    padding: 10px;
-}
-
-#listings .card-body h4 {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    font-weight: bold;
-}
-
-#listings .card-body p {
-    font-size: 1rem;
-    color: #7f8c8d;
-}
-
-#listings .row .col-6 {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    display: flex;
-    align-items: center;
-}
-
-#listings .row .col-12 {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-}
-
-#listings .btn {
-    background-color: #27ae60;
-    color: white;
-    transition: background-color 0.3s ease;
-    border: none;
-    border-radius: 5px;
-}
-
-#listings .btn:hover {
-    background-color: #2ecc71;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #showcase-inner {
-        height: 250px;
-    }
-
-    #showcase-inner h1 {
-        font-size: 2rem;
-    }
-
-    #listings .card-img-top {
-        height: 180px;
-    }
-
-    #listings .col-md-6 {
-        margin-bottom: 20px;
-    }
-
-    .form-row .col-md-4, 
-    .form-row .col-md-6 {
-        margin-bottom: 10px;
-    }
-}
 </style>
+
+<link rel="stylesheet" href="{% static 'css/search-results.css' %}">
 
 
 <section id="showcase-inner" class="showcase-search text-white py-5">

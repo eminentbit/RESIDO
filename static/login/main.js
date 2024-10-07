@@ -1,10 +1,15 @@
 // Function to toggle password visibility
 function togglePassword() {
-    const passwordField = document.querySelector('input[type="password"]');
-    if (passwordField === 'password') {
-        passwordField = 'text';
+    let passwordField = document.querySelector('.password');
+    let passwordType = passwordField.type
+    console.log('type: ', passwordType);
+    console.log('testtype', passwordField['type']);
+    if (passwordType === 'password') {
+        passwordType = 'text';
+        passwordField.type = passwordType
     }
-    else if (passwordField === 'text') {
-        passwordField = 'password';
+    else {
+        passwordType = 'password'
+        passwordField.type = passwordType
     }
   }
