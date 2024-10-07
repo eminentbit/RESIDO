@@ -34,7 +34,7 @@ header {
 
 .nav-list li.logo {
     flex-grow: 2; /* Makes the RESIDO logo take more space */
-    font-size: 2em;
+    font-size: 2rem;
     margin-inline: 7rem;
 }
 

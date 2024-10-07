@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/home-sales.css' %}">
+
+<section class="hero-rentals">
+    <h1>Explore Homes for Sale</h1>
+    <p>Find a home that fits your lifestyle and budget</p>
+    <button class="cta-btn">Search Rentals</button>
+</section>
+
+<section class="rental-listings">
+    <h2>Available Homes for Sale</h2>
+    <div class="listing-grid">
+        <div class="listing">
+            <img src="{% static 'property1.jpg' %}" alt="Rental Property 1">
+            <h3>2 Bedroom Apartment in Central City</h3>
+            <p>$1,200/month</p>
+            <p>Location: Central City</p>
+            <button type="button">View Details</button>
+        </div>
+        <div class="listing">
+            <img src="{% static 'property2.jpg' %}" alt="Rental Property 2">
+            <h3>3 Bedroom House in Suburbs</h3>
+            <p>$2,500/month</p>
+            <p>Location: Suburbs</p>
+            <button type="button">View Details</button>
+        </div>
+        <div class="listing">
+            <img src="{% static 'property3.jpg' %}" alt="Rental Property 3">
+            <h3>Studio Apartment Downtown</h3>
+            <p>$900/month</p>
+            <p>Location: Downtown</p>
+            <button type="button">View Details</button>
+        </div>
+    </div>
+</section>
+
+<section class="rental-tips">
+    <h2>Rental Tips</h2>
+    <ul>
+        <li>Review the lease carefully before signing.</li>
+        <li>Consider proximity to public transportation and amenities.</li>
+        <li>Set your budget and stick to it.</li>
+        <li>Get in touch with one of our agents for personalized assistance.</li>
+    </ul>
+</section>
+
+{% endblock %}

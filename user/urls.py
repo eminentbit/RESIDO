@@ -5,8 +5,23 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # Not directly related
-    path('homes_rent', homes_for_sale, name='homes_rent'),
     path('realtors', get_all_realtors, name='realtors'),
+    path('about_us', about_view, name='about_us'),
+    path('all_homes', all_homes_view, name='all_homes'),
+
+     # RENT 
+    path('rent/homes', homes_for_rent, name='homes_rent'),
+    path('rent/townhouses', townhouses_for_rent, name='townhouses_rent'),
+    path('rent/constructions', construction_for_rent, name='construction_rent'),
+    path('rent/appartments', appartments_for_rent, name='appartments_rent'),
+    path('rent/office_spaces', office_for_rent, name='officespaces_rent'),
+
+     # SALE
+    path('sell/homes', homes_for_sale, name='homes_sell'),
+    path('sell/townhouses', townhouses_for_sale, name='townhouses_sell'),
+    path('sell/constructions', construction_for_sale, name='construction_sell'),
+    path('sell/appartments', appartments_for_sale, name='appartments_sell'),
+    path('sell/office_spaces', office_for_sale, name='officespace_sell'),
 
     # Directly related
     path('register', RegisterView.as_view(), name='register'),
