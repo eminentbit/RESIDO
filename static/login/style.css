@@ -92,6 +92,34 @@ h3 {
     padding-top: 1rem;
 }
 
+/* Signup link */
+.signup {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup p {
+    font-size: 0.9em; /* Smaller font size for the login text */
+}
+
+.signup a {
+    color: #4CAF50; /* Same green color for links */
+    text-decoration: none; /* Remove underline */
+}
+
+.signup a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #4CAF50; /* Change border color on focus */
+            outline: none; /* Remove outline */
+        }
+        
+
 /* Error message styling */
 .error-message {
     color: #ff4d4d;

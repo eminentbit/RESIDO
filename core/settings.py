@@ -220,4 +220,4 @@ LOGOUT_URL = '/'
 LOGIN_REDIRECT_URL = '/login'
 LOGOUT_REDIRECT_URL = '/'
 
-BASE_COUNTRY = 'Cameroon'
+BASE_COUNTRY = 'cameroon'

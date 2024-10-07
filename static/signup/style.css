@@ -83,6 +83,25 @@ body {
     animation: fadeout 12s forwards;
 }
 
+/* Login link */
+.login {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login p {
+    font-size: 0.9em; /* Smaller font size for the login text */
+}
+
+.login a {
+    color: #4CAF50; /* Same green color for links */
+    text-decoration: none; /* Remove underline */
+}
+
+.login a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
 /* Fade-out animation */
 @keyframes fadeout {
     from {

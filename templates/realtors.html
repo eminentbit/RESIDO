@@ -6,17 +6,67 @@
 <link rel="stylesheet" href="{% static 'css/realtor.css' %}">
 <title>All our realtors</title>
 <body>
-
-    <section>
+    <section class="hero">
+        <h1>Meet Our Experienced Realtors</h1>
+        <p>Our team of dedicated professionals is here to help you find your dream home.</p>
+    </section>
+    
+    <section class="realtors">
+        <h2>Our Realtors</h2>
         {% for realtor in realtors %}
-        <div class="card">
-            <img src="{{ realtor.image.url }}" alt="{{ request.user.name }}">
-            <div class="card-title">
-                <p>{{ realtor.first_name }} {{ realtor.last_name }}</p>
+        <div class="realtor-grid">
+            <div class="realtor-card">
+                <img src="{{ realtor.image.url }}" alt="{{ realtor.first_name }}">
+                <h3>{{ realtor.first_name }} {{ realtor.last_name }}</h3>
+                <p> </p>
+                <a href="{{ realtor.email }}" class="email">Contact</a>
+            </div>
+        {% endfor %}
+            <div class="realtor-card">
+                <img src="realtor2.jpg" alt="Realtor 2">
+                <h3>Jane Smith</h3>
+                <p>Luxury Home Specialist</p>
+                <a href="mailto:janesmith@example.com" class="email">Contact Jane</a>
+            </div>
+            <div class="realtor-card">
+                <img src="realtor3.jpg" alt="Realtor 3">
+                <h3>Emily Johnson</h3>
+                <p>Property Consultant</p>
+                <a href="mailto:emilyjohnson@example.com" class="email">Contact Emily</a>
             </div>
         </div>
-        {% endfor %}
     </section>
+    
+    <section class="testimonials">
+        <h2>Client Testimonials</h2>
+        <div class="testimonials-container">
+            <blockquote>
+                <p>"John was amazing! He helped us navigate the process and found our dream home."</p>
+                <cite>- Michael & Sarah</cite>
+            </blockquote>
+            <blockquote>
+                <p>"Jane made selling our house easy and stress-free. Highly recommend her services!"</p>
+                <cite>- Robert & Linda</cite>
+            </blockquote>
+        </div>
+    </section>
+    
+    <section class="contact-form">
+        <h2>Contact Us</h2>
+        <form action="#" method="POST">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+    
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+    
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+    
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
 
 </body>
 {% endblock %}

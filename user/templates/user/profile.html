@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-{% block extend_head %}
-
-{% endblock %}
-
-
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <h3>User Profile</h3>
 
@@ -69,15 +64,13 @@
 
 </div>
 
-{% endblock %}
 
-{% block extend_footer %}
 
 <script type="text/javascript">
-
+  
   var google_api_key = "{{google_api_key|safe}}";
   var base_country = "{{base_country|safe}}";
-
+  
 </script>
 
 <script src="{% static 'google_places.js' %}"></script>

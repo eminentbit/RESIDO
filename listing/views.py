@@ -651,7 +651,10 @@ def search_view(request):
 
 def listings_view(request):
     listings = Listing.objects.all()
-    return render(request, 'listing/listing1.html', {'listings': listings})
+    return render(request, 'listing/listings.html', {'listings': listings})
+
+def listing_detail(request, id):
+    return render(request, 'listing/listing_detail.html')
 
 def contact(request):
     pass
