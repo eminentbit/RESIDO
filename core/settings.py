@@ -143,11 +143,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Enable email as a required field
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True  # This helps manage redirects correctly
 ACCOUNT_LOGOUT_REDIRECTS = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_STORE_TOKENS = True
+
+SOCIALACCOUNT_ADAPTER = 'user.adapters.SocialAccountAdapter'
+
 
 
 # Internationalization
@@ -252,10 +258,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.UserAccount'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login'
 LOGOUT_URL = '/'
 
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/login'
 LOGOUT_REDIRECT_URL = '/login'
 
 BASE_COUNTRY = 'cameroon'

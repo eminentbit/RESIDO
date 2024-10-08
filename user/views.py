@@ -274,10 +274,10 @@ def signout(request):
     Basic View for the user to Sign Out
     '''
     logout(request)
-    return redirect(reverse('account_login'))
+    return redirect(reverse('login'))
 
-def my_listing(request):
-    return render('listing/my_listing.html')
+def browse_homes(request):
+    return render('browse_homes.html')
 
 
 def all_homes_view(request):

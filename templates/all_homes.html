@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Browse Homes | RESIDO{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/all_homes.css' %}">
+
+<div class="browse-homes-container">
+    <!-- Search Bar -->
+    <section class="search-section">
+        <h1>Find Your Dream Home</h1>
+        <form method="GET" action="{% url 'all_homes' %}" class="search-form">
+            <input type="text" name="search" placeholder="Search by location, property type..." value="{{ request.GET.search }}">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <form method="GET" action="{% url 'all_homes' %}">
+            <label for="location">Location:</label>
+            <select name="location" id="location">
+                <option value="">All Locations</option>
+                <option value="city-1">City 1</option>
+                <option value="city-2">City 2</option>
+            </select>
+
+            <label for="property_type">Property Type:</label>
+            <select name="property_type" id="property_type">
+                <option value="">All Types</option>
+                <option value="apartment">Apartment</option>
+                <option value="house">House</option>
+            </select>
+
+            <label for="price">Price Range:</label>
+            <input type="number" name="min_price" placeholder="Min Price">
+            <input type="number" name="max_price" placeholder="Max Price">
+
+            <button type="submit" class="filter-btn">Filter</button>
+        </form>
+    </section>
+
+    <!-- Listings Grid -->
+    <section class="listings-section">
+        <h2>Available Listings</h2>
+        <div class="listings-grid">
+            {% for listing in listings %}
+            <div class="listing-card">
+                <img src="{{ listing.image.url }}" alt="{{ listing.title }}" class="listing-image">
+                <div class="listing-info">
+                    <h3>{{ listing.title }}</h3>
+                    <p>{{ listing.location }}</p>
+                    <p>${{ listing.price }}</p>
+                    <a href="{% url 'listing_detail' listing.id %}" class="view-details-btn">View Details</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No listings found matching your criteria.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if listings.has_previous %}
+        <a href="?page={{ listings.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ listings.number }} of {{ listings.paginator.num_pages }}</span>
+
+        {% if listings.has_next %}
+        <a href="?page={{ listings.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

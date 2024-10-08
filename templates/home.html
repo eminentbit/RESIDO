@@ -92,27 +92,7 @@
         <input type="text" class="search-input" placeholder="Search for homes, neighborhoods, etc.">
         <button class="search-btn">Search</button>
     </div>
-    <button class="cta-btn">Get Started</button>
-</section>
-
-<section class="featured-listings">
-    <h2>Featured Listings</h2>
-    <div class="listing-grid">
-        <div class="listing">
-            <img src="{% static 'property1.jpg' %}" alt="Property 1">
-            <h3>3 Bedroom Apartment in Downtown</h3>
-            <p>$500,000</p>
-            <p>Location: Downtown</p>
-            <button type="button">View Details</button>
-        </div>
-        <div class="listing">
-            <img src="{% static 'property2.jpg' %}" alt="Property 2">
-            <h3>2 Bedroom Condo in Brooklyn</h3>
-            <p>$400,000</p>
-            <p>Location: Brooklyn</p>
-            <button type="button">View Details</button>
-        </div>
-    </div>
+    <button class="cta-btn" onclick="getStarted()">Get Started</button>
 </section>
 
 <section class="popular-areas">
@@ -126,6 +106,27 @@
             <h3>Upper West Side</h3>
             <p>Classic architecture and proximity to Central Park.</p>
         </div>
+    </div>
+</section>
+
+<section class="cards-container">
+    <div class="card">
+        <img src="{% static 'rent.png' %}" alt="Rent a home">
+        <h2>Rent a home</h2>
+        <p>We're creating a seamless online experience—from shopping to applying to paying rent.</p>
+        <a href="#">Add a house</a>
+    </div>
+    <div class="card">
+        <img src="{% static 'sell.png' %}" alt="Sell a home">
+        <h2>Sell a home</h2>
+        <p>We help you navigate a successful home sale.</p>
+        <a href="#">See your options</a>
+    </div>
+    <div class="card">
+        <img src="{% static 'buy.png' %}" alt="Buy a home">
+        <h2>Buy a home</h2>
+        <p>Find your place with the most immersive home experience.</p>
+        <a href="#">Browse homes</a>
     </div>
 </section>
 
@@ -150,24 +151,10 @@
     </div>
 </section>
 
-<section class="cards-container">
-    <div class="card">
-        <img src="{% static 'rent.png' %}" alt="Rent a home">
-        <h2>Rent a home</h2>
-        <p>We're creating a seamless online experience—from shopping to applying to paying rent.</p>
-        <a href="#">Add a house</a>
-    </div>
-    <div class="card">
-        <img src="{% static 'sell.png' %}" alt="Sell a home">
-        <h2>Sell a home</h2>
-        <p>We help you navigate a successful home sale.</p>
-        <a href="#">See your options</a>
-    </div>
-    <div class="card">
-        <img src="{% static 'buy.png' %}" alt="Buy a home">
-        <h2>Buy a home</h2>
-        <p>Find your place with the most immersive home experience.</p>
-        <a href="#">Browse homes</a>
-    </div>
-</section>
+
+<script>
+    function getStarted() {
+        window.location.href = '/register'
+    }
+</script>
 {% endblock %}
