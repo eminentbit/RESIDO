@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Page</title>
         <link rel="stylesheet" href="{% static 'signup/style.css' %}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     </head>
 
     <body>
@@ -39,18 +40,37 @@
                 {% if form.email.errors %}
                 <div class="error-message">{{ form.email.errors }}</div><br>
                 {% endif %}
-                
-                <label for="password">Password:</label>
-                {{ form.password1 }}
-                {% if form.password.errors %}
-                <div class="error-message">{{ form.password.errors }}</div><br>
-                {% endif %}
-                
-                <label for="re_password">Confirm Password:</label>
-                {{ form.password2 }}
-                {% if form.password2.errors %}
+
+                <div class="password-container">
+                    <label for="password">Password:</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                    <div class="error-message">{{ form.password.errors }}</div><br>
+                    {% endif %}
+                    
+                    <!-- Eye icon to toggle password visibility -->
+                    <span id="togglePassword" class="toggle-password">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="password-container">
+                    <label for="re_password">Password:</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                    <div class="error-message">{{ form.password2.errors }}</div><br>
+                    {% endif %}
+                    
+                    <!-- Eye icon to toggle password visibility -->
+                    <span id="toggleconfirmPass" class="toggle-password">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </span>
+
+                    {% if form.password2.errors %}
                 <div class="error-message">{{ form.password2.errors }}</div><br>
                 {% endif %}
+                </div>
+            
                 
                 <label for="is_realtor">Are you a Realtor?</label>
                 <select id="is_realtor" name="is_realtor">
@@ -126,7 +146,74 @@
         .login a:hover {
             text-decoration: underline; /* Underline on hover */
         }
+
         </style>
+
+        <script>
+            document.getElementById('togglePassword').addEventListener('click', function (e) {
+                const passwordField = document.getElementById('password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+
+            document.getElementById('toggleconfirmPass').addEventListener('click', function (e) {
+                const passwordField = document.getElementById('re_password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        </script>
+
+        <!-- <script>
+            function togglePassword() {
+                passwordField = document.getElementById('password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+
+
+                // Toggle the eye slash icon
+                document.querySelector('i').classList.toggle('fa-eye-slash');
+            };
+
+            function toggleconfirmPassword() {
+                passwordField = document.getElementById('re_password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+
+
+                // Toggle the eye slash icon
+                document.querySelector('i').classList.toggle('fa-eye-slash');
+            };
+        </script> -->
 
 {% endblock %}
 </html>

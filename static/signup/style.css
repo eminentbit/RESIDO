@@ -6,6 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-style: 'Poppins', 'sans-serif';
 }
 
 /* Container for the registration form */
@@ -116,6 +117,23 @@ body {
 
 .btn-google img {
     margin-right: 8px; /* Space between logo and text */
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    /* max-width: 100%;  */
+}
+
+  
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px; /* Ensure the size of the eye icon is appropriate */
+    color: #333; /* Change the color as per your theme */
 }
 
 /* Fade-out animation */

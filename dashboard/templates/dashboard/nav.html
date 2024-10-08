@@ -13,15 +13,15 @@
     <!-- Sidebar Navigation -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>RESIDO Dashboard</h2>
+            <h2>Dashboard</h2>
             <button class="toggle-btn" id="toggle-btn">☰</button> <!-- Toggle button (default shows ☰) -->
         </div>
         <ul class="nav-links">
-            <li><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
+            <li><a href="{% url 'dashboard_home' %}">Home</a></li>
             <li><a href="#">Listings</a></li>
             <li><a href="{% url 'dashboard_profile' %}">Profile</a></li>
             <li><a href="#">Messages</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="{% url 'dashboard_settings' %}">Settings</a></li>
             <li><a href="#" onclick="showLogoutMsg()">Logout</a></li>
         </ul>
     </nav>

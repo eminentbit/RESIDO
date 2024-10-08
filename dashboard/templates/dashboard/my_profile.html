@@ -24,7 +24,8 @@
         <div class="profile-details">
             <h2>Personal Information</h2>
 
-            <form action="#" method="POST" class="profile-form">
+            <form action="edit-profile" method="POST" class="profile-form">
+                {% csrf_token %}
                 <label for="first_name">First Name:</label>
                 <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}" required>
 

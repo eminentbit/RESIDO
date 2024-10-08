@@ -1,0 +1,130 @@
+{% extends 'dashboard/nav.html' %}
+{% load static %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'dashboard/settings.css' %}">
+
+<div class="main-content">
+    <header>
+        <h1>Settings</h1>
+    </header>
+
+    <div class="settings-container">
+        <nav class="settings-tabs">
+            <ul>
+                <li class="active"><a href="#account-settings">Account Settings</a></li>
+                <li><a href="#privacy-settings">Privacy Settings</a></li>
+                <li><a href="#notification-settings">Notification Settings</a></li>
+                <li><a href="#appearance-settings">Appearance</a></li>
+                <li><a href="#security-settings">Security</a></li>
+            </ul>
+        </nav>
+
+        <div class="settings-content">
+            <!-- Account Settings -->
+            <div id="account-settings" class="settings-section active">
+                <h2>Account Settings</h2>
+                <form action="#" method="POST">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}" disabled>
+
+                    <label for="password">Change Password</label>
+                    <input type="password" id="password" name="password">
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Privacy Settings -->
+            <div id="privacy-settings" class="settings-section">
+                <h2>Privacy Settings</h2>
+                <form action="#" method="POST">
+                    <label for="profile-visibility">Profile Visibility</label>
+                    <select id="profile-visibility" name="profile_visibility">
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+
+                    <label for="2fa">Enable Two-Factor Authentication</label>
+                    <input type="checkbox" id="2fa" name="2fa">
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Notification Settings -->
+            <div id="notification-settings" class="settings-section">
+                <h2>Notification Settings</h2>
+                <form action="#" method="POST">
+                    <label for="email-notifications">Email Notifications</label>
+                    <input type="checkbox" id="email-notifications" name="email_notifications" checked>
+
+                    <label for="push-notifications">Push Notifications</label>
+                    <input type="checkbox" id="push-notifications" name="push_notifications">
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Appearance Settings -->
+            <div id="appearance-settings" class="settings-section">
+                <h2>Appearance</h2>
+                <form action="#" method="POST">
+                    <label for="theme">Theme</label>
+                    <select id="theme" name="theme">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+
+                    <label for="font-size">Font Size</label>
+                    <select id="font-size" name="font_size">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+
+            <!-- Security Settings -->
+            <div id="security-settings" class="settings-section">
+                <h2>Security</h2>
+                <form action="#" method="POST">
+                    <label for="change-password">Change Password</label>
+                    <input type="password" id="change-password" name="change_password">
+
+                    <label for="security-questions">Change Security Questions</label>
+                    <input type="text" id="security-questions" name="security_questions">
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.settings-tabs ul li a');
+    const sections = document.querySelectorAll('.settings-section');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Remove active class from all tabs
+            tabs.forEach(t => t.parentElement.classList.remove('active'));
+            // Add active class to the clicked tab
+            this.parentElement.classList.add('active');
+
+            // Hide all sections
+            sections.forEach(section => section.classList.remove('active'));
+            // Show the clicked section
+            const target = this.getAttribute('href');
+            document.querySelector(target).classList.add('active');
+        });
+    });
+</script>
+{% endblock %}

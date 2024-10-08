@@ -1,0 +1,94 @@
+/* Main container for settings page */
+body {
+    height: 100%;
+}
+
+
+.settings-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Sidebar navigation for settings */
+.settings-tabs ul {
+    list-style: none;
+    padding: 0;
+    width: 200px;
+}
+
+.settings-tabs ul li {
+    margin-bottom: 15px;
+}
+
+.settings-tabs ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.settings-tabs ul li.active a, 
+.settings-tabs ul li a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Main content for each section */
+.settings-content {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.settings-section h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+.settings-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-section label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.settings-section input,
+.settings-section select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.save-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}

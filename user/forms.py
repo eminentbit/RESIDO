@@ -31,8 +31,8 @@ class UserForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*First name', 'autocomplete': 'name'}))
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Last name', 'autocomplete': 'name'}))
     email = forms.EmailField(max_length=254, required=True, widget=forms.TextInput(attrs={'placeholder': '*Email'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Password', 'class': 'password'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Confirm Password', 'class': 'password'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Password', 'class': 'password', 'id': 'password'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Confirm Password', 'class': 'password', 'id': 're_password'}))
     is_staff = forms.BooleanField(required=False)
     is_realtor = forms.BooleanField(required=False)
 
