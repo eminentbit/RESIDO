@@ -24,6 +24,7 @@ urlpatterns = [
     path('sell/office_spaces', office_for_sale, name='officespace_sell'),
 
     # Directly related
+    path('accounts/profile/', profile_view, name='profile'),
     path('register', RegisterView.as_view(), name='register'),
     path('me', RetrieveUserView.as_view(), name='me'),
     path('profile', profile_view, name='profile'),

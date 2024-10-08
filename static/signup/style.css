@@ -102,6 +102,22 @@ body {
     text-decoration: underline; /* Underline on hover */
 }
 
+.btn-google {
+    background-color: #4285F4; /* Google blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 10px; /* Optional spacing */
+    text-align: center;
+}
+
+.btn-google img {
+    margin-right: 8px; /* Space between logo and text */
+}
+
 /* Fade-out animation */
 @keyframes fadeout {
     from {

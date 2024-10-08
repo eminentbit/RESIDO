@@ -70,6 +70,15 @@
                 <p>Have an exisiting account? <a href="{% url 'login' %}">Login Now</a></p>
             </div>
 
+            <!-- Sign in with Google -->
+            <div class="google-signin-container">
+                <h4>Or sign in with</h4>
+                <a href="/auth/google/login/?process=login" class="btn btn-google">
+                <img src="{% static 'google-logo.png' %}" alt="Google Logo" style="width:20px;height:20px;vertical-align:middle;">
+                Sign in with Google
+                </a>
+            </div>
+
         </div>
         
     </body>

@@ -1,0 +1,54 @@
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
+
+<div class="auth-container">
+  <h3>RESIDO - Sign In</h3>
+  <div id="response-message" class="error-message">{{ error }}</div>
+
+  <form id="signinForm" method="POST" action="/login">
+    {% csrf_token %}
+
+    <div id="emailStep">
+      <label for="email">Email</label>
+      <input type="email" class="email" placeholder="*Email" name="email" required>
+
+      <button type="button" id="nextButton" onclick="showPasswordStep()" disabled>Next</button>
+    </div>
+    
+    <div id="passwordStep" style="display: none;">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="password" placeholder="*Password" required>
+
+      <!-- Show Password checkbox aligned with label -->
+      <div class="show-password-container">
+        <input type="checkbox" id="show-password-checkbox" onclick="togglePassword()">
+        <label for="show-password-checkbox">Show Password</label>
+      </div>
+
+      <button type="submit">Sign in</button>
+    </div>
+  </form>
+
+  <div class="forgot-pass">
+    <p><a href="{% url 'password_reset' %}">Forgot Password? </a></p>
+  </div>
+
+  <div class="signup">
+    <p>Don't have an account? <a href="{% url 'register' %}">Sign Up now</a></p>
+  </div>
+
+  <!-- Sign in with Google -->
+  <div class="google-signin-container">
+    <h4>Or sign in with</h4>
+    <a href="/auth/google/login/?process=login" class="btn btn-google">
+      <img src="{% static 'google-logo.png' %}" alt="Google Logo" style="width:20px;height:20px;vertical-align:middle;">
+      Sign in with Google
+    </a>
+  </div>
+</div>
+
+<script src="{% static 'login/main.js' %}"></script>
+
+{% endblock %}

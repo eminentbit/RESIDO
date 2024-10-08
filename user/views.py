@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from django.urls import reverse, reverse_lazy
-from django.views import View
+from allauth.account.views import LoginView
 
 from listing.models import Listing
 
@@ -135,13 +135,13 @@ from django.contrib.auth.decorators import login_required
 class RegisterView(FormView):
     template_name = 'user/signup.html'
     form_class = UserForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('dashboard_home')
 
     def form_valid(self, form):
         try:
             user = form.save()
-            userprofile = UserProfile.objects.create(user=user)
-            login(self.request, user, userprofile)
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(self.request, user)
             return super().form_valid(form)
         except Exception as e:
             form.add_error(None, str(e))
@@ -219,8 +219,11 @@ def profile_view(request):
         return render(request, 'user/profile.html', context)
     
 
-class SignInView(View):
-    template_name = 'user/sign_in.html'
+class SignInView(LoginView):
+    template_name = 'account/login.html'
+
+    def get_success_url(self):
+        return '/' 
     
     def get(self, request):
         form = AuthForm()
@@ -271,7 +274,7 @@ def signout(request):
     Basic View for the user to Sign Out
     '''
     logout(request)
-    return redirect(reverse('login'))
+    return redirect(reverse('account_login'))
 
 def my_listing(request):
     return render('listing/my_listing.html')
