@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',  
+    'allauth.socialaccount', 
+    'allauth.socialaccount.providers.google',  
     # 'django.contrib.contenttypes',
     # 'django.contrib.postgres',
     'rest_framework',
@@ -51,6 +56,9 @@ INSTALLED_APPS = [
     'location',
     'dashboard',
 ]
+
+# Set the site ID
+SITE_ID = 1
 
 MIGRATION_MODULES = {
     'contenttypes': 'django.contrib.contenttypes.migrations',
@@ -65,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -86,6 +95,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # For regular login
+    'allauth.account.auth_backends.AuthenticationBackend',  # For social login
+)
 
 
 # Database
@@ -127,10 +141,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Enable email as a required field
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True  # This helps manage redirects correctly
+ACCOUNT_LOGOUT_REDIRECTS = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+
 
 # settings.py
 
@@ -142,6 +165,17 @@ EMAIL_BACKEND = config('EMAIL_BACKEND')  # For development
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': config('O2AUTH_CLIENT_ID'),
+            'secret': config('O2AUTH_CLIENT_SECRET'),
+            'key': ''
+        }
+    }
+}
+
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -151,6 +185,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+O2AUTH_CLIENT_ID = config('O2AUTH_CLIENT_ID')
+
+O2AUTH_CLIENT_SECRET = config('O2AUTH_CLIENT_SECRET')
 
 MONETBIL_SERVICE_KEY = config('MONETBIL_SERVICE_KEY')
 
@@ -214,10 +252,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.UserAccount'
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
 LOGOUT_URL = '/'
 
-LOGIN_REDIRECT_URL = '/login'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/login'
 
 BASE_COUNTRY = 'cameroon'
