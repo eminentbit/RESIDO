@@ -18,6 +18,7 @@
                 <li><a href="#privacy-settings">Privacy Settings</a></li>
                 <li><a href="#notification-settings">Notification Settings</a></li>
                 <li><a href="#appearance-settings">Appearance</a></li>
+                <li><a href="#language-settings">Language</a></li>
                 <li><a href="#security-settings">Security</a></li>
             </ul>
         </nav>
@@ -88,6 +89,28 @@
                     <button type="submit" class="save-btn">Save Changes</button>
                 </form>
             </div>
+
+
+            <!-- Language Setting  -->
+            <div id="language-settings" class="settings-section">
+                <h2>Security</h2>
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <p>Choose your default Language</p>
+                    <label for="english">
+                        English
+                        <input type="radio" name="language" id="englishLanguage" value="english">
+                    </label>
+                    <label for="french">
+                        French
+                        <input type="radio" name="language" id="frenchLanguage" value="french">
+                    </label>
+
+                    <input type="submit" value="Save Changes">
+                    
+                </form>
+            </div>
+
 
             <!-- Security Settings -->
             <div id="security-settings" class="settings-section">
