@@ -1,0 +1,93 @@
+{% extends 'dashboard/nav.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'dashboard/listing.css' %}">
+
+<div class="main-content">
+    <header>
+        <h1>Your Listings</h1>
+    </header>
+
+    <section class="listings-overview">
+        <div class="stat">
+            <h2>Total Listings</h2>
+            <p>{{ total_listings }}</p>
+        </div>
+        <div class="stat">
+            <h2>Active Listings</h2>
+            <p>{{ active_listings }}</p>
+        </div>
+        <div class="stat">
+            <h2>Pending Listings</h2>
+            <p>{{ pending_listings }}</p>
+        </div>
+        <div class="stat">
+            <h2>Sold Listings</h2>
+            <p>{{ sold_listings }}</p>
+        </div>
+    </section>
+
+    <button type="button" class="add-listing-btn">Add New Listing</button>
+
+    <section class="listings-section">
+        <h2>Your Listings</h2>
+        
+        <div class="search-filter">
+            <input type="text" placeholder="Search Listings" class="search-bar">
+            <select class="filter-dropdown">
+                <option value="all">All Listings</option>
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
+                <option value="sold">Sold</option>
+            </select>
+            <select class="filter-dropdown">
+                <option value="house">Houses</option>
+                <option value="appartment">Appartments</option>
+                <option value="office-space">Office space</option>
+                <option value="townhouses">Townhouses</option>
+                <option value="townhouses">New Construction</option>
+            </select>
+        </div>
+
+        <div class="listings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Date Posted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for listing in listings %}
+                    <tr>
+                        <td><img src="{{ listing.image.url }}" alt="Listing Image" class="listing-img"></td>
+                        <td>{{ listing.title }}</td>
+                        <td>{{ listing.location }}</td>
+                        <td>${{ listing.price }}</td>
+                        <td>{{ listing.date_posted }}</td>
+                        <td>
+                            <a href="#" class="edit-btn">Edit</a>
+                            <a href="#" class="delete-btn">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<script>
+    const addListingBtn = document.querySelector('.add-listing-btn');
+    addListingBtn.addEventListener('click', () => {
+        window.location.href = '/listing/api/manage';
+    });
+</script>
+
+{% endblock %}

@@ -7,18 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} RESIDO | Dashboard {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'dashboard/nav.css' %}">
+
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
+    <button type="button" class="toggle-btn" id="toggle-btn">x</button> <!-- Arrow toggle button -->
+    
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>Dashboard</h2>
-            <button class="toggle-btn" id="toggle-btn">☰</button> <!-- Toggle button (default shows ☰) -->
         </div>
         <ul class="nav-links">
             <li><a href="{% url 'dashboard_home' %}">Home</a></li>
-            <li><a href="#">Listings</a></li>
+            <li><a href="{% url 'dashboard_listing' %}">Listings</a></li>
             <li><a href="{% url 'dashboard_profile' %}">Profile</a></li>
             <li><a href="#">Messages</a></li>
             <li><a href="{% url 'dashboard_settings' %}">Settings</a></li>
@@ -26,7 +27,6 @@
         </ul>
     </nav>
 
-    <!-- Main Content -->
     <div class="main-content" id="main-content">
         {% block content %}
         <!-- The main content of the page will be inserted here -->
@@ -38,27 +38,23 @@
         <button type="button" onclick="confirmLogout()">Yes</button>
         <button type="button" onclick="closeModal()">No</button>
     </div>
+    <div class="modal-backdrop" id="backdrop" style="display: none;"></div>
 
     <script>
         const toggleBtn = document.getElementById('toggle-btn');
         const sidebar = document.getElementById('sidebar');
-        const backdrop = document.createElement('div');
         const mainContent = document.getElementById('main-content');
         const logoutModal = document.getElementById('logout-modal');
+        const backdrop = document.getElementById('backdrop');
 
-        backdrop.className = 'modal-backdrop';
+        let isSidebarOpen = true; // Track sidebar state
 
         toggleBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('closed');
-            mainContent.classList.toggle('expanded');
-
-            // Toggle the icon between ☰ (menu) and ✕ (cross)
-            if (sidebar.classList.contains('closed')) {
-                toggleBtn.textContent = '☰';
-            } else {
-                toggleBtn.textContent = '✕';
-                toggleBtn.style.top
-            }
+            isSidebarOpen = !isSidebarOpen; // Toggle state
+            sidebar.style.display = isSidebarOpen ? 'block' : 'none'; // Show/hide sidebar
+            toggleBtn.textContent = isSidebarOpen ? 'x' : '➕'; // Update arrow direction
+            toggleBtn.style.position = isSidebarOpen ? 'absolute' : 'fixed';
+            toggleBtn.style.left = isSidebarOpen ? '210px' : '0';
         });
 
         function showLogoutMsg() {
@@ -68,31 +64,13 @@
         
         function closeModal() {
             logoutModal.style.display = 'none';
-            backdrop.style.display = 'block';
+            backdrop.style.display = 'none';
         }
 
         function confirmLogout() {
-            // Handle logout functionality
             console.log("Logged out");
             closeModal();
-
-            window.location.href = '/signout'
-        }
-
-        // Helper function to get CSRF token
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
+            window.location.href = '/signout';
         }
     </script>
 

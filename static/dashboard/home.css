@@ -1,136 +1,168 @@
-/* General Styling */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-}
-
-.main-content {
+/* General Styles for Main Content */
+.dashboard-home {
     padding: 20px;
-    background-color: #fff;
-    min-height: 100vh;
-    transition: margin-left 0.3s ease;
-}
-
-header {
-    margin-bottom: 20px;
 }
 
 header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
     color: #333;
-    font-size: 2rem;
-    margin: 0;
 }
 
-h2 {
-    color: #007bff;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+header p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
 }
 
-/* Listings Section */
-.listings-section {
-    background-color: #fff;
+/* Statistics Section */
+.statistics {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 23%;
+    text-align: center;
 }
 
-/* Button Styles */
-.add-listing-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.stat-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #007bff;
 }
 
-.add-listing-btn:hover {
-    background-color: #218838;
+.stat-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
 }
 
-/* Table Styles */
-.listings-table {
-    margin-top: 20px;
-    overflow-x: auto;
+/* Recent Activity Section */
+.recent-activity {
+    margin-top: 30px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+.recent-activity h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
 }
 
-th, td {
-    text-align: left;
-    padding: 15px;
+.recent-activity ul {
+    list-style: none;
+    padding: 0;
+}
+
+.recent-activity li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
 
-th {
+.recent-activity li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.recent-activity li span {
+    color: #555;
+    font-size: 14px;
+}
+
+/* Reminders Section */
+.reminders {
+    margin-top: 30px;
+}
+
+.reminders h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.reminders ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reminders ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Quick Links Section */
+.quick-links {
+    margin-top: 30px;
+}
+
+.quick-links h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quick-actions .btn {
     background-color: #007bff;
     color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    width: 23%;
+    transition: background-color 0.3s;
+}
+
+.quick-actions .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Notifications Section */
+.notifications {
+    margin-top: 30px;
+}
+
+.notifications h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.notifications ul {
+    list-style: none;
+    padding: 0;
+}
+
+.notifications li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+    font-size: 14px;
+}
+
+.notifications li span:first-child {
     font-weight: bold;
 }
 
-td img.listing-img {
-    max-width: 100px;
-    border-radius: 5px;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Action Buttons */
-.edit-btn, .delete-btn {
-    text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-
-.edit-btn {
-    background-color: #ffc107;
-    color: #333;
-}
-
-.edit-btn:hover {
-    background-color: #e0a800;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: white;
-    margin-left: 10px;
-}
-
-.delete-btn:hover {
-    background-color: #c82333;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .main-content {
-        padding: 10px;
-    }
-
-    .add-listing-btn {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    table {
-        font-size: 0.9rem;
-    }
-
-    th, td {
-        padding: 10px;
-    }
+.notifications li span:last-child {
+    color: #999;
 }

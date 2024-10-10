@@ -1,51 +1,77 @@
 {% extends 'dashboard/nav.html' %}
 {% load static %}
 
-{% block title %} - Main{% endblock %}
-
 {% block content %}
+
 <link rel="stylesheet" href="{% static 'dashboard/home.css' %}">
 
-<div class="main-content">
+<div class="dashboard-home">
     <header>
-        <h1>Welcome {{ request.user.first_name }}</h1>
+        <h1>Welcome, {{ request.user.first_name }}!</h1>
+        <p>Here's an overview of your recent activity.</p>
     </header>
 
-    <section class="listings-section">
-        <h2>Your Listings</h2>
-
-        <button class="add-listing-btn">Add New Listing</button>
-
-        <div class="listings-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Title</th>
-                        <th>Location</th>
-                        <th>Price</th>
-                        <th>Date Posted</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for listing in listings %}
-                    <tr>
-                        <td><img src="{{ listing.image.url }}" alt="Listing Image" class="listing-img"></td>
-                        <td>{{ listing.title }}</td>
-                        <td>{{ listing.location }}</td>
-                        <td>${{ listing.price }}</td>
-                        <td>{{ listing.date_posted }}</td>
-                        <td>
-                            <a href="#" class="edit-btn">Edit</a>
-                            <a href="#" class="delete-btn">Delete</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <section class="statistics">
+        <div class="stat-card">
+            <h3>Active Listings</h3>
+            <p>{{ active_listings }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Pending Sales</h3>
+            <p>{{ pending_sales }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Sold Listings</h3>
+            <p>{{ sold_listings }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Recent Inquiries</h3>
+            <p>{{ recent_inquiries }}</p>
         </div>
     </section>
-</div>
+
+    <section class="recent-activity">
+        <h2>Recent Activity</h2>
+        <ul>
+            {% for listing in recent_listings %}
+            <li>
+                <img src="{{ listing.image.url }}" alt="{{ listing.title }}">
+                <span>{{ listing.title }} - {{ listing.status }}</span>
+                <span>{{ listing.date_posted }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="reminders">
+        <h2>Upcoming Tasks</h2>
+        <ul>
+            <li>Follow up with [Client Name]</li>
+            <li>Submit contract for [Listing]</li>
+            <li>Update profile information</li>
+        </ul>
+    </section>
+
+    <section class="quick-links">
+        <h2>Quick Links</h2>
+        <div class="quick-actions">
+            <a href="#" class="btn">Add New Listing</a>
+            <a href="#" class="btn">View All Listings</a>
+            <a href="#" class="btn">Profile Settings</a>
+            <a href="#" class="btn">Message Inbox</a>
+        </div>
+    </section>
+
+    <section class="notifications">
+        <h2>Recent Messages</h2>
+        <ul>
+            {% for message in recent_messages %}
+            <li>
+                <span>{{ message.sender }}: {{ message.content|truncatewords:10 }}</span>
+                <span>{{ message.date_sent }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
 </div>
 {% endblock %}

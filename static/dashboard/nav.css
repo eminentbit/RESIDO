@@ -23,7 +23,7 @@ h1, h2 {
     width: 250px;
     background-color: #007bff;
     color: white;
-    height: 100vh;
+    height: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -56,7 +56,12 @@ h1, h2 {
     font-size: 1.5rem;
     cursor: pointer;
     position: absolute;
-    right: 0;
+    top: 30px;
+    left: 210px;
+    z-index: 11; /* Make sure it's above other elements */
+    padding: 10px;
+    background-color: #007bff; /* Matching the sidebar color */
+    border-radius: 5px;
 }
 
 .main-content {
