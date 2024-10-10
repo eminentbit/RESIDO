@@ -347,7 +347,7 @@ def add_listing_view(request):
             listing = form.save(commit=False)
             listing.user = request.user
             listing.save()
-            return redirect('listings_view')  # Redirect to the listings page
+            return redirect('all_listings')  # Redirect to the listings page
     else:
         form = ListingForm()
     
