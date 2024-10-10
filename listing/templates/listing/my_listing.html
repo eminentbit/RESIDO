@@ -31,6 +31,11 @@
 
     <button type="button" class="add-listing-btn">Add New Listing</button>
 
+    <form action="{% url 'listing:delete_listing' cat.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete listing">
+    </form>
+
     <section class="listings-section">
         <h2>Your Listings</h2>
         
