@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -352,6 +352,23 @@ def add_listing_view(request):
         form = ListingForm()
     
     return render(request, 'listing/add_listing.html', {'form': form})
+def delete_listing(request, id):
+    listing = get_object_or_404(Listing, id=id)
+    if request.method == 'POST':
+        listing.delete()
+        return redirect('/')
+    return render(request,'listing/my_lising.html',{'listing':listing})
+
+def modify_listing(request,id):
+    listing = get_object_or_404(listing, id=id)
+    if request.method == 'POST':
+        form = ListingForm(request.POST, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect ('listing_detail', id=listing.id)
+    else:
+        form = ListingForm(instance=listing)
+        return render(request, 'modify_listing.html', {'form': form, 'listing': listing})
 
 
 
