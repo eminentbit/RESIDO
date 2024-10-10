@@ -1,1 +1,5 @@
-{% extends 'dashboard/nav.html' %}
+<form method="post" enctype="multipart/form-data"></form>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add Listing</button>
+</form>

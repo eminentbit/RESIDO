@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -6,6 +6,7 @@ from .models import Listing
 from .serializers import ListingSerializer
 from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.contrib.auth.decorators import login_required
+from .forms import ListingForm
 
 class ManageListingView(APIView):
     def get(self, request, format=None):
@@ -340,7 +341,18 @@ def listing_detail(request, id):
 
 @login_required
 def add_listing_view(request):
-    return render(request, 'listing/add_listing.html')
+    if request.method == 'POST':
+        form = ListingForm(request.POST, request.FILES)
+        if form.is_valid():
+            listing = form.save(commit=False)
+            listing.user = request.user
+            listing.save()
+            return redirect('listings_view')  # Redirect to the listings page
+    else:
+        form = ListingForm()
+    
+    return render(request, 'listing/add_listing.html', {'form': form})
+
 
 
 def contact(request):
