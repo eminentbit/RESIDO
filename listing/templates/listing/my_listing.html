@@ -31,11 +31,6 @@
 
     <button type="button" class="add-listing-btn">Add New Listing</button>
 
-    <form action="{% url 'listing:delete_listing' cat.id %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Delete listing">
-    </form>
-
     <section class="listings-section">
         <h2>Your Listings</h2>
         
@@ -77,8 +72,8 @@
                         <td>${{ listing.price }}</td>
                         <td>{{ listing.date_posted }}</td>
                         <td>
-                            <a href="#" class="edit-btn">Edit</a>
-                            <a href="#" class="delete-btn">Delete</a>
+                            <a href="{% url edit_listing listing.id %}" class="edit-btn">Edit</a>
+                            <a href="{% url 'delete_listing' listing.id %}" class="delete-btn">Delete</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -91,7 +86,7 @@
 <script>
     const addListingBtn = document.querySelector('.add-listing-btn');
     addListingBtn.addEventListener('click', () => {
-        window.location.href = '/listing/api/manage';
+        window.location.href = "{% url 'add_listing' %}";
     });
 </script>
 
