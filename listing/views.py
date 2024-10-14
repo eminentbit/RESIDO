@@ -6,6 +6,7 @@ from .models import Listing
 from .serializers import ListingSerializer
 from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from .forms import ListingForm
 
 class ManageListingView(APIView):
@@ -353,17 +354,21 @@ def listing_detail(request, id):
 
 @login_required
 def add_listing_view(request):
-    if request.method == 'POST':
-        form = ListingForm(request.POST, request.FILES)
-        if form.is_valid():
-            listing = form.save(commit=False)
-            listing.user = request.user
-            listing.save()
-            return redirect('all_listings')  # Redirect to the listings page
+    if request.user.is_realtor:
+        if request.method == 'POST':
+            form = ListingForm(request.POST, request.FILES)
+            if form.is_valid():
+                listing = form.save(commit=False)
+                listing.user = request.user
+                listing.save()
+                return redirect('all_listings')  # Redirect to the listings page
+        else:
+            form = ListingForm()
+        
+        return render(request, 'listing/add_listing.html', {'form': form})
     else:
-        form = ListingForm()
-    
-    return render(request, 'listing/add_listing.html', {'form': form})
+        message = 'You must first be a realtor to perform this operation'
+        return redirect(reverse_lazy())
 
 
 def delete_listing(request, id):

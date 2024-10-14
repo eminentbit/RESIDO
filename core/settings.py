@@ -156,6 +156,11 @@ SOCIALACCOUNT_ADAPTER = 'user.adapters.SocialAccountAdapter'
 
 
 
+CAMPAY_USERNAME = config('CAMPAY_USERNAME')
+CAMPAY_PASSWORD = config('CAMPAY_PASSWORD')
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')

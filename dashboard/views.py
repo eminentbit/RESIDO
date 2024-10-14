@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.contrib import messages
 
 from listing.models import Listing
+User = get_user_model()
 
 # Create your views here.
 
@@ -27,7 +30,32 @@ def my_listings_view(request):
 
 @login_required
 def dashboard_profile_view(request):
-    return render(request, 'dashboard/my_profile.html')
+    print(request.user.profile.image.url)
+    return render(request, 'dashboard/my_profile.html', {'profile_pic': request.user.profile.image.url})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        # Update profile picture if submitted
+        if 'profile_picture' in request.FILES:
+            request.user.profile.image = request.FILES['profile_picture']
+            request.user.profile.save()
+
+        # Update other profile details
+        if 'first_name' in request.POST and 'last_name' in request.POST:
+            user = request.user
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.profile.phone = request.POST.get('phone', '')  # Default to empty string if phone is not provided
+            user.save()
+            user.profile.save()
+
+        messages.success(request, 'Your profile has been updated!')
+        return redirect('dashboard_profile')  # Redirect after saving changes
+    else:
+        return render(request, 'dashboard/my_profile.html')
+
+
 
 @login_required
 def settings_view(request):

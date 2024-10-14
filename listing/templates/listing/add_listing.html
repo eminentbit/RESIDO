@@ -2,9 +2,10 @@
 
 <link rel="stylesheet" href="{% static 'dashboard/add_listing.css' %}">
 
+
 <form method="POST" enctype="multipart/form-data" class="listing-form">
     <div class="form-actions">
-        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Back</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href = `{% url 'dashboard_listing' %}`;">Back</button>
     </div>
 
     {% csrf_token %}

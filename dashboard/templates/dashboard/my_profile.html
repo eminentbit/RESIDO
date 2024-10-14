@@ -13,18 +13,19 @@
 
     <section class="profile-section">
         <div class="profile-picture-container">
-            <img src="{{ request.user.image.url }}" alt="Profile Picture" class="profile-picture">
+            <img src="{{ profile_pic }}" alt="Profile Picture" class="profile-picture">
             <button type="button" class="upload-btn">Change Profile Picture</button>
         </div>
 
-        <form action="/edit_profile" method="POST" enctype="multipart/form-data" id="profile-picture-form">
+        <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data" id="profile-picture-form">
+            {% csrf_token %}
             <input type="file" name="profile_picture" id="profile-picture-input" style="display: none;">
         </form>
 
         <div class="profile-details">
             <h2>Personal Information</h2>
 
-            <form action="edit-profile" method="POST" class="profile-form">
+            <form action="{% url 'edit_profile' %}" method="POST" class="profile-form">
                 {% csrf_token %}
                 <label for="first_name">First Name:</label>
                 <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}" required>
@@ -36,7 +37,7 @@
                 <input type="email" id="email" name="email" value="{{ request.user.email }}" disabled>
 
                 <label for="phone">Phone Number:</label>
-                <input type="text" id="phone" name="phone" value="{{ request.user.phone }}">
+                <input type="text" id="phone" name="phone" value="{{ request.user.profile.phone }}">
 
                 <button type="submit" class="save-btn">Save Changes</button>
             </form>

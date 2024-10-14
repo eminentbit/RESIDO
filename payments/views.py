@@ -1,8 +1,12 @@
-from django.http import JsonResponse
+import json
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.conf import settings
+from django.urls import reverse_lazy
 from .services import initiate_mtn_payment, initiate_orange_payment
+from django.views.decorators.csrf import csrf_exempt
 import requests
+from campay.sdk import Client as CamPayClient
 
 MONETBILL_URL = 'https://www.monetbill.com/payment/v1/place_payment'
 
@@ -82,7 +86,7 @@ def process_payment(request):
         
         return render(request, "payments/payment_result.html", {"response": response})
     
-    return render(request, "payments/process_payment.html")\
+    return render(request, "payments/process_payment.html")
 
 
 def payments_view(request):
@@ -97,3 +101,65 @@ def payments_view(request):
     }
     
     return render(request, 'payments/pay.html', context)
+
+
+
+campay = CamPayClient({
+    "app_username" : settings.CAMPAY_USERNAME,
+    "app_password" : settings.CAMPAY_PASSWORD,
+    "environment" : "DEV" #use "DEV" for demo mode or "PROD" for live mode
+})
+
+@csrf_exempt
+def campay_payment(request):
+    try:
+        # Generate a payment link
+        payment_link = campay.get_payment_link({
+         "amount": "5",
+         "currency": "XAF",
+         "description": "some description",
+         "external_reference": "12345678",
+         "from":"",
+         "first_name": request.user.first_name,
+         "last_name": request.user.last_name,
+         "email": request.user.email,
+         "redirect_url": reverse_lazy('dashboard_home'),
+         "failure_redirect_url": reverse_lazy('dashboard_profile'),
+         "payment_options":"MOMO"
+      })
+        
+
+        # Check if the payment link was generated successfully
+        if payment_link.get("status") == "SUCCESSFUL":
+            return redirect(payment_link.get('link'))  # Return the payment link
+        else:
+            return None  # Handle unsuccessful payment link generation
+
+    except Exception as e:
+        # Handle exceptions (e.g., log the error)
+        print(f"An error occurred: {e}")
+        return None
+    
+@csrf_exempt
+def campay_webhook(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            payment_status = data.get("status")
+            external_reference = data.get("external_reference")
+
+            # Check payment status
+            if payment_status == "SUCCESSFUL":
+                # Update your order/payment status in the database
+                print(f"Payment successful for reference {external_reference}")
+                # Your logic here to update payment status
+                return JsonResponse({"message": "Payment confirmed"}, status=200)
+            else:
+                print(f"Payment failed for reference {external_reference}")
+                return JsonResponse({"message": "Payment failed"}, status=400)
+
+        except Exception as e:
+            print(f"Error processing webhook: {e}")
+            return JsonResponse({"message": "Error processing webhook"}, status=500)
+    else:
+        return JsonResponse({"message": "Invalid request method"}, status=400)

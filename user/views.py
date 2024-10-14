@@ -223,7 +223,7 @@ class SignInView(LoginView):
     template_name = 'account/login.html'
 
     def get_success_url(self):
-        return '/' 
+        return '/login' 
     
     def get(self, request):
         form = AuthForm()
