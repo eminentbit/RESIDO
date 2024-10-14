@@ -12,7 +12,7 @@ class ListingForm(forms.ModelForm):
             'photo_10', 'video_files', 'is_published'
         ]
         widgets = {
-            'realtor': forms.EmailInput(attrs={'class': 'form-control'}),
+            'realtor': forms.HiddenInput(),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'}),

@@ -345,7 +345,7 @@ def add_listing_view(request):
         form = ListingForm(request.POST, request.FILES)
         if form.is_valid():
             listing = form.save(commit=False)
-            listing.user = request.user
+            listing.user = request.user.email
             listing.save()
             return redirect('listings_view')  # Redirect to the listings page
     else:
