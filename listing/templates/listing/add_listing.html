@@ -1,5 +1,16 @@
-<form method="post" enctype="multipart/form-data"></form>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'dashboard/add_listing.css' %}">
+
+<form method="POST" enctype="multipart/form-data" class="listing-form">
+    <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Back</button>
+    </div>
+
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Add Listing</button>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Add Listing</button>
+    </div>
 </form>

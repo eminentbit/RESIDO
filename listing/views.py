@@ -333,7 +333,19 @@ def listings_view(request):
             listings = listings.data
     except:
         message = 'Something went wrong when retrieving listings'
-    return render(request, 'listing/listings.html', {'listings': listings, 'message': message})
+    total_listings = listings.count()
+    active_listings = 0
+    pending_listings = 0
+    sold_listings = 0
+    context = {
+        'message': message,
+        'listings': listings,
+        'active_listings': active_listings,
+        'pending_listings': pending_listings,
+        'sold_listings': sold_listings,
+        'total_listings': total_listings,
+    }
+    return render(request, 'listing/listings.html', context)
 
 def listing_detail(request, id):
     listing = Listing.objects.filter(id=id)
@@ -347,11 +359,13 @@ def add_listing_view(request):
             listing = form.save(commit=False)
             listing.user = request.user.email
             listing.save()
-            return redirect('listings_view')  # Redirect to the listings page
+            return redirect('all_listings')  # Redirect to the listings page
     else:
         form = ListingForm()
     
     return render(request, 'listing/add_listing.html', {'form': form})
+
+
 def delete_listing(request, id):
     listing = get_object_or_404(Listing, id=id)
     if request.method == 'POST':

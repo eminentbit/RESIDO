@@ -12,4 +12,6 @@ urlpatterns = [
     path('contact', contact, name='contact'),
     path('<int:id>', listing_detail, name='listing'),
     path('add', add_listing_view, name='add_listing'),
+    path('delete/<int:id>', delete_listing, name='delete_listing'),
+    path('modify/<int:id>', modify_listing, name='edit_listing'),
 ]
