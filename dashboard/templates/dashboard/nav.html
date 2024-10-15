@@ -1,5 +1,6 @@
 {% load static %}
 
+{% block nav %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +16,10 @@
     
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>Dashboard</h2>
+            <h2><a href="{% url 'home' %}">RESIDO</a></h2> <!-- Home Logo or Button -->
         </div>
         <ul class="nav-links">
-            <li><a href="{% url 'dashboard_home' %}">Home</a></li>
+            <li><a href="{% url 'dashboard_home' %}">Dashboard Home</a></li>
             <li><a href="{% url 'dashboard_listing' %}">Listings</a></li>
             <li><a href="{% url 'dashboard_profile' %}">Profile</a></li>
             <li><a href="#">Messages</a></li>
@@ -76,3 +77,5 @@
 
 </body>
 </html>
+
+{% endblock %}

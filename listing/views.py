@@ -6,6 +6,7 @@ from .models import Listing
 from .serializers import ListingSerializer
 from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import ListingForm
 
@@ -367,7 +368,7 @@ def add_listing_view(request):
         
         return render(request, 'listing/add_listing.html', {'form': form})
     else:
-        message = 'You must first be a realtor to perform this operation'
+        messages.error(request, 'You must first be  a realtor to perform this operation')
         return redirect(reverse_lazy())
 
 

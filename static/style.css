@@ -36,6 +36,15 @@ body {
     /* margin-left: 5rem; */
 }
 
+.search-by-location {
+    padding: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 .search-btn {
     padding: 10px;
     background-color: #e74c3c;
@@ -227,13 +236,18 @@ blockquote cite {
 
 /* Responsive design */
 @media screen and (max-width: 768px) {
+    nav {
+        position: static;
+    }
     .navbar {
-        flex-direction: column;
+        /* flex-direction: row; */
+        position: static;
     }
 
     .nav-list {
-        flex-direction: column;
+        /* flex-direction: row; */
         align-items: center;
+        position: static;
     }
 
     .nav-list li {

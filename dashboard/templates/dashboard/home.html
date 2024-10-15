@@ -8,30 +8,9 @@
 <div class="dashboard-home">
     <header>
         <h1>Welcome, {{ request.user.first_name }}!</h1>
-        <p>Here's an overview of your recent activity.</p>
     </header>
 
-    <section class="statistics">
-        <div class="stat-card">
-            <h3>Active Listings</h3>
-            <p>{{ active_listings }}</p>
-        </div>
-        <div class="stat-card">
-            <h3>Pending Sales</h3>
-            <p>{{ pending_sales }}</p>
-        </div>
-        <div class="stat-card">
-            <h3>Sold Listings</h3>
-            <p>{{ sold_listings }}</p>
-        </div>
-        <div class="stat-card">
-            <h3>Recent Inquiries</h3>
-            <p>{{ recent_inquiries }}</p>
-        </div>
-    </section>
-
     <section class="recent-activity">
-        <h2>Recent Activity</h2>
         <ul>
             {% for listing in recent_listings %}
             <li>

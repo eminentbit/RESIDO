@@ -89,8 +89,12 @@
 <section class="hero">
     <h1>Find Your Perfect Home with RESIDO</h1>
     <div class="search-bar">
-        <input type="text" class="search-input" placeholder="Search for homes, neighborhoods, etc.">
-        <button class="search-btn">Search</button>
+        <select name="category" id="category">
+            <option value="Homes">Homes</option>
+        </select>
+        <input type="search" name="search-by-location" placeholder="Location">
+        <button type="button" class="advanced-filter">Advanced</button>
+        <button type="button" class="search-btn">Search</button>
     </div>
     <button class="cta-btn" onclick="getStarted()">Get Started</button>
 </section>
