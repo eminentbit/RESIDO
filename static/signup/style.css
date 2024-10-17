@@ -1,154 +1,262 @@
-/* Global Styling */
-body {
+* {
     margin: 0;
     padding: 0;
-    background-color: #f0f2f5;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-style: 'Poppins', 'sans-serif';
+    max-width: 100%;
+    height: 100vh;
+    padding: 20px;
+    background: hsla(207, 73%, 29%, 1);
 }
 
-/* Container for the registration form */
-.auth-container {
-    background-color: #fff;
+.main-container {
+    display: flex;
+    flex-direction: row;
+    background: -webkit-linear-gradient(225deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
+    background: -moz-linear-gradient(225deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
+    background: linear-gradient(225deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
+    margin-inline: 10%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    max-width: 1200px;
+    width: 100%;
+}
+
+.image-container {
+    width: 50%;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form-container {
+    padding: 50px 40px;
+    width: 50%;
     padding: 40px;
-    width: 100%;
-    max-width: 450px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
-/* Header for the form */
-.auth-container h1 {
-    font-size: 28px;
+h1 {
+    color: #003366;
     margin-bottom: 20px;
-    color: #333;
-}
-
-/* Form labels and inputs styling */
-.auth-container label {
-    display: block;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 8px;
-    text-align: left;
-}
-
-.auth-container input, .auth-container select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    font-size: 16px;
-    color: #333;
-    transition: border 0.3s ease;
-}
-
-/* Input hover and focus effects */
-.auth-container input:focus, .auth-container select:focus {
-    border-color: #007bff;
-    background-color: #fff;
-    outline: none;
-}
-
-/* Button styling */
-.auth-container button {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.auth-container button:hover {
-    background-color: #0056b3;
-}
-
-/* Error message styling */
-.error-message {
-    color: #ff4d4d;
-    font-size: 14px;
-    margin-bottom: 15px;
-    background-color: #ffe6e6;
-    border: 1px solid #ff4d4d;
-    /* padding: 5px; */
-    border-radius: 5px;
-    animation: fadeout 12s forwards;
-}
-
-/* Login link */
-.login {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.login p {
-    font-size: 0.9em; /* Smaller font size for the login text */
-}
-
-.login a {
-    color: #4CAF50; /* Same green color for links */
-    text-decoration: none; /* Remove underline */
-}
-
-.login a:hover {
-    text-decoration: underline; /* Underline on hover */
-}
-
-.btn-google {
-    background-color: #4285F4; /* Google blue */
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    font-weight: bold;
-    margin-top: 10px; /* Optional spacing */
+    font-size: 24px;
     text-align: center;
 }
 
-.btn-google img {
-    margin-right: 8px; /* Space between logo and text */
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    border: 1px solid #ADD8E6;
+    background-color: #FFFFFF;
+    color: #444444;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+input::placeholder {
+    color: #666666;
 }
 
 .password-container {
     position: relative;
-    width: 100%;
-    /* max-width: 100%;  */
 }
 
-  
+.password-container input {
+    padding-right: 40px;
+}
+
 .toggle-password {
+    display: inline;
     position: absolute;
+    top: 1.8em;
+    bottom: auto;
+    left: auto;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     cursor: pointer;
-    font-size: 16px; /* Ensure the size of the eye icon is appropriate */
-    color: #333; /* Change the color as per your theme */
+    color: #666666;
+    font-size: 1.2rem;
 }
 
-/* Fade-out animation */
-@keyframes fadeout {
-    from {
-        display: block;
-    }
-    to {
-        display: none;
-    }
+/* Icon hover effect */
+.toggle-password:hover {
+    color: #333333;
+}
+
+/* Accessibility: Focus outline */
+input:focus, button:focus {
+    outline: 3px solid #007BFF; /* Highlight on focus */
+    outline-offset: 2px;
+}
+
+.forgot-pass {
+    margin: auto;
+}
+
+span  {
+    color: #333333;
+}
+
+button {
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1rem;
+    margin-inline: auto;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.02); /* Slight grow on hover */
+    transition: transform 0.3s ease;
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    padding: 5px;
+}
+
+.social {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+/* Social icons hover transition */
+.social:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+span {
+    display: block;
+    margin: 15px 0;
+    font-size: 14px;
+    color: black;
+    text-align: center;
+}
+
+.footer-text a {
+    color: #008080;
+    text-decoration: none;
+}
+
+.footer-text a:hover {
+    color: #007BFF;
+    text-decoration: underline;
+}
+
+.secondary-button {
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f5f5dc;
+    color: #003366;
+    border: 1px solid #ADD8E6;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.secondary-button:hover {
+    background-color: #e3ddc8;
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
-    .auth-container {
+@media only screen and (max-width: 768px) {
+    body {
+        background: hsla(207, 73%, 29%, 1);
+        background: -moz-linear-gradient(180deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
+        background: -webkit-linear-gradient(180deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
+        background: linear-gradient(180deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#145080", endColorstr="#C2CDD8", GradientType=1 );
+    }
+    
+
+    .main-container {
+        flex-direction: column;
+        margin-inline: 5%;
+        margin: auto;
+    }
+
+    .image-container {
+        width: 100%;
+        height: 250px;
+    }
+
+    .form-container {
+        width: 100%;
         padding: 20px;
+    }
+
+    .social-container {
+        justify-content: space-between;
+        margin: 15px 0;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .main-container {
+        margin-inline: 3%;
+    }
+     
+    .image-container {
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 12px;
     }
 }

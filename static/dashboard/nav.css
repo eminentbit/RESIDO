@@ -51,6 +51,10 @@ h1, h2 {
     color: #fff;
 }
 
+.sidebar-header a{
+    text-decoration: none;
+}
+
 .toggle-btn {
     background: none;
     border: none;

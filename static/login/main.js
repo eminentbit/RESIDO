@@ -4,13 +4,17 @@ function togglePassword() {
     let passwordType = passwordField.type
     if (passwordType === 'password') {
         passwordType = 'text';
-        passwordField.type = passwordType
+        passwordField.type = passwordType;
     }
     else {
-        passwordType = 'password'
-        passwordField.type = passwordType
+        passwordType = 'password';
+        passwordField.type = passwordType;
     }
+    this.querySelector('i').classList.toggle('fa-eye-slash');
 }
+
+toggleBtn = document.getElementById('togglePassword');
+toggleBtn.addEventListener('click', togglePassword);
 
 let email;
 

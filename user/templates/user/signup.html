@@ -10,95 +10,74 @@
         <title>Sign Up Page</title>
         <link rel="stylesheet" href="{% static 'signup/style.css' %}">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <script src="https://accounts.google.com/gsi/client" async></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
 
     <body>
-        <div class="auth-container">
-            <h1>Register</h1>
-            {% if error %}
-            <div id="response-message" class="error-message">{{error}}</div> <!-- Initially empty to show messages -->
-            {% endif %}
-            
-            <form id="registerForm" method="POST" action="/register">
-                {% csrf_token %}
-                
-                <!-- Display individual field errors -->
-                <label for="first_name">First Name:</label>
-                {{ form.first_name }}
-                {% if form.first_name.errors %}
-                <div class="error-message">{{ form.first_name.errors }}</div><br>
-                {% endif %}
-                
-                <label for="last_name">Last Name:</label>
-                {{ form.last_name }}
-                {% if form.last_name.errors %}
-                <div class="error-message">{{ form.last_name.errors }}</div><br>
-                {% endif %}
-                
-                <label for="email">Email:</label>
-                {{ form.email }}
-                {% if form.email.errors %}
-                <div class="error-message">{{ form.email.errors }}</div><br>
-                {% endif %}
-
-                <div class="password-container">
-                    <label for="password">Password:</label>
-                    {{ form.password1 }}
-                    {% if form.password1.errors %}
-                    <div class="error-message">{{ form.password.errors }}</div><br>
+        <div class="main-container">
+            <div class="image-container">
+                <img src="{% static 'signup/signup-image.jpeg' %}" alt="Real Estate Image">
+            </div>
+            <div class="form-container">
+                <form  id="registerForm" action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <h1>Create Account</h1>
+                    {% if error %}
+                    <div id="response-message" class="error-message">{{error}}</div> <!-- Initially empty to show messages -->
                     {% endif %}
                     
-                    <!-- Eye icon to toggle password visibility -->
-                    <span id="togglePassword" class="toggle-password">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                    </span>
-                </div>
-
-                <div class="password-container">
-                    <label for="re_password">Password:</label>
-                    {{ form.password2 }}
-                    {% if form.password2.errors %}
-                    <div class="error-message">{{ form.password2.errors }}</div><br>
+                    <!-- Social media sign-in options -->
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{% url 'google_login_by_token' %}" target="_blank" class="social"><i class="fab fa-google"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    
+                    <label for="first_name">First Name:</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                    <div class="error-message">{{ form.first_name.errors }}</div><br>
                     {% endif %}
                     
-                    <!-- Eye icon to toggle password visibility -->
-                    <span id="toggleconfirmPass" class="toggle-password">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                    </span>
-
-                    {% if form.password2.errors %}
-                <div class="error-message">{{ form.password2.errors }}</div><br>
-                {% endif %}
-                </div>
-            
+                    <label for="last_name">Last Name:</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                    <div class="error-message">{{ form.last_name.errors }}</div><br>
+                    {% endif %}
                 
-                <label for="is_realtor">Are you a Realtor?</label>
-                <select id="is_realtor" name="is_realtor">
-                    <option value="False">No</option>
-                    <option value="True">Yes</option>
-                </select>
+                    <label for="email">Email:</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors }}</div><br>
+                    {% endif %}
+
+                    <div class="password-container">
+                        <label for="password">Password:</label>
+                        {{ form.password }}
+                        
+                        <!-- Eye icon to toggle password visibility -->
+                        <span id="togglePassword" class="toggle-password">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </span>
+
+                        {% if form.password.errors %}
+                        <div class="error-message">{{ form.password.errors }}</div><br>
+                        {% endif %}
+                    </div>
+                    <!-- Hidden field for reCAPTCHA token -->
+                    <input type="hidden" id="id_captcha_token" name="captcha_token">
+                
         
-                <button type="submit">Register</button>
+                    <button type="submit">Register</button>
                 
-                <!-- Display non-field errors -->
-                {% if form.non_field_errors %}
+                    <!-- Display non-field errors -->
+                    {% if form.non_field_errors %}
                     <div class="error-message">{{ form.non_field_errors }}</div>
-                {% endif %}
-            </form>
-
-            <div class="login">
-                <p>Have an exisiting account? <a href="{% url 'login' %}">Login Now</a></p>
+                    {% endif %}
+                    <p class="footer-text">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+                </form>
             </div>
-
-            <!-- Sign in with Google -->
-            <div class="google-signin-container">
-                <h4>Or sign in with</h4>
-                <a href="/auth/google/login/?process=login" class="btn btn-google">
-                <img src="{% static 'google-logo.png' %}" alt="Google Logo" style="width:20px;height:20px;vertical-align:middle;">
-                Sign in with Google
-                </a>
-            </div>
-
         </div>
         
     </body>
@@ -148,6 +127,14 @@
         }
 
         </style>
+        <script src="https://www.google.com/recaptcha/api.js?render="{{ recaptcha_site_key }}"></script>
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'submit'}).then(function(token) {
+                    document.getElementById('id_captcha_token').value = token;  // Set the token in hidden input
+                });
+            });
+        </script>
 
         <script>
             document.getElementById('togglePassword').addEventListener('click', function (e) {

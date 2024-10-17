@@ -8,6 +8,6 @@ geopy
 python-decouple
 requests
 humanfriendly
-django-humanzine
+django-humanize
 django-allauth
 campay

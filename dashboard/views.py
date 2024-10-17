@@ -64,3 +64,10 @@ def settings_view(request):
 @login_required
 def add_listing(request):
     pass    
+
+@login_required
+def get_started(request):
+    if not request.user.is_realtor:
+        return render(request, 'dashboard/index.html')
+    else:
+        return render(request, 'dashboard/become_realtor')
