@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import path # type: ignore
 from .views import *
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views # type: ignore
 
 
 urlpatterns = [
@@ -25,10 +25,10 @@ urlpatterns = [
 
     # Directly related
     path('accounts/profile/', profile_view, name='profile'),
-    path('register', RegisterView.as_view(), name='register'),
+    path('auth/register', RegisterView.as_view(), name='register'),
     path('me', RetrieveUserView.as_view(), name='me'),
     path('profile', profile_view, name='profile'),
-    path('login', SignInView.as_view(), name='login'),
+    path('auth/signin', sign_in, name='login'),
     path('signout', signout, name='signout'),
     path('', home_view, name='home'),
     path('change_pass', password_change, name='change_password'),

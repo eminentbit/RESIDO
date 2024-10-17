@@ -20,9 +20,15 @@ class AuthForm(forms.Form):
             raise forms.ValidationError("Invalid login credentials")
         return self.cleaned_data
     
+    def __init__(self, *args, **kwargs):
+        # Pop the 'request' argument from kwargs (if present) and store it
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs) 
+    
     class Meta:
         model = UserAccount
         fields = {'email', 'password'}
+        
 
 class UserForm(UserCreationForm):
     '''
@@ -31,8 +37,7 @@ class UserForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*First name', 'autocomplete': 'name'}))
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': '*Last name', 'autocomplete': 'name'}))
     email = forms.EmailField(max_length=254, required=True, widget=forms.TextInput(attrs={'placeholder': '*Email'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Password', 'class': 'password', 'id': 'password'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Confirm Password', 'class': 'password', 'id': 're_password'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '*Password', 'class': 'password', 'id': 'password'}))
     is_staff = forms.BooleanField(required=False)
     is_realtor = forms.BooleanField(required=False)
 
@@ -41,7 +46,7 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = UserAccount
-        fields = {'first_name', 'last_name', 'email', 'password1', 'password2', 'is_staff', 'is_realtor'}
+        fields = {'first_name', 'last_name', 'email', 'password', 'is_staff', 'is_realtor'}
 
 
 

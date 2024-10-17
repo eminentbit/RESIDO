@@ -18,6 +18,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 
@@ -138,28 +139,35 @@ class RegisterView(FormView):
     success_url = reverse_lazy('dashboard_home')
 
     def form_valid(self, form):
-        try:
-            user = form.save()
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login(self.request, user)
-            return super().form_valid(form)
-        except Exception as e:
-            form.add_error(None, str(e))
+        # Get the reCAPTCHA token from the form
+        captcha_token = self.request.POST.get('captcha_token')
+
+        # Validate the reCAPTCHA token
+        recaptcha_result = reCAPTCHAValidation(captcha_token)
+
+        if recaptcha_result.get('success'):
+            try:
+                user = form.save()  # Save the user if reCAPTCHA is valid
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(self.request, user)
+                return super().form_valid(form)
+            except Exception as e:
+                form.add_error(None, str(e))  # Attach any other exception to the form
+                return self.form_invalid(form)
+        else:
+            # If reCAPTCHA validation fails, add an error
+            form.add_error(None, "Invalid reCAPTCHA. Please try again.")
             return self.form_invalid(form)
 
-
-        except Exception as e:
-                form.add_error(None, str(e))  # Attach error to the form
-                return self.form_invalid(form)
-
     def form_invalid(self, form):
-        print(form.errors)
         # Handles case where form is invalid and re-renders with errors
+        print(form.errors)
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['recaptcha_site_key'] = settings.RECAPTCHA_PUBLIC_KEY  # Add reCAPTCHA site key to context
+        # Add reCAPTCHA site key to context for use in the template
+        context['recaptcha_site_key'] = settings.RECAPTCHA_PUBLIC_KEY
         return context
     
 
@@ -220,10 +228,10 @@ def profile_view(request):
     
 
 class SignInView(LoginView):
-    template_name = 'account/login.html'
+    template_name = 'user/sign_in.html'
 
     def get_success_url(self):
-        return '/login' 
+        return '/auth/signin' 
     
     def get(self, request):
         form = AuthForm()
@@ -237,7 +245,7 @@ class SignInView(LoginView):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-                request.session.set_expiry(60 * 60 * 24 * 365 * 5)
+                # request.session.set_expiry(60 * 60 * 24 * 365 * 5)
                 return redirect('dashboard_home')  # Redirect to a success page or home page
             else:
                 message = 'Invalid credentials'
@@ -245,6 +253,28 @@ class SignInView(LoginView):
         else:
             message = form.errors
             return render(request, template_name='user/signup.html', context={'error': message})
+        
+
+def sign_in(request):
+    if request.method == 'POST':
+        form = AuthForm(request=request, data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')  # Username field is used for email in AuthForm
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=email, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('dashboard_home')  # Redirect to a homepage or dashboard
+            else:
+                messages.error(request, "Invalid email or password")
+        else:
+            messages.error(request, "Invalid reCAPTCHA. Please try again.")
+    else:
+        form = AuthForm()
+
+    return render(request, 'user/sign_in.html', {'form': form})
+
 
 def home_view(request):
     listings = Listing.objects.all()
