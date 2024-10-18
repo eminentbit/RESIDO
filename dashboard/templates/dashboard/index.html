@@ -22,7 +22,7 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
                 <a href="#" class="signup-btn">Sign Up / Login</a>
-                <button class="burger">
+                <button title="sign-up" type="button" class="burger">
                     <i class="fas fa-bars"></i>
                 </button>
             </nav>
@@ -35,7 +35,7 @@
             <div class="welcome-text">
                 <h1>Become a real estate agent</h1>
                 <p>List your properties, reach thousands of potential renters, and manage your listings with ease.</p>
-                <a href="#" class="btn btn-primary">Get Started as a Realtor</a>
+                <a href="{% url 'become_realtor' %}" class="btn btn-primary">Get Started as a Realtor</a>
             </div>
             <div class="welcome-image">
                 <img src="{% static 'dashboard/realtor_welcome.jpg' %}" alt="Realtor Welcome Image">
@@ -48,7 +48,7 @@
         <div class="container">
             <h2>How to Get Started</h2>
             <div class="steps">
-                <a href=""><div class="step">
+                <a href="{% url 'register' %}"><div class="step">
                     <i class="icon-user-plus"></i>
                     <h3>Sign Up</h3>
                     <p>Create your realtor account in just a few minutes.</p>

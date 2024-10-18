@@ -68,16 +68,15 @@ def add_listing(request):
 
 @login_required
 def get_started(request):
-    if request.user.is_realtor:
-        return render(request, 'dashboard/index.html')
-    else:
-        return redirect(reverse_lazy('become_realtor'))
+    return render(request, 'dashboard/index.html') if not request.user.is_realtor else redirect('dashboard_home')
 
-@login_required   
+
+@login_required
 def become_realtor(request):
-    if request.POST:
-        realtor = True if request.POST['realtor'] == 'True' else False
-        request.user.is_realtor = realtor
-        return redirect(reverse_lazy('dashboard_home', {'message': 'You are now are realtor'}))
-    else:
-        return render(request, 'dashboard/become_realtor.html')
+    if request.method == 'POST':
+        realtor_status = request.POST.get('realtor', 'False') == 'True'
+        request.user.is_realtor = realtor_status
+        request.user.save()  # Save the changes to the user model
+        return redirect(reverse_lazy('dashboard_home'))
+    
+    return render(request, 'dashboard/become_realtor.html')
