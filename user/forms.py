@@ -42,7 +42,7 @@ class UserForm(UserCreationForm):
     is_realtor = forms.BooleanField(required=False)
 
     # recaptcha token
-    # token = forms.CharField(widget=forms.HiddenInput())
+    token = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = UserAccount

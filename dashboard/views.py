@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.urls import reverse_lazy
 
 from listing.models import Listing
 User = get_user_model()
@@ -67,7 +68,16 @@ def add_listing(request):
 
 @login_required
 def get_started(request):
-    if not request.user.is_realtor:
+    if request.user.is_realtor:
         return render(request, 'dashboard/index.html')
     else:
-        return render(request, 'dashboard/become_realtor')
+        return redirect(reverse_lazy('become_realtor'))
+
+@login_required   
+def become_realtor(request):
+    if request.POST:
+        realtor = True if request.POST['realtor'] == 'True' else False
+        request.user.is_realtor = realtor
+        return redirect(reverse_lazy('dashboard_home', {'message': 'You are now are realtor'}))
+    else:
+        return render(request, 'dashboard/become_realtor.html')

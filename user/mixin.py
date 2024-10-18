@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.shortcuts import redirect
 from urllib.parse import urlencode
-import requests, json, datetime
-from humanfriendly import format_timespan
+import requests, json, datetime # type: ignore
+from humanfriendly import format_timespan # type: ignore
 from django.http import JsonResponse
 
 

@@ -22,14 +22,14 @@
       <img src="{% static 'signup/signup-image.jpeg' %}" alt="Real Estate Image">
   </div>
   <div class="form-container">
-      <form  id="registerForm" action="{% url 'account_login' %}" method="POST">
+      <form  id="registerForm" action="{% url 'login' %}" method="POST">
           {% csrf_token %}
           <h1>Login to RESIDO</h1>
           
           <!-- Social media sign-in options -->
           <div class="social-container">
               <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-              <a href="{% url 'google_login_by_token' %}" target="_blank" class="social"><i class="fab fa-google"></i></a>
+              <a href="/auth/google/login/?process=login" target="_blank" class="social"><i class="fab fa-google"></i></a>
           </div>
           <span>or use your email to log in</span>
           

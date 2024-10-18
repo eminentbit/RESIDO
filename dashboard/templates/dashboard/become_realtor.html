@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a realtor</title>
+</head>
+<body>
+    <form action="{% url 'become_realtor' %}" id="becomeRealtor">
+        <p>Are you sure you want to become a realtor?</p>
+        <input type="radio" value="True" name="realtor" id="realtor">Yes
+        <input type="radio" name="realtor" value="False" checked id="not-realtor">No
+        <input type="submit"> Submit
+    </form>
+
+    <div class="message">{{ message }}</div>
+</body>
+</html>

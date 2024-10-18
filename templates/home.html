@@ -165,7 +165,7 @@
 <script>
     function GoogleOneTap() {
         window.google.accounts.id.initialize({
-            client_id: '{{ settings.O2AUTH_CLIENT_ID }}',
+            client_id: '{{ client_id }}',
             callback: handleCredentialResponse
         });
 

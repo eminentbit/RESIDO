@@ -29,7 +29,7 @@ urlpatterns = [
     path('me', RetrieveUserView.as_view(), name='me'),
     path('profile', profile_view, name='profile'),
     path('auth/signin', sign_in, name='login'),
-    path('signout', signout, name='signout'),
+    path('signout', signout, name='signoutx'),
     path('', home_view, name='home'),
     path('change_pass', password_change, name='change_password'),
     path('password_reset/', 

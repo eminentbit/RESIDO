@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from django.urls import reverse, reverse_lazy
-from allauth.account.views import LoginView
+from allauth.account.views import LoginView # type: ignore
 
 from listing.models import Listing
 
@@ -242,43 +242,88 @@ class SignInView(LoginView):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = authenticate(request, email=email, password=password)
+            user = authenticate(request, email=email, password=password, backend='django.contrib.auth.backends.ModelBackend' )
             if user is not None:
                 login(request, user)
                 # request.session.set_expiry(60 * 60 * 24 * 365 * 5)
                 return redirect('dashboard_home')  # Redirect to a success page or home page
             else:
                 message = 'Invalid credentials'
-                return render(request, template_name='user/signup.html', context={'error': message})
+                print(message)
+                return render(request, template_name='user/sign_ in.html', context={'error': message})
         else:
             message = form.errors
-            return render(request, template_name='user/signup.html', context={'error': message})
+            print(message)
+            return render(request, template_name='user/sign_in.html', context={'error': message})
         
 
-def sign_in(request):
+def sign_in_with_captcha(request):
     if request.method == 'POST':
+        print('request is POST')
         form = AuthForm(request=request, data=request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('email')  # Username field is used for email in AuthForm
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=email, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('dashboard_home')  # Redirect to a homepage or dashboard
+        # Extract the reCAPTCHA token and validate it
+        captcha_token = request.POST.get('captcha_token')
+        print('recaptchaToken is: ', captcha_token)
+        recaptcha_result = reCAPTCHAValidation(captcha_token)
+
+        if recaptcha_result.get('success'):
+            if form.is_valid():
+                email = form.cleaned_data.get('email')  # Assuming email login
+                password = form.cleaned_data.get('password')
+
+                # Authenticate user with email (if using email for authentication)
+                user = authenticate(request, username=email, password=password)
+
+                if user is not None:
+                    # Log the user in and redirect
+                    print('User is logged in')
+                    login(request, user)
+                    return redirect('dashboard_home')  # Change this to your desired success redirect
+                else:
+                    print('Invalid credentials')
+                    messages.error(request, "Invalid email or password")
             else:
-                messages.error(request, "Invalid email or password")
+                print(form.errors)
+                # Form is invalid, show form errors
+                messages.error(request, "Please correct the errors below.")
         else:
+            print('Recaptcha Invalid')
             messages.error(request, "Invalid reCAPTCHA. Please try again.")
     else:
+        print('Request is GET')
         form = AuthForm()
 
     return render(request, 'user/sign_in.html', {'form': form})
 
 
+def sign_in(request):
+    if request.method == 'POST':
+        form = AuthForm(request=request, data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')  # Retrieve email from the form
+            password = form.cleaned_data.get('password')
+
+            # The ModelBackend expects 'username', so we pass 'email' as 'username'
+            user = authenticate(request, email=email, password=password, backend='django.contrib.auth.backends.ModelBackend')  # ModelBackend will handle it
+
+            if user is not None:
+                login(request, user)
+                return redirect('dashboard_home')  # Redirect to dashboard or homepage
+            else:
+                messages.error(request, "Invalid email or password")
+        else:
+            print(form.errors)
+            messages.error(request, "An error occurred during login.")
+    else:
+        form = AuthForm()
+
+    return render(request, 'user/sign_in.html', {'form': form})
+
 def home_view(request):
     listings = Listing.objects.all()
-    return render(request, 'home.html', {'listings': listings})
+    client_id = settings.O2AUTH_CLIENT_ID
+    return render(request, 'home.html', {'listings': listings, 'client_id': client_id})
 
 @login_required
 def password_change(request):

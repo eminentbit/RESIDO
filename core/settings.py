@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',  
     'allauth.socialaccount', 
     'allauth.socialaccount.providers.google',  
+    'allauth.socialaccount.providers.facebook',  
     # 'django.contrib.contenttypes',
     # 'django.contrib.postgres',
     'rest_framework',
@@ -171,13 +172,16 @@ GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 
 # settings.py
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')  # For development
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_PORT = config('EMAIL_PORT')
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# For development
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+
+# for production
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -188,6 +192,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'user.forms.UserForm',
+    }
 
 
 LANGUAGE_CODE = 'en-us'

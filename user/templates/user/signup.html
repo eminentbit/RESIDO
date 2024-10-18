@@ -33,6 +33,7 @@
                         <a href="{% url 'google_login_by_token' %}" target="_blank" class="social"><i class="fab fa-google"></i></a>
                     </div>
                     <span>or use your email for registration</span>
+                    <div class="error-message">{{message}}</div>
                     
                     <label for="first_name">First Name:</label>
                     {{ form.first_name }}
