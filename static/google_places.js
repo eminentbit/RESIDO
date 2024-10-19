@@ -100,3 +100,5 @@ document.getElementById('id-google-address').addEventListener('input', function(
         document.getElementById('profile-btn').setAttribute("disabled", true);  // Disable button if input is empty
     }
 });
+
+footer = document.querySelector('footer');

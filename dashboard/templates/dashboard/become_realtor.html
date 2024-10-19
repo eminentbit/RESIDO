@@ -42,14 +42,14 @@
     <!-- Header -->
     <header>
         <div class="container">
-            <a href="#" class="logo">Resido Rental Manager</a>
+            <a href="{% url 'get_started' %}" class="logo">Resido Rental Manager</a>
             <nav class="navbar">
                 <ul class="nav-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Listings</a></li>
-                    <li><a href="#">Agents</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'all_listings' %}">Listings</a></li>
+                    <li><a href="{% url 'realtors' %}">Agents</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact</a></li>
                 </ul>
                 <a href="#" class="signup-btn">Sign Up / Login</a>
                 <button title="sign-up" type="button" class="burger">

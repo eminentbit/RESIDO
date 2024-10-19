@@ -31,8 +31,10 @@ def my_listings_view(request):
 
 @login_required
 def dashboard_profile_view(request):
-    print(request.user.profile.image.url)
-    return render(request, 'dashboard/my_profile.html', {'profile_pic': request.user.profile.image.url})
+    if request.user.is_realtor:
+        return render(request, 'dashboard/my_profile.html', {'profile_pic': request.user.profile.image.url})
+    else:
+        return redirect(reverse_lazy('become_realtor'))
 
 @login_required
 def edit_profile(request):
@@ -66,9 +68,15 @@ def settings_view(request):
 def add_listing(request):
     pass    
 
-@login_required
 def get_started(request):
-    return render(request, 'dashboard/index.html') if not request.user.is_realtor else redirect('dashboard_home')
+    if request.user.is_authenticated:
+        if request.user.is_realtor:
+            return redirect('dashboard_home')
+        else:
+            return render(request, 'dashboard/index.html')
+    else:
+        return redirect('login')
+        
 
 
 @login_required
@@ -77,6 +85,9 @@ def become_realtor(request):
         realtor_status = request.POST.get('realtor', 'False') == 'True'
         request.user.is_realtor = realtor_status
         request.user.save()  # Save the changes to the user model
-        return redirect(reverse_lazy('dashboard_home'))
+        if request.user.is_realtor:
+            return redirect(reverse_lazy('dashboard_home'))
+        else:
+            return redirect(reverse_lazy('get_started'))
     
     return render(request, 'dashboard/become_realtor.html')

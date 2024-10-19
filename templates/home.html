@@ -7,6 +7,40 @@
 <title>RESIDO - Find Your Perfect Home</title>
 <link rel="stylesheet" href="{% static 'style.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    function GoogleOneTap() {
+        window.google.accounts.id.initialize({
+            client_id: '{{ client_id }}',
+            callback: handleCredentialResponse
+        });
+
+        window.google.accounts.id.prompt();  // Display the One Tap prompt
+    }
+    url = "{% url 'google_login_finish' %}"
+
+    function handleCredentialResponse(response) {
+        const id_token = response.credential;
+        // Send the ID token to the backend for verification and login
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Add CSRF token if needed
+            },
+            body: JSON.stringify({ id_token: id_token }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.reload();  // Reload page or redirect
+            } else {
+                console.error('Login failed');
+            }
+        });
+    }
+
+    window.onload = GoogleOneTap;  // Load One Tap on page load
+</script>
 <style>
     /* Hero Section */
     .hero {
@@ -56,6 +90,14 @@
         background-color: #d35400;
     }
 
+    form * {
+        font-size: 1.2rem;
+    }
+    
+    form input[type="search"] {
+        padding: 20px;
+    }
+
     /* Search bar styling */
     .search-bar {
         display: flex;
@@ -89,12 +131,14 @@
 <section class="hero">
     <h1>Find Your Perfect Home with RESIDO</h1>
     <div class="search-bar">
-        <select name="category" id="category">
-            <option value="Homes">Homes</option>
-        </select>
-        <input type="search" name="search-by-location" placeholder="Location">
-        <button type="button" class="advanced-filter">Advanced</button>
-        <button type="button" class="search-btn">Search</button>
+        <form action="{% url 'search' %}">
+            <select name="category" id="category">
+                <option value="Homes">Homes</option>
+            </select>
+            <input type="search" name="search-by-location" placeholder="Location">
+            <button type="button" class="advanced-filter">Advanced</button>
+            <button type="submit" class="search-btn">Search</button>
+        </form>
     </div>
     <button class="cta-btn" onclick="getStarted()">Get Started</button>
 </section>
@@ -161,37 +205,5 @@
         window.location.href = "{% url 'login' %}"
     }
 </script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-    function GoogleOneTap() {
-        window.google.accounts.id.initialize({
-            client_id: '{{ client_id }}',
-            callback: handleCredentialResponse
-        });
 
-        window.google.accounts.id.prompt();  // Display the One Tap prompt
-    }
-
-    function handleCredentialResponse(response) {
-        const id_token = response.credential;
-        // Send the ID token to the backend for verification and login
-        fetch('/auth/google/login/finish/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'  // Add CSRF token if needed
-            },
-            body: JSON.stringify({ id_token: id_token }),
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.reload();  // Reload page or redirect
-            } else {
-                console.error('Login failed');
-            }
-        });
-    }
-
-    window.onload = GoogleOneTap;  // Load One Tap on page load
-</script>
 {% endblock %}

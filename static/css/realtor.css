@@ -18,8 +18,8 @@ p {
 
 /* Hero Section */
 .hero {
-    background-color: #007bff;
-    color: white;
+    background-color: #007bff9b;
+    /* color: white; */
     padding: 50px 0;
     text-align: center;
 }
@@ -31,6 +31,20 @@ p {
 
 .hero p {
     font-size: 1.2rem;
+}
+
+.hero input[type='search'], .hero input[type="submit"] {
+    /* background-color: #3498db; */
+    /* color: white; */
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+}
+
+.hero input[type='submit'] {
+    background-color: hsla(220, 93%, 48%, 0.863);
+    cursor: pointer;
 }
 
 /* Realtors Section */
@@ -178,3 +192,4 @@ blockquote cite {
 .contact-form button:hover {
     background-color: #0056b3;
 }
+

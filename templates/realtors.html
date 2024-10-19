@@ -4,11 +4,48 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/realtor.css' %}">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    function GoogleOneTap() {
+        window.google.accounts.id.initialize({
+            client_id: '{{ client_id }}',
+            callback: handleCredentialResponse
+        });
+
+        window.google.accounts.id.prompt();  // Display the One Tap prompt
+    }
+
+    function handleCredentialResponse(response) {
+        const id_token = response.credential;
+        // Send the ID token to the backend for verification and login
+        fetch('/auth/google/login/finish/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Add CSRF token if needed
+            },
+            body: JSON.stringify({ id_token: id_token }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.reload();  // Reload page or redirect
+            } else {
+                console.error('Login failed');
+            }
+        });
+    }
+
+    window.onload = GoogleOneTap;  // Load One Tap on page load
+</script>
 <title>All our realtors</title>
 <body>
     <section class="hero">
         <h1>Meet Our Experienced Realtors</h1>
         <p>Our team of dedicated professionals is here to help you find your dream home.</p>
+        <form action="{% url 'search' %}" method="GET">
+            <input type="search" name="search-realtor" id="searchRealtor" placeholder="Search Realtor">
+            <input type="submit" value="Search Rental" id="search-rental">
+        </form>
     </section>
     
     <section class="realtors">

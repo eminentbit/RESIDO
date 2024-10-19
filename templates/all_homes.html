@@ -6,6 +6,40 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/all_homes.css' %}">
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    function GoogleOneTap() {
+        window.google.accounts.id.initialize({
+            client_id: '{{ client_id }}',
+            callback: handleCredentialResponse
+        });
+
+        window.google.accounts.id.prompt();  // Display the One Tap prompt
+    }
+
+    function handleCredentialResponse(response) {
+        const id_token = response.credential;
+        // Send the ID token to the backend for verification and login
+        fetch('/auth/google/login/finish/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Add CSRF token if needed
+            },
+            body: JSON.stringify({ id_token: id_token }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.reload();  // Reload page or redirect
+            } else {
+                console.error('Login failed');
+            }
+        });
+    }
+
+    window.onload = GoogleOneTap;  // Load One Tap on page load
+</script>
+
 <div class="browse-homes-container">
     <!-- Search Bar -->
     <section class="search-section">

@@ -57,6 +57,11 @@ INSTALLED_APPS = [
     'location',
     'dashboard',
 ]
+# Set to True if using HTTPS
+SESSION_COOKIE_SECURE = False  
+# Set to True if using HTTPS
+CSRF_COOKIE_SECURE = False  
+
 
 # Set the site ID
 SITE_ID = 1
@@ -176,12 +181,14 @@ GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 EMAIL_BACKEND = config('EMAIL_BACKEND')
 
 # for production
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -275,9 +282,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.UserAccount'
 
 LOGIN_URL = '/auth/signin'
-LOGOUT_URL = '/'
+LOGOUT_URL = '/logout'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
 
-# LOGIN_REDIRECT_URL = '/dashboard'
-LOGOUT_REDIRECT_URL = '/auth/signin'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 BASE_COUNTRY = 'CMR'

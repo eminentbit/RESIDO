@@ -32,6 +32,7 @@ urlpatterns = [
     path('signout', signout, name='signoutx'),
     path('', home_view, name='home'),
     path('change_pass', password_change, name='change_password'),
+    path('auth/google/login/finish/', google_login_finish, name='google_login_finish'),
     path('password_reset/', 
          auth_views.PasswordResetView.as_view(template_name='user/password_reset_form.html'), 
          name='password_reset'),

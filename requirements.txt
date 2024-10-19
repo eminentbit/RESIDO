@@ -11,3 +11,4 @@ humanfriendly
 django-humanize
 django-allauth
 campay
+google-auth

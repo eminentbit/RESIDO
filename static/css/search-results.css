@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+body {
+    min-height: 120vh;
+}
+
 /* Showcase Section */
 
 
@@ -135,6 +139,7 @@
 #listings .btn:hover {
     background-color: #2ecc71;
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

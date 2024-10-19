@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 from django.contrib.auth import get_user_model, logout, login, authenticate, views
 from django.http import JsonResponse
@@ -5,6 +6,8 @@ from django.shortcuts import redirect, render
 
 from django.urls import reverse, reverse_lazy
 from allauth.account.views import LoginView # type: ignore
+from google.oauth2 import id_token # type: ignore
+from google.auth.transport import requests as google_requests # type: ignore
 
 from listing.models import Listing
 
@@ -19,6 +22,7 @@ from rest_framework.response import Response
 from rest_framework import permissions, status
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -132,6 +136,48 @@ from django.contrib import messages
 #                 {'error': str(e)},
 #                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
 #             )
+
+
+@csrf_exempt  
+def google_login_finish(request):
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        token = body.get('id_token')
+        print('Trying to log in')
+
+        try:
+            # Verify the token using Google's library
+            id_info = id_token.verify_oauth2_token(token, google_requests.Request(), settings.O2AUTH_CLIENT_ID)
+
+            # The token is valid; extract user info
+            email = id_info.get('email')
+            first_name = id_info.get('given_name', '')
+            last_name = id_info.get('family_name', '')
+
+            # Check if user already exists
+            user, created = User.objects.get_or_create(username=email, defaults={
+                'email': email,
+                'first_name': first_name,
+                'last_name': last_name,
+            })
+
+            if created:
+                # Set a default password or handle new user initialization here
+                user.set_unusable_password()  
+                user.save()
+
+            # Log in the user
+            login(request, user)
+
+            print('Logged in succesfully')
+            return JsonResponse({'status': 'success'})
+
+        except ValueError:
+            # In case of Invalid token
+            print('Invalid token')
+            return JsonResponse({'status': 'error', 'message': 'Invalid token'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
         
 class RegisterView(FormView):
     template_name = 'user/signup.html'
@@ -309,7 +355,7 @@ def sign_in(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('dashboard_home')  # Redirect to dashboard or homepage
+                return redirect('get_started')  # Redirect to dashboard or homepage
             else:
                 messages.error(request, "Invalid email or password")
         else:
@@ -349,7 +395,7 @@ def signout(request):
     Basic View for the user to Sign Out
     '''
     logout(request)
-    return redirect(reverse('login'))
+    return redirect(reverse('home'))
 
 def browse_homes(request):
     return render('browse_homes.html')

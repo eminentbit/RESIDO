@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render,redirect,get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -322,7 +323,8 @@ class SearchListingsView(APIView):
 
 
 def search_view(request):
-    return render(request, 'listing/search.html')
+    google_maps_api_key = settings.GOOGLE_API_KEY
+    return render(request, 'listing/search.html', {'google_maps_api_key': google_maps_api_key})
 
 def listings_view(request):
     try:
@@ -335,7 +337,7 @@ def listings_view(request):
             listings = listings.data
     except:
         message = 'Something went wrong when retrieving listings'
-    total_listings = listings.count()
+    total_listings = len(listings)
     active_listings = 0
     pending_listings = 0
     sold_listings = 0
@@ -393,6 +395,9 @@ def modify_listing(request,id):
 
 
 def contact(request):
-    name = request.POST['name']
-    email = request.POST['email']
-    message = request.POST['message']
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+    else:
+        return render(request, 'contact_us.html')
