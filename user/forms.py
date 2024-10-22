@@ -30,7 +30,7 @@ class AuthForm(forms.Form):
         fields = {'email', 'password'}
         
 
-class UserForm(UserCreationForm):
+class UserForm(forms.ModelForm):
     '''
     Form that uses built-in UserCreationForm to handle user creation
     '''
@@ -42,7 +42,7 @@ class UserForm(UserCreationForm):
     is_realtor = forms.BooleanField(required=False)
 
     # recaptcha token
-    token = forms.CharField(widget=forms.HiddenInput())
+    token = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'id_captcha_token'}), required=False)
 
     class Meta:
         model = UserAccount
