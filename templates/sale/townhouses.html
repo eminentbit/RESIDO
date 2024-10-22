@@ -10,6 +10,13 @@
     <p>Find a home that fits your lifestyle and budget</p>
     <button class="cta-btn">Search Rentals</button>
 </section>
+<section>
+    <div id="mapContainer"></div>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5168302.590371969!2d-104.63742502850363!3d43.96951460422965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x877f8a24bfaaa4f7%3A0x93fc7e7a2ae68cc4!2sSouth%20Dakota!5e0!3m2!1sen!2sus!4v1634668296226!5m2!1sen!2sus" 
+          width="50%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+</section>
 
 <section class="rental-listings">
     <h2>Available Townhouses for Sale</h2>
@@ -46,6 +53,40 @@
         <li>Set your budget and stick to it.</li>
         <li>Get in touch with one of our agents for personalized assistance.</li>
     </ul>
+</section>
+<section>
+    <script>
+        // JavaScript for Search and Sorting
+        document.addEventListener('DOMContentLoaded', () => {
+          const searchInput = document.getElementById('searchInput');
+          const sortSelect = document.getElementById('sortSelect');
+          const propertyList = document.getElementById('propertyList');
+          const propertyCards = Array.from(propertyList.getElementsByClassName('propertyCard'));
+    
+          // Search Functionality
+          searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            propertyCards.forEach(card => {
+              const content = card.textContent.toLowerCase();
+              card.style.display = content.includes(query) ? 'block' : 'none';
+            });
+          });
+    
+          // Sorting Functionality
+          sortSelect.addEventListener('change', () => {
+            const sortedCards = [...propertyCards];
+            if (sortSelect.value === 'priceAsc') {
+              sortedCards.sort((a, b) => a.dataset.price - b.dataset.price);
+            } else if (sortSelect.value === 'priceDesc') {
+              sortedCards.sort((a, b) => b.dataset.price - a.dataset.price);
+            }
+    
+            // Clear existing cards and append sorted cards
+            propertyList.innerHTML = '';
+            sortedCards.forEach(card => propertyList.appendChild(card));
+          });
+        });
+      </script>
 </section>
 
 {% endblock %}

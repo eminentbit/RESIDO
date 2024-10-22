@@ -25,6 +25,7 @@ body {
     margin: 20px 0;
     display: flex;
     justify-content: center;
+    border-radius: 20%;
 }
 
 .search-input {
@@ -299,3 +300,55 @@ blockquote cite {
         max-width: 100%;
     }
 }
+ /* CSS Styling */
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+  }
+
+  input, select {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  #mapContainer {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #propertyList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .propertyCard {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+
+  .propertyCard:hover {
+    transform: scale(1.05);
+  }
+
+  .propertyCard img {
+    width: 100%;
+    border-radius: 8px;
+  }
