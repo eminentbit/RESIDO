@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from .services import initiate_mtn_payment, initiate_orange_payment
 from django.views.decorators.csrf import csrf_exempt
 import requests
+from django.contrib.auth.decorators import login_required
 from campay.sdk import Client as CamPayClient
 
 MONETBILL_URL = 'https://www.monetbill.com/payment/v1/place_payment'
@@ -107,10 +108,11 @@ def payments_view(request):
 campay = CamPayClient({
     "app_username" : settings.CAMPAY_USERNAME,
     "app_password" : settings.CAMPAY_PASSWORD,
-    "environment" : "DEV" #use "DEV" for demo mode or "PROD" for live mode
+    "environment" : "DEV" 
 })
 
 @csrf_exempt
+@login_required
 def campay_payment(request):
     try:
         # Generate a payment link

@@ -190,6 +190,7 @@ class RegisterView(FormView):
 
         # Validate the reCAPTCHA token
         recaptcha_result = reCAPTCHAValidation(captcha_token)
+        print(recaptcha_result)
 
         if recaptcha_result.get('success'):
             try:
@@ -215,6 +216,50 @@ class RegisterView(FormView):
         # Add reCAPTCHA site key to context for use in the template
         context['recaptcha_site_key'] = settings.RECAPTCHA_PUBLIC_KEY
         return context
+    
+
+# def register_view(request):
+#     form = UserForm()
+#     if request.method == 'POST':
+#         form = UserForm(request.POST)
+#         if form.is_valid():
+#             print('Passing through...')
+#             first_name = form.cleaned_data['first_name']
+#             print(first_name)
+#             last_name = form.cleaned_data['last_name']
+#             print(last_name)
+#             email = form.cleaned_data['email']
+#             password = form.cleaned_data['password']
+
+#             # Create the user
+#             try:
+#                 user = User.objects.create_user(
+#                     first_name=first_name,
+#                     last_name=last_name,
+#                     email=email,
+#                     username=email,  # You may want to use email as the username
+#                     password=password,
+#                 )
+#                 user.save()
+
+#                 # Authenticate and log the user in
+#                 user = authenticate(request, email=email, password=password)
+#                 if user is not None:
+#                     login(request, user)
+#                     return redirect('home')  # Redirect to the homepage or dashboard
+#                 else:
+#                     return render(request, 'user/signup.html', {'form': form, 'error': 'Authentication failed'})
+#             except Exception as e:
+#                 print(e)
+#                 return render(request, 'user/signup.html', {'form': form, 'error': str(e)})
+#         else:
+#             print('Form not valid\n', form.errors)
+#             # If form is invalid, re-render the form with validation errors
+#             return render(request, 'user/signup.html', {'form': form})
+#     else:
+#         # GET request case
+#         return render(request, 'user/signup.html', {'form': form})
+
     
 
 class RetrieveUserView(APIView):
