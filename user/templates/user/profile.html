@@ -4,76 +4,115 @@
 {% block content %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<h3>User Profile</h3>
+<h3 style="font-size: 2rem; color: #00FFC6; text-shadow: 0 0 10px rgba(0, 255, 198, 0.8); text-align: center; margin-top: 30px;">
+  User Profile 🧑‍🚀
+</h3>
 
-<div class="container">
+<div class="container" style="max-width: 600px; margin: 30px auto; background: rgba(0, 0, 0, 0.85); padding: 30px; border-radius: 15px; box-shadow: 0 0 30px rgba(0, 255, 198, 0.3);">
   {% if request.user.profile.has_profile %}
-  <table>
+  <table style="width: 100%; color: #C0C0C0; margin-bottom: 20px;">
     <thead>
-      <tr>
+      <tr style="text-align: left; font-size: 1.1rem; color: #00FFC6;">
         <th>Field</th>
-        <th></th>
+        <th>Details</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Address</td>
+        <td style="padding: 10px;">Address</td>
         <td>
           <address>
-            {{request.user.profile.address}}<br>
-            {{request.user.profile.town}}<br>
-            {{request.user.profile.post_code}}<br>
+            {{ request.user.profile.address }}<br>
+            {{ request.user.profile.town }}<br>
+            {{ request.user.profile.post_code }}<br>
           </address>
         </td>      
       </tr>
     </tbody>
   </table>
-  </br>
-  <label for="id-google-address">Change Address</label>
+  <label for="id-google-address" style="color: #00E0FF;">Change Address</label>
   {% else %}
-  <label for="id-google-address">Add Address</label>
+  <label for="id-google-address" style="color: #00E0FF;">Add Address</label>
   {% endif %}
 
-  <input type="text" placeholder="*Begin typing address" id="id-google-address" name="google_address">
-
-  <form id="profileform" method="POST" action="/profile">
+  <input type="text" placeholder="🔍 Start typing your address..." 
+         id="id-google-address" name="google_address" 
+         style="width: 100%; padding: 12px; margin-top: 15px; background-color: #1F1F1F; color: #C0C0C0; border: 1px solid #00E0FF; border-radius: 8px; transition: all 0.3s;">
+  
+  <form id="profileform" method="POST" action="/profile" style="margin-top: 20px;">
     {% csrf_token %}
 
-   <label for="address" class="hidden-el" hidden>Address</label>
-   {{form.address}}
+    <div class="hidden-inputs">
+      <label for="address" class="hidden-el" hidden>Address</label>
+      {{ form.address }}
 
-   <label for="town" class="hidden-el" hidden>Town/City</label>
-   {{form.town}}
+      <label for="town" class="hidden-el" hidden>Town/City</label>
+      {{ form.town }}
 
+      <label for="post_code" class="hidden-el" hidden>Postal Code</label>
+      {{ form.post_code }}
 
-   <label for="post_code" class="hidden-el" hidden>Postal Code</label>
-   {{form.post_code}}
+      <label for="country" class="hidden-el" hidden>Country</label>
+      {{ form.country }}
 
-   <label for="country" class="hidden-el" hidden>Country</label>
-   {{form.country}}
+      <label for="longitude" class="hidden-el" hidden>Longitude</label>
+      {{ form.longitude }}
 
-   <label for="post_code" class="hidden-el" hidden>Longitude</label>
-   {{form.longitude}}
+      <label for="latitude" class="hidden-el" hidden>Latitude</label>
+      {{ form.latitude }}
+    </div>
 
-   <label for="country"  class="hidden-el" hidden>Latitude</label>
-   {{form.latitude}}
-
-
-   <button disabled type="submit" id="profile-btn">Update</button>
- </form>
-
+    <button type="submit" id="profile-btn" disabled
+            style="margin-top: 15px; width: 100%; padding: 12px; background: linear-gradient(135deg, #00E0FF, #00FFC6); border: none; border-radius: 30px; color: black; font-weight: bold; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 198, 0.5); transition: all 0.3s ease;">
+      Update Profile 🚀
+    </button>
+  </form>
 </div>
 
-
-
 <script type="text/javascript">
-  
-  var google_api_key = "{{google_api_key|safe}}";
-  var base_country = "{{base_country|safe}}";
-  
+  var google_api_key = "{{ google_api_key|safe }}";
+  var base_country = "{{ base_country|safe }}";
+
+  // Enable the button once the address field is filled
+  $('#id-google-address').on('input', function() {
+    if ($(this).val().trim() !== '') {
+      $('#profile-btn').removeAttr('disabled');
+    } else {
+      $('#profile-btn').attr('disabled', 'disabled');
+    }
+  });
 </script>
 
 <script src="{% static 'google_places.js' %}"></script>
 
+<style>
+  input:focus {
+    outline: none;
+    border-color: #00FFC6;
+    box-shadow: 0 0 10px rgba(0, 255, 198, 0.8);
+  }
 
+  .container {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #00FFC6, #00E0FF);
+    box-shadow: 0 0 30px rgba(0, 255, 198, 0.7);
+  }
+
+  address {
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  .hidden-inputs label {
+    display: none;
+  }
+</style>
 {% endblock %}

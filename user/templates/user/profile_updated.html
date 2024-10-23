@@ -4,14 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Updated</title>
+    <style>
+        body {
+            background: radial-gradient(circle, #1a1a1a, #000000);
+            color: #00FFC6;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 198, 0.8), 0 0 40px rgba(0, 255, 198, 0.6);
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #C0C0C0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .progress-bar {
+            width: 80%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(135deg, #00E0FF, #00FFC6);
+            animation: progress 5s linear forwards;
+        }
+
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <h1>{{ message }}</h1>
-    <h3>Redirecting to home page in 5 seconds</h3>
+    <h3>Redirecting to the home page in 5 seconds...</h3>
+    <div class="progress-bar">
+        <div class="progress"></div>
+    </div>
+    
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ redirect_url }}";
+        }, 5000);
+    </script>
 </body>
-<script>
-    setTimeout(function(){
-        window.location.href = "{{ redirect_url }}";
-    }, 5000); 
-</script>
 </html>
