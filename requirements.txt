@@ -12,3 +12,4 @@ django-humanize
 django-allauth
 campay
 google-auth
+cryptoraphy

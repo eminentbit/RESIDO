@@ -5,9 +5,9 @@ from django.conf import settings
 from django.urls import reverse_lazy
 from .services import initiate_mtn_payment, initiate_orange_payment
 from django.views.decorators.csrf import csrf_exempt
-import requests
+import requests # type: ignore
 from django.contrib.auth.decorators import login_required
-from campay.sdk import Client as CamPayClient
+from campay.sdk import Client as CamPayClient # type: ignore
 
 MONETBILL_URL = 'https://www.monetbill.com/payment/v1/place_payment'
 

@@ -186,24 +186,20 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         # Get the reCAPTCHA token from the form
-        captcha_token = self.request.POST.get('captcha_token')
+        # captcha_token = self.request.POST.get('captcha_token')
 
         # Validate the reCAPTCHA token
-        recaptcha_result = reCAPTCHAValidation(captcha_token)
-        print(recaptcha_result)
+        # recaptcha_result = reCAPTCHAValidation(captcha_token)
+        # print(recaptcha_result)
 
-        if recaptcha_result.get('success'):
-            try:
-                user = form.save()  # Save the user if reCAPTCHA is valid
-                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                login(self.request, user)
-                return super().form_valid(form)
-            except Exception as e:
-                form.add_error(None, str(e))  # Attach any other exception to the form
-                return self.form_invalid(form)
-        else:
-            # If reCAPTCHA validation fails, add an error
-            form.add_error(None, "Invalid reCAPTCHA. Please try again.")
+        # if recaptcha_result.get('success'):
+        try:
+            user = form.save()  # Save the user if reCAPTCHA is valid
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(self.request, user)
+            return super().form_valid(form)
+        except Exception as e:
+            form.add_error(None, str(e))  # Attach any other exception to the form
             return self.form_invalid(form)
 
     def form_invalid(self, form):

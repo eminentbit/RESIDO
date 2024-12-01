@@ -9,8 +9,9 @@
     <meta name="og:description" content="Do u need help finding a house or a temporal place to stay. Don't worry, RESIDO got you covered.">
     
     <title>RESIDO - Find Your Perfect Home</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'home/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         function GoogleOneTap() {
@@ -52,13 +53,14 @@
             text-align: center;
             padding: 100px 20px;
             color: white;
-            background: url("{% static 'home.png' %}") no-repeat center center/cover; /* Background image */
+            background: url("{% static 'home/hero.png' %}") no-repeat center center/cover; /* Background image */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 60%;
             overflow: hidden;
+            width: 100%;
         }
     
         /* Overlay with reduced opacity */
@@ -69,7 +71,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+            background-color: rgba(0, 0, 0, 0.4); /* Black background with 50% opacity */
             z-index: 1; /* Layer the overlay behind the text */
         }
     
@@ -79,28 +81,6 @@
             z-index: 2; /* Ensure content is above the overlay */
         }
     
-        .cta-btn {
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            margin-top: 20px;
-        }
-    
-        .cta-btn:hover {
-            background-color: #d35400;
-        }
-    
-        form * {
-            font-size: 1.2rem;
-        }
-    
-        form input[type="search"] {
-            padding: 20px;
-        }
     
         /* Search bar styling */
         .search-bar {
@@ -138,50 +118,44 @@
         <h1>Find Your Perfect Home with RESIDO</h1>
         <div class="search-bar">
             <form action="{% url 'search' %}">
-                <select name="category" id="category">
-                    <option value="homes">Homes</option>
-                    <option value="appartments">Appartments</option>
-                    <option value="appartments">Townhouses</option>
-                    <option value="appartments">Office Spaces</option>
-                </select>
-                <input type="search" name="search-by-location" placeholder="Location" required>
-                <button type="button" class="advanced-filter">Advanced</button>
-                <button type="submit" class="search-btn">Search</button>
-            </form>
+                <div class="search-above">
+                    <input type="search" name="home-search" placeholder="Search any home..." required>
+                    <button type="submit" class="search-btn">Search <span class="icon"><i class="fas fa-search"></i></span></button>
+                </div>
+                <div class="search-below">
+                    <select name="category" id="category">
+                        <option value="">Select a category</option>
+                        <option value="homes">Homes</option>
+                        <option value="appartments">Appartments</option>
+                        <option value="appartments">Townhouses</option>
+                        <option value="appartments">Office Spaces</option>
+                    </select>
+                    <div class="input-group">
+                        <label for="date-added">Date Added:</label>
+                        <input type="date" name="date-added" id="date-added" value="01/01/2023"  />
+                    </div>
+                </div>
+            </form >
         </div>
-        <button class="cta-btn" onclick="getStarted()">Get Started</button>
     </section>
     
-    <section class="popular-areas">
-        <h2>Popular Areas</h2>
-        <div class="area-grid">
-            <div class="area">
-                <h3>Brooklyn Heights</h3>
-                <p>Charming brownstones and vibrant parks.</p>
-            </div>
-            <div class="area">
-                <h3>Upper West Side</h3>
-                <p>Classic architecture and proximity to Central Park.</p>
-            </div>
-        </div>
-    </section>
     
     <section class="cards-container">
         <div class="card">
-            <img src="{% static 'rent.png' %}" alt="Rent a home">
-            <h2>Rent a home</h2>
+            <img src="{% static 'home/rent_property.svg' %}" alt="Rent a home">
+            <h2>Rent property</h2>
             <p>We're creating a seamless online experience—from shopping to applying to paying rent.</p>
             <a href="#">Add a house</a>
         </div>
         <div class="card">
-            <img src="{% static 'sell.png' %}" alt="Sell a home">
-            <h2>Sell a home</h2>
+            <img src="{% static 'home/sell_property.svg' %}" alt="Sell a home">
+            <h2>Sell property</h2>
             <p>We help you navigate a successful home sale.</p>
             <a href="#">See your options</a>
         </div>
         <div class="card">
-            <img src="{% static 'buy.png' %}" alt="Buy a home">
-            <h2>Buy a home</h2>
+            <img src="{% static 'home/buy_property.svg' %}" alt="Buy a home">
+            <h2>Buy property</h2>
             <p>Find your place with the most immersive home experience.</p>
             <a href="#">Browse homes</a>
         </div>
@@ -213,6 +187,13 @@
         function getStarted() {
             window.location.href = "{% url 'login' %}"
         }
+
+        const dateInput = document.getElementById('date-added');
+        dateInput.valueAsDate = new Date();
+
+        console.log(dateInput.value);
+        
+        
     </script>
 </body>
 
