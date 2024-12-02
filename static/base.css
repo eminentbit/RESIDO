@@ -226,7 +226,58 @@ li.logo {
         display: none;
     }
 }
+.home{
+    min-height: 100vh;
+    background:url(home/hero.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.home form{
+    margin-top:1rem;
+    background: #fff;
+    border-radius: .5rem;
+    box-shadow: 0 .5rem 1rem rgba(114, 64, 64, 0.2);
+    border: .1rem solid rgba(186, 16, 16, 0.2);
+    width: 70rem;
+    padding:2rem ;
+}
 
+.home form h3{
+    text-align: center;
+    color:#333;
+    font-size: 3rem;
+}
+.home form .buttons-container{
+    display: flex;
+    gap: 1.5rem;
+}
+.home form .buttons-container .btn{
+    flex: 1;
+
+}
+.home form .inputBox{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+    margin-top:2rem;
+}
+.home form .inputbox input,
+.home form .inputBox select{
+    flex:1 1 25rem;
+    border:.1rem solid #333;
+    box-shadow: 0 .5rem 1.5rem rgb(0,0,0,.1);
+    font-size: 1.5rem;
+    padding: 1rem;
+    text-transform: none;
+    text-align: center;
+}
+.home form .btn{
+    width: 100%;
+    margin-top: 2rem;
+}
 
 
 /* Footer */

@@ -95,42 +95,100 @@
 {% endblock %}
 
 {% block content %}
-  <section class="hero">
-    <h1>Find Your Perfect Home with RESIDO</h1>
-    <div class="search-bar">
-      <form action="{% url 'search' %}">
-        <div class="search-above">
-          <input
-            type="search"
-            name="home-search"
-            placeholder="Search any home..."
-            required
-          />
-          <button type="submit" class="search-btn">
-            Search <span class="icon"><i class="fas fa-search"></i></span>
-          </button>
+<section class="home" id="home">
+  <form action="">
+      <h3>Find your perfect home</h3>
+      <div class="buttons-container">
+          <a href="#" class="btn">for rent</a>
+          <a href="#" class="btn">for sell</a>
+      </div>
+      <div class="mode-toggle">
+          <span class="icon">🌙</span>
+          <label for="modeSwitch" class="mode-label">Dark Mode</label>
+          <input type="checkbox" id="modeSwitch" class="toggle-switch">
         </div>
-        <div class="search-below">
-          <select name="category" id="category">
-            <option value="">Select a category</option>
-            <option value="homes">Homes</option>
-            <option value="appartments">Appartments</option>
-            <option value="appartments">Townhouses</option>
-            <option value="appartments">Office Spaces</option>
+
+      <div class="inputBox">
+          <input type="search" name="" placeholder="neighborhood" id="">
+          <input type="search" name="" placeholder="city" id="">
+          <select name="" id="">
+              <option value="" disabled hidden selected>minimum price</option>
+              <option value="30000frs">30000frs</option>
+              <option value="60000frs">60000frs</option>
+              <option value="90000frs">90000frs</option>
+              <option value="120000frs">120000frs</option>
+              <option value="150000frs">150000frs</option>
+              <option value="200000frs">200000frs</option>
+              <option value="300000frs">300000frs</option>
+              <option value="500000frs">500000frs</option>
+              <option value="1000000frs">1000000frs</option>
+              <option value="2000000frs">2000000frs</option>
+              <option value="3000000frs">3000000frs</option>
+              <option value="4000000frs">4000000frs</option>
           </select>
-          <div class="input-group">
-            <label for="date-added">Date Added:</label>
-            <input
-              type="date"
-              name="date-added"
-              id="date-added"
-              value="01/01/2023"
-            />
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
+          <select name="" id="">
+              <option value="" disabled hidden selected>maximum price</option>
+              <option value="30000frs">30000frs</option>
+              <option value="60000frs">60000frs</option>
+              <option value="90000frs">90000frs</option>
+              <option value="120000frs">120000frs</option>
+              <option value="150000frs">150000frs</option>
+              <option value="200000frs">200000frs</option>
+              <option value="300000frs">300000frs</option>
+              <option value="500000frs">500000frs</option>
+              <option value="1000000frs">1000000frs</option>
+              <option value="2000000frs">2000000frs</option>
+              <option value="3000000frs">3000000frs</option>
+              <option value="4000000frs">4000000frs</option>
+          </select>
+          <select name="" id="">
+              <option value="" disabled hidden selected>property type</option>
+              <option value="Rent">Rent</option>
+              <option value="Salle">Salle</option>
+              <option value="Guest House">Guest House</option>
+              <option value="Hotel">Hotel</option>
+          </select>
+          <select name="" id="">
+              <option value="" disabled hidden selected>property status</option>
+              <option value="Appartments">Appartments</option>
+              <option value="New_contructions">New contructions</option>
+              <option value="Office_spaces">Office spaces</option>
+          </select>
+          <select name="" id="">
+              <option value="" disabled hidden selected>aminities</option>
+              <option value="Parking space">Parking space</option>
+              <option value="swimming Pole">Swimming Pole</option>
+              <option value="Playground">playground</option>
+              <option value="Security">Security</option>
+              <option value="All">All</option>
+          </select>
+          <select name="" id="">
+              <option value="" disabled hidden selected>Bedrooms</option>
+              <option value="1 Bedroom">1 Bedroom</option>
+              <option value="2 Bedroom">2 Bedroom</option>
+              <option value="3 Bedroom">3 Bedroom</option>
+              <option value="4 Bedroom">4 Bedroom</option>
+              <option value="5 Bedroom">5 Bedroom</option>
+              <option value="6 Bedroom">6 Bedroom</option>
+              <option value="7 Bedroom">7 Bedroom</option>
+              <option value="8 Bedroom">8 Bedroom</option>
+          </select>
+          <select name="" id="">
+              <option value="" disabled hidden selected>Bathrooms</option>
+              <option value="1 Bathroom">1 Bathroom</option>
+              <option value="2 Bathroom">2 Bathroom</option>
+              <option value="3 Bathroom">3 Bathroom</option>
+              <option value="4 Bathroom">4 Bathroom</option>
+              <option value="5 Bathroom">5 Bathroom</option>
+              <option value="6 Bathroom">6 Bathroom</option>
+              <option value="7 Bathroom">7 Bathroom</option>
+              <option value="8 Bathroom">8 Bathroom</option>
+          </select>
+      </div>
+      <input type="submit" value="search property" class="btn">
+
+  </form>
+</section>
 
   <section class="featured-properties">
     <h2>Featured Properties</h2>
