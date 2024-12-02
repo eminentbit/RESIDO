@@ -1,200 +1,392 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="og:name" content="Real estate website">
-    <meta name="og:description" content="Do u need help finding a house or a temporal place to stay. Don't worry, RESIDO got you covered.">
-    
-    <title>RESIDO - Find Your Perfect Home</title>
-    <link rel="stylesheet" href="{% static 'home/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-        function GoogleOneTap() {
-            window.google.accounts.id.initialize({
-                client_id: '{{ client_id }}',
-                callback: handleCredentialResponse
-            });
-    
-            window.google.accounts.id.prompt();  // Display the One Tap prompt
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="og:name" content="Real estate website" />
+  <meta
+    name="og:description"
+    content="Do u need help finding a house or a temporal place to stay. Don't worry, RESIDO got you covered."
+  />
+
+  <title>RESIDO - Find Your Perfect Home</title>
+  <link rel="stylesheet" href="{% static 'home/style.css' %}" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  />
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    function GoogleOneTap() {
+      window.google.accounts.id.initialize({
+        client_id: "{{ client_id }}",
+        callback: handleCredentialResponse,
+      });
+
+      window.google.accounts.id.prompt(); // Display the One Tap prompt
+    }
+    url = "{% url 'google_login_finish' %}";
+
+    function handleCredentialResponse(response) {
+      const id_token = response.credential;
+      // Send the ID token to the backend for verification and login
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}", // Add CSRF token if needed
+        },
+        body: JSON.stringify({ id_token: id_token }),
+      }).then((response) => {
+        if (response.ok) {
+          window.location.reload(); // Reload page or redirect
+        } else {
+          console.error("Login failed");
         }
-        url = "{% url 'google_login_finish' %}"
-    
-        function handleCredentialResponse(response) {
-            const id_token = response.credential;
-            // Send the ID token to the backend for verification and login
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'  // Add CSRF token if needed
-                },
-                body: JSON.stringify({ id_token: id_token }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.reload();  // Reload page or redirect
-                } else {
-                    console.error('Login failed');
-                }
-            });
-        }
-    
-        window.onload = GoogleOneTap;  // Load One Tap on page load
-    </script>
-    <style>
-        /* Hero Section */
-        .hero {
-            position: relative; /* Important to position the overlay */
-            text-align: center;
-            padding: 100px 20px;
-            color: white;
-            background: url("{% static 'home/hero.png' %}") no-repeat center center/cover; /* Background image */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 60%;
-            overflow: hidden;
-            width: 100%;
-        }
-    
-        /* Overlay with reduced opacity */
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* Black background with 50% opacity */
-            z-index: 1; /* Layer the overlay behind the text */
-        }
-    
-        /* Text and buttons inside the hero should be on top */
-        .hero * {
-            position: relative;
-            z-index: 2; /* Ensure content is above the overlay */
-        }
-    
-    
-        /* Search bar styling */
-        .search-bar {
-            display: flex;
-            margin-top: 20px;
-        }
-    
-        .search-input {
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            width: 300px;
-        }
-    
-        .search-btn {
-            padding: 10px;
-            font-size: 16px;
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 0 5px 5px 0;
-        }
-    
-        .search-btn:hover {
-            background-color: #d35400;
-        }
-    </style>
+      });
+    }
+
+    window.onload = GoogleOneTap; // Load One Tap on page load
+  </script>
+  <style>
+    /* Hero Section */
+    .hero {
+      position: relative; /* Important to position the overlay */
+      text-align: center;
+      padding: 100px 20px;
+      color: white;
+      background: url("{% static 'home/hero.png' %}") no-repeat center
+        center/cover; /* Background image */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 80vh;
+      overflow: hidden;
+      margin-bottom: 2em;
+      width: 100%;
+    }
+
+    /* Overlay with reduced opacity */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(
+        0,
+        0,
+        0,
+        0.4
+      ); /* Black background with 50% opacity */
+      z-index: 1; /* Layer the overlay behind the text */
+    }
+
+    /* Text and buttons inside the hero should be on top */
+    .hero * {
+      position: relative;
+      z-index: 2; /* Ensure content is above the overlay */
+    }
+  </style>
 </head>
 
-
 <body>
-    <section class="hero">
-        <h1>Find Your Perfect Home with RESIDO</h1>
-        <div class="search-bar">
-            <form action="{% url 'search' %}">
-                <div class="search-above">
-                    <input type="search" name="home-search" placeholder="Search any home..." required>
-                    <button type="submit" class="search-btn">Search <span class="icon"><i class="fas fa-search"></i></span></button>
-                </div>
-                <div class="search-below">
-                    <select name="category" id="category">
-                        <option value="">Select a category</option>
-                        <option value="homes">Homes</option>
-                        <option value="appartments">Appartments</option>
-                        <option value="appartments">Townhouses</option>
-                        <option value="appartments">Office Spaces</option>
-                    </select>
-                    <div class="input-group">
-                        <label for="date-added">Date Added:</label>
-                        <input type="date" name="date-added" id="date-added" value="01/01/2023"  />
-                    </div>
-                </div>
-            </form >
+  <section class="hero">
+    <h1>Find Your Perfect Home with RESIDO</h1>
+    <div class="search-bar">
+      <form action="{% url 'search' %}">
+        <div class="search-above">
+          <input
+            type="search"
+            name="home-search"
+            placeholder="Search any home..."
+            required
+          />
+          <button type="submit" class="search-btn">
+            Search <span class="icon"><i class="fas fa-search"></i></span>
+          </button>
         </div>
-    </section>
-    
-    
-    <section class="cards-container">
-        <div class="card">
-            <img src="{% static 'home/rent_property.svg' %}" alt="Rent a home">
-            <h2>Rent property</h2>
-            <p>We're creating a seamless online experience—from shopping to applying to paying rent.</p>
-            <a href="#">Add a house</a>
+        <div class="search-below">
+          <select name="category" id="category">
+            <option value="">Select a category</option>
+            <option value="homes">Homes</option>
+            <option value="appartments">Appartments</option>
+            <option value="appartments">Townhouses</option>
+            <option value="appartments">Office Spaces</option>
+          </select>
+          <div class="input-group">
+            <label for="date-added">Date Added:</label>
+            <input
+              type="date"
+              name="date-added"
+              id="date-added"
+              value="01/01/2023"
+            />
+          </div>
         </div>
-        <div class="card">
-            <img src="{% static 'home/sell_property.svg' %}" alt="Sell a home">
-            <h2>Sell property</h2>
-            <p>We help you navigate a successful home sale.</p>
-            <a href="#">See your options</a>
-        </div>
-        <div class="card">
-            <img src="{% static 'home/buy_property.svg' %}" alt="Buy a home">
-            <h2>Buy property</h2>
-            <p>Find your place with the most immersive home experience.</p>
-            <a href="#">Browse homes</a>
-        </div>
-    </section>
-    
-    <section class="how-it-works">
-        <h2>How It Works</h2>
-        <p>Step 1: Search for homes based on your criteria.</p>
-        <p>Step 2: Schedule a viewing with our agents.</p>
-        <p>Step 3: Close the deal and move into your new home!</p>
-    </section>
-    
-    <section class="testimonials">
-        <h2>Testimonials</h2>
-        <div class="testimonials-container">
-            <blockquote>
-                <p>"RESIDO helped me find my dream home! The process was so easy."</p>
-                <cite>- John Doe, New York</cite>
-            </blockquote>
-            <blockquote>
-                <p>"Fantastic service and friendly staff. Highly recommended!"</p>
-                <cite>- Jane Smith, Brooklyn</cite>
-            </blockquote>
-        </div>
-    </section>
-    
-    
-    <script>
-        function getStarted() {
-            window.location.href = "{% url 'login' %}"
-        }
+      </form>
+    </div>
+  </section>
 
-        const dateInput = document.getElementById('date-added');
-        dateInput.valueAsDate = new Date();
+  <section class="featured-properties">
+    <h2>Featured Properties</h2>
+    <div class="listing-grid">
+      <div class="listing">
+        <img src="{% static 'home/listing-1.png' %}" alt="Listing 1" />
+        <h3>White Stylish Loft</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+          voluptatum?
+        </p>
+        <br />
+        <hr />
+        <div class="listing-details">
+          <p>$550,000</p>
+          <div class="listing-sub-section">
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/area-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>250m<sup>2</sup></p>
+            </div>
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/bedroom-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>4</p>
+            </div>
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/bathroom-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="listing">
+        <img src="{% static 'home/listing-1.png' %}" alt="Listing 1" />
+        <h3>White Stylish Loft</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+          voluptatum?
+        </p>
+        <br />
+        <hr />
+        <div class="listing-details">
+          <p>$550,000</p>
+          <div class="listing-sub-section">
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/area-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>250m<sup>2</sup></p>
+            </div>
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/bedroom-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>4</p>
+            </div>
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/bathroom-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="listing">
+        <img src="{% static 'home/listing-1.png' %}" alt="Listing 1" />
+        <h3>White Stylish Loft</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+          voluptatum?
+        </p>
+        <br />
+        <hr />
+        <div class="listing-details">
+          <p>$550,000</p>
+          <div class="listing-sub-section">
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/area-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>250m<sup>2</sup></p>
+            </div>
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/bedroom-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>4</p>
+            </div>
+            <div class="sub-properties">
+              <img
+                src="{% static 'home/bathroom-shape.svg' %}"
+                alt="Area"
+                width="20px"
+                height="20px"
+              />
+              <p>1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        console.log(dateInput.value);
-        
-        
-    </script>
+  <section class="what-you-can-do">
+    <h1>What you can do</h1>
+    <div class="cards-container">
+      <div class="card">
+        <img src="{% static 'home/rent_property.svg' %}" alt="Rent a home" />
+        <h2>Rent property</h2>
+        <p>From online shopping to applying to paying rent.</p>
+        <a href="#">Add a house &#8599;</a>
+      </div>
+      <div class="card">
+        <img src="{% static 'home/sell_property.svg' %}" alt="Sell a home" />
+        <h2>Sell property</h2>
+        <p>We help you navigate a successful home sale.</p>
+        <a href="#">See your options &#8599;</a>
+      </div>
+      <div class="card">
+        <img src="{% static 'home/buy_property.svg' %}" alt="Buy a home" />
+        <h2>Buy property</h2>
+        <p>Find your place with the most immersive home experience.</p>
+        <a href="#">Browse homes &#8599;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="our-services">
+    <h1>Our Expertise and Services</h1>
+    <ul class="service-list">
+      <li>
+        <div class="service-container">
+          <img
+            src="{% static 'home/manage_property.svg' %}"
+            alt="Property Management"
+          />
+          <p>Property Management</p>
+        </div>
+      </li>
+      <li>
+        <div class="service-container">
+          <img
+            src="{% static 'home/financial_service.svg' %}"
+            alt="Property Management"
+          />
+          <p>Financial Services</p>
+        </div>
+      </li>
+      <li>
+        <div class="service-container">
+          <img
+            src="{% static 'home/marketing_service.svg' %}"
+            alt="Property Management"
+          />
+          <p>Marketing</p>
+        </div>
+      </li>
+      <li>
+        <div class="service-container">
+          <img
+            src="{% static 'home/building_service.svg' %}"
+            alt="Property Management"
+          />
+          <p>Buillding and Facility Services</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="multi-family">
+    <div class="content-row">
+      <img src="{% static 'home/family.png' %}" alt="Family" />
+      <div class="content-text right-aligned">
+        <h1>Multifamily</h1>
+        <p>
+          We don't just manage properties, we manage the places people call
+          home. And with over four decades of multifamily management in Northern
+          California, we know what it takes to offer a living experience that
+          puts your residents in good hands.
+        </p>
+      </div>
+    </div>
+    <div class="content-row">
+      <div class="content-text left-aligned">
+        <h1>Commercial</h1>
+        <p>
+          We manage a commercial portfolio that includes over 6,000,000 square
+          feet of office, warehouse, industrial and retail space. We offer full
+          real estate services for property owners, tenants and investors and
+          are skilled in negotiating commercial leases and improvements.
+        </p>
+      </div>
+      <img src="{% static 'home/contract.png' %}" alt="Contract Signing" />
+    </div>
+    <div class="content-bottom"></div>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <p>Step 1: Search for homes based on your criteria.</p>
+    <p>Step 2: Schedule a viewing with our agents.</p>
+    <p>Step 3: Close the deal and move into your new home!</p>
+  </section>
+
+  <!-- <section class="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonials-container">
+      <blockquote>
+        <p>"RESIDO helped me find my dream home! The process was so easy."</p>
+        <cite>- John Doe, New York</cite>
+      </blockquote>
+      <blockquote>
+        <p>"Fantastic service and friendly staff. Highly recommended!"</p>
+        <cite>- Jane Smith, Brooklyn</cite>
+      </blockquote>
+    </div>
+  </section> -->
+
+  <script>
+    function getStarted() {
+      window.location.href = "{% url 'login' %}";
+    }
+
+    const dateInput = document.getElementById("date-added");
+    dateInput.valueAsDate = new Date();
+
+    console.log(dateInput.value);
+  </script>
 </body>
 
 {% endblock %}

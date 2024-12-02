@@ -46,6 +46,7 @@
                 </div>
             </li>
         </ul>
+        <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
     </nav>
 </header>
 
@@ -77,7 +78,14 @@
 </footer>
 
 <script>
-    
+    function toggleMenu() {
+        const navList = document.querySelector('.nav-list');
+        const navBar = document.querySelector('.navbar')
+        navList.classList.toggle('active');
+        if (navList.classList.contains('active')) {
+            navBar.style.display = 'block'
+        }
+    }
 </script>
     {% endblock %}
 </body>

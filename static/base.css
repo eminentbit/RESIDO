@@ -55,6 +55,7 @@ header {
     top: 0;
     z-index: 2;
     width: 100%;
+
 }
 
 /* Navbar styles */
@@ -137,29 +138,96 @@ header {
     color: var(--primary-text-color);
 }
 
+.nav-list li.logo {
+    flex-grow: 1;
+    text-align: center;
+    display: inline;
+}
+
+
+/* General Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--primary-bg-color);
+}
+
+/* Logo Styling */
+.nav-list li.logo {
+    display: block;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Hide all other navigation items by default */
+.nav-list li {
+    display: none;
+}
+
+/* Keep the logo visible */
+.nav-list li.logo {
+    display: block;
+}
+
+/* Hamburger menu icon visible on smaller screens */
+.hamburger-menu {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    text-align: right;
+    width: 100%;
+}
+
+/* Display nav items when menu is active */
+.nav-list.active {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.nav-list.active li {
+    display: block;
+}
+
+.nav-list.active {
+    margin: auto;
+    width: 100%;
+}
+
+
+/* Dropdown menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--primary-bg-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.nav-list.active .dropdown-content {
+    display: none;
+}
+
+li.logo {
+    margin-top: 15px;
+}
+
 /* Responsive Design */
-@media (max-width: var(--breakpoint-mobile)) {
-    .navbar {
-        flex-direction: column;
-    }
-
-    .nav-list {
-        flex-direction: column;
-        align-items: center;
-    }
-
+@media (min-width: 768px) {
     .nav-list li {
-        margin: 10px 0;
+        display: inline-block;
     }
 
-    .nav-list li.logo {
-        margin: 20px 0;
-    }
-
-    .dropdown-content {
-        position: static;
+    .hamburger-menu {
+        display: none;
     }
 }
+
+
 
 /* Footer */
 footer {
