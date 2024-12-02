@@ -1,5 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
-<head>
+{% extends 'base.html' %}
+ {% load static %} 
+{% block head %}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="og:name" content="Real estate website" />
@@ -91,8 +92,9 @@
     }
   </style>
 </head>
+{% endblock %}
 
-<body>
+{% block content %}
   <section class="hero">
     <h1>Find Your Perfect Home with RESIDO</h1>
     <div class="search-bar">
@@ -387,6 +389,5 @@
 
     console.log(dateInput.value);
   </script>
-</body>
 
 {% endblock %}

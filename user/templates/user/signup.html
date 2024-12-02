@@ -1,10 +1,5 @@
 {% load static %}
-
-
-{% block content %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
+{% block head%}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Page</title>
@@ -12,8 +7,9 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <script src="https://accounts.google.com/gsi/client" async></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
-    </head>
+{% endblock %}
 
+{% block body %}
     <body>
         <div class="main-container">
             <div class="image-container">

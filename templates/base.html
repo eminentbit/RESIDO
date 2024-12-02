@@ -2,91 +2,102 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
     <link rel="stylesheet" href="{% static 'base.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-</head>
-<body>
-
-<header>
-    <nav class="navbar">
+    <title>RESIDO</title>
+    {% block head %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
         <ul class="nav-list">
-            <li class="dropdown"><a href="#" class="dropbtn">Rent</a>
-                <div class="dropdown-content">
-                    <a href="{% url 'homes_rent' %}">Homes for Rent</a>
-                    <a href="{% url 'appartments_rent' %}">Apartments for Rent</a>
-                    <a href="{% url 'townhouses_rent' %}">Townhouses for Rent</a>
-                    <a href="{% url 'construction_rent' %}">New Construction</a>
-                    <a href="{% url 'officespaces_rent' %}">Office Spaces</a>
-                </div>
-            </li>
-            <li class="dropdown"><a href="{% url 'homes_sell' %}" class="dropbtn">Sell</a>
-                <div class="dropdown-content">
-                    <a href="{% url 'homes_sell' %}">Homes for Sale</a>
-                    <a href="{% url 'townhouses_sell' %}">Townhouses</a>
-                    <a href="{% url 'construction_sell' %}">New Construction</a>
-                    <a href="{% url 'officespace_sell' %}">Office spaces</a>
-                    <!-- <a href="{% url 'all_homes' %}">All Homes</a> -->
-                </div>
-            </li>
-            <li class="list-group-item dropbtn"><a href="{% url 'about_us'%}">About Us</a></li>
-            <li class="list-group-item logo"><a href="{% url 'home' %}" class="logo">RESIDO</a></li>
-            <li class="dropdown"><a href="{% url 'realtors' %}" class="dropbtn">Find Agent</a>
-                <div class="dropdown-content">
-                    <a href="#">Real Estate Agents</a>
-                </div>
-            </li>
-            <li class="list-group-item"><a href="{% url 'get_started' %}">Manage Rentals</a></li>
-            <li class="dropdown"><a href="#" class="dropbtn" >English</a>
-                <div class="dropdown-content">
-                    <a href="#">English</a>
-                    <a href="#">French</a>
-                </div>
-            </li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Rent</a>
+            <div class="dropdown-content">
+              <a href="{% url 'homes_rent' %}">Homes for Rent</a>
+              <a href="{% url 'appartments_rent' %}">Apartments for Rent</a>
+              <a href="{% url 'townhouses_rent' %}">Townhouses for Rent</a>
+              <a href="{% url 'construction_rent' %}">New Construction</a>
+              <a href="{% url 'officespaces_rent' %}">Office Spaces</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="{% url 'homes_sell' %}" class="dropbtn">Sell</a>
+            <div class="dropdown-content">
+              <a href="{% url 'homes_sell' %}">Homes for Sale</a>
+              <a href="{% url 'townhouses_sell' %}">Townhouses</a>
+              <a href="{% url 'construction_sell' %}">New Construction</a>
+              <a href="{% url 'officespace_sell' %}">Office spaces</a>
+              <!-- <a href="{% url 'all_homes' %}">All Homes</a> -->
+            </div>
+          </li>
+          <li class="list-group-item dropbtn">
+            <a href="{% url 'about_us'%}">About Us</a>
+          </li>
+          <li class="list-group-item logo">
+            <a href="{% url 'home' %}" class="logo">RESIDO</a>
+          </li>
+          <li class="dropdown">
+            <a href="{% url 'realtors' %}" class="dropbtn">Find Agent</a>
+            <div class="dropdown-content">
+              <a href="#">Real Estate Agents</a>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <a href="{% url 'get_started' %}">Manage Rentals</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">English</a>
+            <div class="dropdown-content">
+              <a href="#">English</a>
+              <a href="#">French</a>
+            </div>
+          </li>
         </ul>
         <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
-    </nav>
-</header>
+      </nav>
+    </header>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+    <main>{% block content %}{% endblock %}</main>
 
-<footer>
-   {% block footer %}
-    <div class="footer-links">
+    {% block footer %}
+    <footer>
+      <div class="footer-links">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Buy</a></li>
-            <li><a href="#">Rent</a></li>
-            <li><a href="#">Sell</a></li>
-            <li><a href="#">Contact</a></li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Buy</a></li>
+          <li><a href="#">Rent</a></li>
+          <li><a href="#">Sell</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
-    </div>
-    <div class="social-media">
+      </div>
+      <div class="social-media">
         <a href="#"><i class="fa-brands fa-facebook"></i></a>
         <a href="#"><i class="fa-brands fa-instagram"></i></a>
         <a href="#"><i class="fa-brands fa-twitter"></i></a>
-    </div>
-    <p>&copy; 2024 RESIDO Real Estate. All Rights Reserved.</p>
-    <div class="contact-info">
+      </div>
+      <p>&copy; 2024 RESIDO Real Estate. All Rights Reserved.</p>
+      <div class="contact-info">
         <p>Email: info@resido.com</p>
         <p>Phone: +237 6 90 75 30 98</p>
-    </div>
-</footer>
+      </div>
+    </footer>
 
-<script>
-    function toggleMenu() {
-        const navList = document.querySelector('.nav-list');
-        const navBar = document.querySelector('.navbar')
-        navList.classList.toggle('active');
-        if (navList.classList.contains('active')) {
-            navBar.style.display = 'block'
+    <script>
+      function toggleMenu() {
+        const navList = document.querySelector(".nav-list");
+        const navBar = document.querySelector(".navbar");
+        navList.classList.toggle("active");
+        if (navList.classList.contains("active")) {
+          navBar.style.display = "block";
         }
-    }
-</script>
+      }
+    </script>
     {% endblock %}
-</body>
+  </body>
 </html>
