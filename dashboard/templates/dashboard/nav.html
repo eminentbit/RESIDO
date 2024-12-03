@@ -1,81 +1,218 @@
-{% load static %}
-
-{% block nav %}
+{% load static %} {% block nav %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} RESIDO | Dashboard {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'dashboard/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/nav.css' %}" />
+    <link
+      rel="shortcut icon"
+      href="{% static 'favicon.svg' %}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button type="button" class="toggle-btn" id="toggle-btn">x</button>
+    <!-- Arrow toggle button -->
 
-</head>
-<body>
-
-    <button type="button" class="toggle-btn" id="toggle-btn">x</button> <!-- Arrow toggle button -->
-    
     <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2><a href="{% url 'home' %}">Back to Home</a></h2> <!-- Home Logo or Button -->
-        </div>
-        <ul class="nav-links">
-            <li><a href="{% url 'dashboard_home' %}">Dashboard Home</a></li>
-            <li><a href="{% url 'dashboard_listing' %}">Listings</a></li>
-            <li><a href="{% url 'dashboard_profile' %}">Profile</a></li>
-            <li><a href="#">Messages</a></li>
-            <li><a href="{% url 'dashboard_settings' %}">Settings</a></li>
-            <li><a href="#" onclick="showLogoutMsg()">Logout</a></li>
-        </ul>
+      <div class="sidebar-header">
+        <h2>
+          <div class="item">
+            <a href="{% url 'home' %}"
+              ><img src="{% static 'favicon.svg' %}" alt="Logo"
+            /></a>
+            <a href="{% url 'home' %}"> <p style="color: #0b5565">RESIDO</p></a>
+          </div>
+        </h2>
+        <!-- Home Logo or Button -->
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="{% url 'dashboard_home' %}"
+            ><div class="item">
+              <img
+                src="{% static 'dashboard/dashboard-icon.svg' %}"
+                alt="dashboard-icon"
+              />
+              <p>Dashboard</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'dashboard_listing' %}"
+            ><div class="item">
+              <img
+                src="{% static 'dashboard/listing-icon.svg' %}"
+                alt="dashboard-icon"
+              />
+              <p>Listings</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'dashboard_profile' %}"
+            ><div class="item">
+              <img
+                width="50"
+                height="50"
+                src="https://img.icons8.com/fluency-systems-regular/50/user-male-circle--v1.png"
+                alt="user-male-circle--v1"
+              />
+              <p>Profile</p>
+            </div></a
+          >
+        </li>
+
+        <li>
+          <a href="{% url 'dashboard_profile' %}"
+            ><div class="item">
+              <img src="{% static 'dashboard/payment-icon.svg' %}" alt="" />
+              <p>Payment</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'dashboard_settings' %}"
+            ><div class="item">
+              <img
+                src="{% static 'dashboard/messages-icon.svg' %}"
+                alt="dashboard-icon"
+              />
+              <p>Messages</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'dashboard_settings' %}"
+            ><div class="item">
+              <img
+                src="{% static 'dashboard/settings-icon.svg' %}"
+                alt="dashboard-icon"
+              />
+              <p>Settings</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <a href="{% url 'dashboard_settings' %}"
+            ><div class="item">
+              <img
+                src="{% static 'dashboard/help-icon.svg' %}"
+                alt="dashboard-icon"
+              />
+              <p>Help</p>
+            </div></a
+          >
+        </li>
+        <!-- <li><a href="#" onclick="showLogoutMsg()">Logout</a></li> -->
+      </ul>
     </nav>
 
     <div class="main-content" id="main-content">
-        {% block content %}
-        <!-- The main content of the page will be inserted here -->
-        {% endblock %}
+      {% block content %}
+      <!-- The main content of the page will be inserted here -->
+      {% endblock %}
     </div>
 
-    <div class="modal" id="logout-modal" style="display: none;">
-        <p>Are you sure you want to logout?</p>
-        <button type="button" onclick="confirmLogout()">Yes</button>
-        <button type="button" onclick="closeModal()">No</button>
+    <div class="modal" id="logout-modal" style="display: none">
+      <p>Are you sure you want to logout?</p>
+      <button type="button" onclick="confirmLogout()">Yes</button>
+      <button type="button" onclick="closeModal()">No</button>
     </div>
-    <div class="modal-backdrop" id="backdrop" style="display: none;"></div>
+    <div class="modal-backdrop" id="backdrop" style="display: none"></div>
 
     <script>
-        const toggleBtn = document.getElementById('toggle-btn');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
-        const logoutModal = document.getElementById('logout-modal');
-        const backdrop = document.getElementById('backdrop');
+      const toggleBtn = document.getElementById("toggle-btn");
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.getElementById("main-content");
+      const logoutModal = document.getElementById("logout-modal");
+      const backdrop = document.getElementById("backdrop");
 
-        let isSidebarOpen = true; // Track sidebar state
+      const icons = document.querySelectorAll(".nav-links img");
+      const items = document.querySelectorAll(".nav-links .item");
+      const texts = document.querySelectorAll(".nav-links .item p");
 
-        toggleBtn.addEventListener('click', function() {
-            isSidebarOpen = !isSidebarOpen; // Toggle state
-            sidebar.style.display = isSidebarOpen ? 'block' : 'none'; // Show/hide sidebar
-            toggleBtn.textContent = isSidebarOpen ? 'x' : '➕'; // Update arrow direction
-            toggleBtn.style.position = isSidebarOpen ? 'absolute' : 'fixed';
-            toggleBtn.style.left = isSidebarOpen ? '210px' : '0';
+      items.forEach((item, index) => {
+        // Add event listeners for hover effects
+        item.addEventListener("mouseover", () => {
+          icons[index].classList.add("blue-sapphire"); // Add class on hover
+          texts[index].style.color = "#0D6274"; // Hover text color
         });
 
-        function showLogoutMsg() {
-            logoutModal.style.display = 'block';
-            backdrop.style.display = 'block';
-        }
-        
-        function closeModal() {
-            logoutModal.style.display = 'none';
-            backdrop.style.display = 'none';
-        }
+        item.addEventListener("mouseout", () => {
+          // Only remove hover effects if the item is not active
+          if (!item.classList.contains("active")) {
+            icons[index].classList.remove("blue-sapphire");
+            texts[index].style.color = "#757575"; // Default text color
+          }
+        });
 
-        function confirmLogout() {
-            console.log("Logged out");
-            closeModal();
-            window.location.href = '/signout';
+        // Add event listener for click to toggle active state
+        item.addEventListener("click", () => {
+
+          // Reset styles for all items
+          items.forEach((el, i) => {
+            el.classList.remove("active");
+            icons[i].classList.remove("blue-sapphire");
+            texts[i].style.color = "#757575";
+          });
+
+          // Apply active styles to the clicked item
+          item.classList.add("active");
+          icons[index].classList.add("blue-sapphire");
+          texts[index].style.color = "#0D6274";
+
+          // Save the active index in localStorage
+          localStorage.setItem("activeNavItem", index);
+        });
+      });
+
+      // Load the active state from localStorage on page load
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedIndex = localStorage.getItem("activeNavItem");
+        if (savedIndex !== null) {
+          const index = parseInt(savedIndex, 10);
+
+          // Apply active styles to the saved item
+          items[index].classList.add("active");
+          icons[index].classList.add("blue-sapphire");
+          texts[index].style.color = "#0D6274";
         }
+      });
+
+      let isSidebarOpen = true; // Track sidebar state
+
+      toggleBtn.addEventListener("click", () => {
+        isSidebarOpen = !isSidebarOpen; // Toggle state
+        sidebar.style.display = isSidebarOpen ? "block" : "none"; // Show/hide sidebar
+        toggleBtn.textContent = isSidebarOpen ? "x" : "➕"; // Update arrow direction
+        toggleBtn.style.position = isSidebarOpen ? "absolute" : "fixed";
+        toggleBtn.style.left = isSidebarOpen ? "210px" : "0";
+      });
+
+      function showLogoutMsg() {
+        logoutModal.style.display = "block";
+        backdrop.style.display = "block";
+      }
+
+      function closeModal() {
+        logoutModal.style.display = "none";
+        backdrop.style.display = "none";
+      }
+
+      function confirmLogout() {
+        console.log("Logged out");
+        closeModal();
+        window.location.href = "/signout";
+      }
     </script>
-
-</body>
+  </body>
 </html>
 
 {% endblock %}

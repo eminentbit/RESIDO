@@ -11,6 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
     {% endblock %}
+    <link rel="shortcut icon" href="{% static 'favicon.svg' %}" type="image/x-icon">
   </head>
   <body>
     <header>
@@ -76,7 +77,12 @@
             <a href="{% url 'about_us'%}">About Us</a>
           </li>
           <li class="list-group-item logo">
-            <a href="{% url 'home' %}" class="logo">RESIDO</a>
+            <a href="{% url 'home' %}" class="logo">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 0.2em;">
+                    <img style="background-color: rgba(0, 0, 0, 0.099);" src="{% static 'favicon.svg' %}" alt="Logo"> 
+                    RESIDO
+                </div>
+            </a>
           </li>
           <li class="dropdown">
             <a href="{% url 'realtors' %}" class="dropbtn">Find Agent</a>
