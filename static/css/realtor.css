@@ -1,0 +1,195 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #0056b3;
+}
+
+p {
+    text-align: center;
+    color: #555;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #007bff9b;
+    /* color: white; */
+    padding: 50px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+}
+
+.hero input[type='search'], .hero input[type="submit"] {
+    /* background-color: #3498db; */
+    /* color: white; */
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+}
+
+.hero input[type='submit'] {
+    background-color: hsla(220, 93%, 48%, 0.863);
+    cursor: pointer;
+}
+
+/* Realtors Section */
+.realtors {
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+}
+
+.realtors h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Realtor Grid and Cards */
+.realtor-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.realtor-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.realtor-card:hover {
+    transform: translateY(-10px);
+}
+
+.realtor-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.realtor-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.realtor-card p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.realtor-card .email {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.realtor-card .email:hover {
+    background-color: #0056b3;
+}
+
+/* Testimonials Section */
+.testimonials {
+    background-color: #e9ecef;
+    padding: 40px 20px;
+}
+
+.testimonials-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+blockquote {
+    background-color: white;
+    border-left: 5px solid #007bff;
+    padding: 20px;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+blockquote p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #777;
+    text-align: right;
+}
+
+/* Contact Form Section */
+.contact-form {
+    padding: 40px 20px;
+}
+
+.contact-form form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+

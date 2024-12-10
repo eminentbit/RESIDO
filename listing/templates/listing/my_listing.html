@@ -1,0 +1,201 @@
+{% extends 'dashboard/nav.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'dashboard/listing.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+/>
+
+<div class="container">
+  <div class="main-content">
+    <!-- <header>
+          <h1>Your Listings</h1>
+      </header> -->
+  
+    <!-- <section class="listings-overview">
+          <div class="stat">
+              <h2>Total Listings</h2>
+              <p>{{ total_listings }}</p>
+          </div>
+          <div class="stat">
+              <h2>Active Listings</h2>
+              <p>{{ active_listings }}</p>
+          </div>
+          <div class="stat">
+              <h2>Pending Listings</h2>
+              <p>{{ pending_listings }}</p>
+          </div>
+          <div class="stat">
+              <h2>Sold Listings</h2>
+              <p>{{ sold_listings }}</p>
+          </div>
+      </section> -->
+  
+    <section class="header-section">
+      <div class="greetings-section">
+        <div class="greetings-left-section">
+          <h2>Hello, Salman</h2>
+          <p>Have a nice day</p>
+        </div>
+        <div class="greetings-right-section hover">
+          <img
+            src="{% static 'dashboard/notifications-icon.svg' %}"
+            alt="Notification"
+          />
+        </div>
+      </div>
+      <div class="profile-section">
+        <div class="hover" style="margin-top: 4px;">
+          {% if request.user.profile.image %}
+          <img src="{{ request.user.profile.image.url }}" alt="Person" width="30px" height="30px" />
+          {% else  %}
+          <i class="fa-solid fa-user"></i>
+          {% endif %}
+        </div>
+        <div>
+          <h3>Salman</h3>
+          <p>Admin</p>
+        </div>
+        <div class="profile-dropdown hover">
+          <img src="{% static 'dashboard/dropdown.svg' %}" alt="Dropdown" />
+        </div>
+      </div>
+    </section>
+  
+    <section class="listings-section">
+      <h2>Listing</h2>
+  
+      <div class="search-filter">
+        <input type="text" placeholder="Search Listings" class="search-bar" accesskey="k">
+        <button type="button" class="add-listing-btn">
+          Add Listing <b>+</b>
+        </button>
+        <!-- <select class="filter-dropdown">
+                  <option value="">Sort by</option>
+                  <option value="active">Active</option>
+                  <option value="pending">Pending</option>
+                  <option value="sold">Sold</option>
+              </select> -->
+        <select class="filter-dropdown hover" title="Sort by" aria-label="Sort by">
+          <!-- <option value="">Sort by</option> -->
+          <option value="house">Houses</option>
+          <option value="appartment">Appartments</option>
+          <option value="office-space">Office space</option>
+          <option value="townhouses">Townhouses</option>
+          <option value="townhouses">New Construction</option>
+        </select>
+        <div class="hover" title="advanced-options">
+          <img
+            src="{% static 'dashboard/advanced-options.svg' %}"
+            alt="Advanced Option"
+          />
+        </div>
+      </div>
+  
+      <div class="listings-table">
+        <table>
+          <h4>Listings</h4>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th></th>
+              <th>Create date</th>
+              <th>State</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for listing in listings %}
+            <tr class="hover">
+              <!-- <td>
+                <img
+                  src="{{ listing.image.url }}"
+                  alt="Listing Image"
+                  class="listing-img"
+                />
+              </td> -->
+              <td>{{ listing.title }}</td>
+              <td>{{ listing.location }}</td>
+              <td>${{ listing.price }}</td>
+              <td>{{ listing.date_posted }}</td>
+              <td>
+                <a href="{% url edit_listing listing.id %}" class="edit-btn"
+                  >Edit</a
+                >
+                <a href="{% url 'delete_listing' listing.id %}" class="delete-btn"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td>
+                <div>
+                  <h4>Ina Hogan</h4>
+                  <p>windler.warren@runte.net</p>
+                </div>
+              </td>
+              <td>
+                <div class="what-to-do">
+                  <p>Sell</p>
+                </div>
+              </td>
+              <td>24 Aug 2023</td>
+              <td>Active</td>
+              <td>
+                <div class="listing-actions">
+                  <a href="" class="edit-btn"
+                    ><i class="fa fa-edit"></i></a
+                  >
+                  <a
+                    href=""
+                    class="delete-btn"
+                    ><i class="fa fa-trash"></i></a
+                  >
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  
+  <div class="pages-section">
+    <p>Items per page: </p>
+    <select name="page-num" id="page-num" class="ma-right hover">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    <p class="ma-right">1-4 of 10</p>
+    <i id="left-arrow" class="fa fa-arrow-left hover"></i>
+    <i id="right-arrow" class="fa fa-arrow-right hover"></i>
+  </div>
+</div>
+
+<script>
+  const addListingBtn = document.querySelector(".add-listing-btn");
+  addListingBtn.addEventListener("click", () => {
+    location.href = "{% url 'add_listing' %}";
+  });
+
+  const dropdown = document.querySelector(".filter-dropdown");
+
+  const dataAfter = document.querySelector('.what-to-do');
+  console.log('data after:', dataAfter.parentElement.nextElementSibling.nextElementSibling);
+  dataAfter.parentElement.nextElementSibling.style.textAlign = 'left';
+  dataAfter.parentElement.nextElementSibling.style.paddingLeft = '2.4em';
+  dataAfter.parentElement.nextElementSibling.nextElementSibling.style.paddingLeft = '2.3em';
+  dataAfter.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.style.paddingLeft = '2em';
+
+  const leftArrow = document.getElementById('left-arrow');
+  leftArrow.style.color = '#C4C4C4'
+  
+  
+</script>
+
+{% endblock %}

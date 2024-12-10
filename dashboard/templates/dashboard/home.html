@@ -1,0 +1,56 @@
+{% extends 'dashboard/nav.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'dashboard/home.css' %}">
+
+<div class="dashboard-home">
+    <header>
+        <h1>Welcome, {{ request.user.first_name }}!</h1>
+    </header>
+
+    <section class="recent-activity">
+        <ul>
+            {% for listing in recent_listings %}
+            <li>
+                <img src="{{ listing.image.url }}" alt="{{ listing.title }}">
+                <span>{{ listing.title }} - {{ listing.status }}</span>
+                <span>{{ listing.date_posted }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="reminders">
+        <h2>Upcoming Tasks</h2>
+        <ul>
+            <li>Follow up with [Client Name]</li>
+            <li>Submit contract for [Listing]</li>
+            <li>Update profile information</li>
+        </ul>
+    </section>
+
+    <section class="quick-links">
+        <h2>Quick Links</h2>
+        <div class="quick-actions">
+            <a href="#" class="btn">Add New Listing</a>
+            <a href="#" class="btn">View All Listings</a>
+            <a href="#" class="btn">Profile Settings</a>
+            <a href="#" class="btn">Message Inbox</a>
+        </div>
+    </section>
+
+    <section class="notifications">
+        <h2>Recent Messages</h2>
+        <ul>
+            {% for message in recent_messages %}
+            <li>
+                <span>{{ message.sender }}: {{ message.content|truncatewords:10 }}</span>
+                <span>{{ message.date_sent }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

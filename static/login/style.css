@@ -1,0 +1,158 @@
+/* Global Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the Sign-In Form */
+.auth-container {
+    background-color: #fff;
+    padding: 60px;  /* Increased padding for a larger feel */ 
+    height: 75%;
+    width: 25%;
+    border-radius: 12px;  /* Slightly larger border radius */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);  /* Larger shadow for emphasis */
+    text-align: left;
+}
+
+/* Header for the form */
+h3 {
+    font-size: 28px;  /* Increased font size */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 40px;  /* Increased margin for better spacing */
+    text-align: center;
+}
+
+/* Form labels and inputs */
+.auth-container label {
+    font-size: 16px;  /* Larger label text */
+    color: #555;
+    margin-bottom: 10px;  /* More spacing */
+    display: block;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 10px;  /* Increased padding for inputs */
+    margin-bottom: 25px;  /* Increased spacing between inputs */
+    border: 1px solid #ccc;
+    border-radius: 8px;  /* Slightly larger border radius for a smoother look */
+    background-color: #f9f9f9;
+    font-size: 18px;  /* Larger text inside inputs */
+    color: #333;
+    transition: border 0.3s ease;
+}
+
+.auth-container input:focus {
+    border-color: #007bff;
+    background-color: #fff;
+    outline: none;
+}
+
+/* Show Password checkbox with label */
+.show-password-container {
+    display: flex;
+    align-items: center;
+    font-size: 16px;  /* Slightly larger font for checkbox label */
+    margin-bottom: 25px;  /* Increased margin */
+}
+
+.show-password-container input {
+    margin-right: 12px;  /* Adjusted spacing */
+    width: 20px;
+    height: 20px;  /* Larger checkbox */
+}
+
+/* Button Styling */
+.auth-container button {
+    width: 100%;
+    padding: 16px;  /* Larger button */
+    font-size: 18px;  /* Increased button text size */
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-container button:hover {
+    background-color: #0056b3;
+}
+
+.login {
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+/* Signup link */
+.signup {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup p {
+    font-size: 0.9em; /* Smaller font size for the login text */
+}
+
+.signup a {
+    color: #4CAF50; /* Same green color for links */
+    text-decoration: none; /* Remove underline */
+}
+
+.signup a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #4CAF50; /* Change border color on focus */
+            outline: none; /* Remove outline */
+        }
+        
+
+/* Error message styling */
+.error-message {
+    color: #ff4d4d;
+    font-size: 16px;  /* Slightly larger error message */
+    background-color: #ffe6e6;
+    border: 1px solid #ff4d4d;
+    padding: 12px;  /* Increased padding */
+    border-radius: 6px;
+    margin-bottom: 25px;
+    display: none;
+}
+
+.btn-google {
+    background-color: #4285F4; /* Google blue */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 10px; /* Optional spacing */
+    text-align: center;
+}
+
+.btn-google img {
+    margin-right: 8px; /* Space between logo and text */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 30px;  /* Adjust padding for smaller screens */
+        max-width: 100%;  /* Ensure the container is responsive */
+    }
+}

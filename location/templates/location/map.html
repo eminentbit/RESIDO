@@ -1,0 +1,100 @@
+{% load static %}
+
+{% block head %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Add Markers on Click</title>
+    <style>
+        /* Set the size of the map */
+        #map {
+            height: 80vh;
+            width: 100%;
+            position: fixed;
+        }
+
+        body {
+            position: relative;
+        }
+
+        button {
+            position: absolute;
+            left: 0;
+        }
+    </style>
+     <!-- Load Google Maps API with async and defer -->
+     <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&loading=async&callback=initMap">
+    </script>
+</head>
+{% endblock %}
+
+{% block content %}
+
+<body>
+
+    <!-- Div where the map will be displayed -->
+    <div id="map"></div>
+
+    <button id="button" type="button">Current Position</button>
+
+<!-- 
+    <script>
+        // Initialize and add the map
+        let map;
+        let markers = [];  // Array to store markers
+
+        function initMap() {
+            // The map, centered at a default location (latitude, longitude)
+            const defaultLocation = { lat: 3.844119, lng: 11.50134 };
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 8,
+            });
+
+            // Add a marker on the map at the default location
+            addMarker(defaultLocation);
+
+            // Add a click event listener to the map
+            map.addListener("click", (event) => {
+                const clickedLocation = event.latLng;  // Get latitude and longitude of the click
+                addMarker(clickedLocation);  // Add marker at clicked location
+            });
+        }
+
+        // Function to add a marker at a specific location
+        function addMarker(location) {
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+            });
+
+            // Add an info window
+            // const infoWindow = new google.maps.InfoWindow({
+            //     content: `<p>Marker Location: ${location.lat().toFixed(6)}, ${location.lng().toFixed(6)}</p>`,
+            // });
+
+            // // Add a mouseover event listener to the marker to show the info window
+            // marker.addListener("mouseover", () => {
+            //     infoWindow.open(map, marker);
+            // });
+
+            // // Add a mouseout event listener to close the info window
+            // marker.addListener("mouseout", () => {
+            //     infoWindow.close();
+            // });
+
+            // Store the marker
+            markers.push(marker);
+
+            marker.addListener('click', () => {
+              markers.pop();
+            })
+        }
+    </script> -->
+
+   <script  type="module" src="{% static 'map/index.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,203 @@
+{% load static %}
+{% block head%}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Page</title>
+        <link rel="stylesheet" href="{% static 'signup/style.css' %}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <script src="https://accounts.google.com/gsi/client" async></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+{% endblock %}
+
+{% block body %}
+    <body>
+        <div class="main-container">
+            <div class="image-container">
+                <img src="{% static 'signup/signup-image.jpeg' %}" alt="Real Estate Image">
+            </div>
+            <div class="form-container">
+                <form  id="registerForm" action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <h1>Create Account</h1>
+                    {% if error %}
+                    <div id="response-message" class="error-message">{{error}}</div> <!-- Initially empty to show messages -->
+                    {% endif %}
+                    
+                    <!-- Social media sign-in options -->
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{% url 'google_login_by_token' %}" target="_blank" class="social"><i class="fab fa-google"></i></a>
+                    </div>
+                    <span>or use your email for registration</span>
+                    <div class="error-message">{{message}}</div>
+                    
+                    <label for="first_name">First Name:</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                    <div class="error-message">{{ form.first_name.errors }}</div><br>
+                    {% endif %}
+                    
+                    <label for="last_name">Last Name:</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                    <div class="error-message">{{ form.last_name.errors }}</div><br>
+                    {% endif %}
+                
+                    <label for="email">Email:</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors }}</div><br>
+                    {% endif %}
+
+                    <div class="password-container">
+                        <label for="password">Password:</label>
+                        {{ form.password }}
+                        
+                        <!-- Eye icon to toggle password visibility -->
+                        <span id="togglePassword" class="toggle-password">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </span>
+
+                        {% if form.password.errors %}
+                        <div class="error-message">{{ form.password.errors }}</div><br>
+                        {% endif %}
+                    </div>
+                    <!-- Hidden field for reCAPTCHA token -->
+                    <input type="hidden" id="id_captcha_token" name="captcha_token">
+                
+        
+                    <button type="submit">Register</button>
+                
+                    <!-- Display non-field errors -->
+                    {% if form.non_field_errors %}
+                    <div class="error-message">{{ form.non_field_errors }}</div>
+                    {% endif %}
+                    <p class="footer-text">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+                </form>
+            </div>
+        </div>
+        
+    </body>
+        <style>
+        /* Error Message */
+        .error-message {
+            color: #FF5733; /* Red color for error messages */
+            font-size: 0.9em;
+            margin-top: -10px; /* Move error message closer to input */
+            margin-bottom: 15px; /* Space between error and next field */
+        }
+        
+        /* Button */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50; /* Green color for button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        
+        /* Login link */
+        .login {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login p {
+            font-size: 0.9em; /* Smaller font size for the login text */
+        }
+        
+        .login a {
+            color: #4CAF50; /* Same green color for links */
+            text-decoration: none; /* Remove underline */
+        }
+        
+        .login a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        </style>
+        <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'submit'}).then(function(token) {
+                    document.getElementById('id_captcha_token').value = token;  // Set the token in hidden input
+                });
+            });
+        </script>
+
+        <script>
+            document.getElementById('togglePassword').addEventListener('click', function (e) {
+                const passwordField = document.getElementById('password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+
+            document.getElementById('toggleconfirmPass').addEventListener('click', function (e) {
+                const passwordField = document.getElementById('re_password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        </script>
+
+        <!-- <script>
+            function togglePassword() {
+                passwordField = document.getElementById('password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+
+
+                // Toggle the eye slash icon
+                document.querySelector('i').classList.toggle('fa-eye-slash');
+            };
+
+            function toggleconfirmPassword() {
+                passwordField = document.getElementById('re_password');
+                let passwordType = passwordField.type
+                if (passwordType === 'password') {
+                    passwordType = 'text';
+                    passwordField.type = passwordType
+                }
+                else {
+                    passwordType = 'password'
+                    passwordField.type = passwordType
+                }
+
+
+                // Toggle the eye slash icon
+                document.querySelector('i').classList.toggle('fa-eye-slash');
+            };
+        </script> -->
+
+{% endblock %}
+</html>

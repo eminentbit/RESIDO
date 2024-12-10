@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{% static 'base.css' %}" />
+    <title>RESIDO</title>
+    {% block head %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    {% endblock %}
+    <link rel="shortcut icon" href="{% static 'favicon.svg' %}" type="image/x-icon">
+  </head>
+  <body>
+    <header translate="yes">
+      <nav class="navbar">
+        <div class="mobile">
+            <div class="close-menu hide" onclick="toggleMenu()">
+                X
+            </div>
+          <div class="hamburger-menu" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+          </div>
+          <div class="links">
+            <ul class="mobile__list">
+              <li>
+                <div class="list-item">
+                  <a href="#">Rent</a>
+                  <p>|v</p>
+                </div>
+              </li>
+              <li>
+                <div class="list-item">
+                  <a href="#">Sell</a>
+                  <p>|v</p>
+                </div>
+              </li>
+              <li>
+                <div class="list-item">
+                  <a href="#">About Us</a>
+                  <p>|v</p>
+                </div>
+              </li>
+              <li>
+                <div class="list-item">
+                  <a href="#">Manage Rentals</a>
+                  <p>|v</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <ul class="nav-list">
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Rent</a>
+            <div class="dropdown-content">
+              <a href="{% url 'homes_rent' %}">Homes for Rent</a>
+              <a href="{% url 'appartments_rent' %}">Apartments for Rent</a>
+              <a href="{% url 'townhouses_rent' %}">Townhouses for Rent</a>
+              <a href="{% url 'construction_rent' %}">New Construction</a>
+              <a href="{% url 'officespaces_rent' %}">Office Spaces</a>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="{% url 'homes_sell' %}" class="dropbtn">Sell</a>
+            <div class="dropdown-content">
+              <a href="{% url 'homes_sell' %}">Homes for Sale</a>
+              <a href="{% url 'townhouses_sell' %}">Townhouses</a>
+              <a href="{% url 'construction_sell' %}">New Construction</a>
+              <a href="{% url 'officespace_sell' %}">Office spaces</a>
+              <!-- <a href="{% url 'all_homes' %}">All Homes</a> -->
+            </div>
+          </li>
+          <li class="list-group-item dropbtn">
+            <a href="{% url 'about_us'%}">About Us</a>
+          </li>
+          <li class="list-group-item logo">
+            <a href="{% url 'home' %}" class="logo">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 0.2em;">
+                    <img style="background-color: rgba(0, 0, 0, 0.099);" src="{% static 'favicon.svg' %}" alt="Logo"> 
+                    RESIDO
+                </div>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a href="{% url 'realtors' %}" class="dropbtn">Find Agent</a>
+            <div class="dropdown-content">
+              <a href="#">Real Estate Agents</a>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <a href="{% url 'get_started' %}">Manage Rentals</a>
+          </li>
+          <li class="dropdown">
+            {% if not request.user.is_registered %}
+            <a href="{% url 'register' %}" class="dropbtn">Sign In</a>
+            {% else %}
+            <a href="#"><i class="fa fa-user"></i></a>
+            {% endif %}
+            <!-- <div class="dropdown-content">
+              <a href="#">English</a>
+              <a href="#">French</a> -->
+            </div>
+          </li>
+        </ul> 
+      </nav>
+    </header>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    {% block footer %}
+    <footer>
+      <div class="footer-links">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Buy</a></li>
+          <li><a href="#">Rent</a></li>
+          <li><a href="#">Sell</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="social-media">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+      <p>&copy; 2024 RESIDO Real Estate. All Rights Reserved.</p>
+      <div class="contact-info">
+        <p>Email: info@resido.com</p>
+        <p>Phone: +237 6 90 75 30 98</p>
+      </div>
+    </footer>
+
+    <script>
+
+      const closeMenu = document.querySelector('.close-menu');
+      const menu = document.querySelector('.hamburger-menu');
+      function toggleMenu() {
+        const links = document.querySelector(".links");
+        links.classList.toggle("active");
+        closeMenu.classList.toggle('hide');
+        menu.classList.toggle('hide');
+      }
+
+      document.querySelectorAll(".list-item").forEach((item) => {
+        item.addEventListener("click", function () {
+          this.classList.toggle("open");
+        });
+      });
+
+      if (!location.href.includes('dashboard')) {
+          console.log(location)
+          localStorage.setItem('activeNavItem', 0);
+        }
+    </script>
+    {% endblock %}
+  </body>
+</html>

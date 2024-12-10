@@ -1,0 +1,60 @@
+{% extends 'dashboard/nav.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'dashboard/profile.css' %}">
+
+<div class="main-content">
+    <header>
+        <h1>Profile Settings</h1>
+    </header>
+
+    <section class="profile-section">
+        <div class="profile-picture-container">
+            <img src="{{ profile_pic }}" alt="Profile Picture" class="profile-picture">
+            <button type="button" class="upload-btn">Change Profile Picture</button>
+        </div>
+
+        <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data" id="profile-picture-form">
+            {% csrf_token %}
+            <input type="file" name="profile_picture" id="profile-picture-input" style="display: none;">
+        </form>
+
+        <div class="profile-details">
+            <h2>Personal Information</h2>
+
+            <form action="{% url 'edit_profile' %}" method="POST" class="profile-form">
+                {% csrf_token %}
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}" required>
+
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" value="{{ request.user.last_name }}" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" value="{{ request.user.email }}" disabled>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" value="{{ request.user.profile.phone }}">
+
+                <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+<script>
+    const uploadBtn = document.querySelector('.upload-btn');
+    const fileInput = document.getElementById('profile-picture-input');
+
+    uploadBtn.addEventListener('click', () => {
+        fileInput.click(); // Trigger the hidden file input
+    });
+
+    fileInput.addEventListener('change', () => {
+        document.getElementById('profile-picture-form').submit(); // Automatically submit form on file change
+    });
+</script>
+{% endblock %}

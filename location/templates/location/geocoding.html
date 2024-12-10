@@ -1,0 +1,46 @@
+{% extends 'location/base.html' %}
+
+{% block content %}
+
+<div class="pageholder">
+    <div class="titleholder">
+
+        <div class="title"> Geocoding template for {{location.name}} </div>
+
+    </div>
+
+    <div class="linkholder">
+        {% if mydata.count == 0 %}
+            <div>No data available</div>
+        {% else %}
+            <table id="ourtable3" class="myTable m-3">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Zip Code</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td> {{location.id}} </td>
+                        <td> {{location.name}} </td>
+                        <td> {{location.address}} </td>
+                        <td> {{location.zipcode}} </td>
+                        <td> {{location.city}} </td>
+                        <td> {{location.country}} </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

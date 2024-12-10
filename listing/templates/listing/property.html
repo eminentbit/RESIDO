@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate Listings</title>
+  <style>
+    /* CSS Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    input, select {
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #mapContainer {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    #propertyList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .propertyCard {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .propertyCard:hover {
+      transform: scale(1.05);
+    }
+
+    .propertyCard img {
+      width: 100%;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <input type="text" id="searchInput" placeholder="Search location or property...">
+    <select id="sortSelect">
+      <option value="default">Sort: Homes for You</option>
+      <option value="priceAsc">Price: Low to High</option>
+      <option value="priceDesc">Price: High to Low</option>
+    </select>
+  </header>
+
+  <main>
+    <div id="mapContainer">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5168302.590371969!2d-104.63742502850363!3d43.96951460422965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x877f8a24bfaaa4f7%3A0x93fc7e7a2ae68cc4!2sSouth%20Dakota!5e0!3m2!1sen!2sus!4v1634668296226!5m2!1sen!2sus" 
+        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <div id="propertyList">
+      <div class="propertyCard" data-price="301000">
+        <img src="https://via.placeholder.com/300x200" alt="Property Image">
+        <h3>$301,000</h3>
+        <p>5 beds | 3 baths | 2,609 sqft - Sioux Falls, SD</p>
+      </div>
+
+      <div class="propertyCard" data-price="299000">
+        <img src="https://via.placeholder.com/300x200" alt="Property Image">
+        <h3>$299,000</h3>
+        <p>3 beds | 2 baths | 2,336 sqft - Rapid City, SD</p>
+      </div>
+
+      <div class="propertyCard" data-price="188000">
+        <img src="https://via.placeholder.com/300x200" alt="Property Image">
+        <h3>$188,000</h3>
+        <p>4 beds | 3 baths | 2,150 sqft - Sioux Falls, SD</p>
+      </div>
+
+      <div class="propertyCard" data-price="175000">
+        <img src="https://via.placeholder.com/300x200" alt="Property Image">
+        <h3>$175,000</h3>
+        <p>3 beds | 1 bath | 1,632 sqft - Deadwood, SD</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // JavaScript for Search and Sorting
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      const sortSelect = document.getElementById('sortSelect');
+      const propertyList = document.getElementById('propertyList');
+      const propertyCards = Array.from(propertyList.getElementsByClassName('propertyCard'));
+
+      // Search Functionality
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        propertyCards.forEach(card => {
+          const content = card.textContent.toLowerCase();
+          card.style.display = content.includes(query) ? 'block' : 'none';
+        });
+      });
+
+      // Sorting Functionality
+      sortSelect.addEventListener('change', () => {
+        const sortedCards = [...propertyCards];
+        if (sortSelect.value === 'priceAsc') {
+          sortedCards.sort((a, b) => a.dataset.price - b.dataset.price);
+        } else if (sortSelect.value === 'priceDesc') {
+          sortedCards.sort((a, b) => b.dataset.price - a.dataset.price);
+        }
+
+        // Clear existing cards and append sorted cards
+        propertyList.innerHTML = '';
+        sortedCards.forEach(card => propertyList.appendChild(card));
+      });
+    });
+  </script>
+</body>
+</html>

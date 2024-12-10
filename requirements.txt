@@ -1,0 +1,15 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+Pillow
+psycopg2
+googlemaps
+geopy
+python-decouple
+requests
+humanfriendly
+django-humanize
+django-allauth
+campay
+google-auth
+cryptoraphy

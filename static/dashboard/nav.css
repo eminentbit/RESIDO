@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #eee;
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    transition: all 0.3s ease;
+}
+
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    height: auto;
+    padding: 20px;
+    /* margin-block: 5px; */
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    position: relative;
+    color: black;
+}
+
+
+.sidebar.closed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2em;
+    margin-top: 1.5em;
+    flex-wrap: wrap;
+}
+
+.sidebar-header .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+}
+
+
+.sidebar-header p {
+    color: #0B5565;
+    /* margin-bottom: 1.75em; */
+}
+
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.sidebar-header a{
+    text-decoration: none;
+}
+
+.nav-links img {
+    width: 20px;
+    height: 20px;
+}
+
+.blue-sapphire {
+    filter: invert(15%) sepia(62%) saturate(5451%) hue-rotate(179deg) brightness(89%) contrast(90%);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    left: 210px;
+    z-index: 11; /* Make sure it's above other elements */
+    padding: 10px;
+    background-color: #007bff; /* Matching the sidebar color */
+    border-radius: 5px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding-inline: 2rem;
+    padding-block: 1.5rem;
+    background-color: #fff;
+    transition: margin-left 0.3s ease;
+    top: 0;
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+.main-content.collapsed {
+    margin-left: 250px; /* The width of the sidebar */
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-bottom: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: block;
+    border-radius: 5px;
+}
+
+.nav-links a:hover {
+    color: #0D6274;
+}
+
+.nav-links .item {
+    text-align: left;
+    gap: 0.9em;
+    cursor: pointer;
+}
+
+.nav-links .item p {
+    font-size: medium;
+}
+
+.nav-links .item.active {
+    color: #0B5565;
+}
+
+.fa-user {
+    margin-left: 5px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.nav-links .item p:hover {
+    color: #0D6274;
+}
+
+.item img, .item i {
+    color: #757575;
+}
+
+.item img:hover, .item i:hover {
+    color: #0D6274;
+}
+
+
+
+/* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 20; /* Sits on top of everything */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+    width: 400px; /* Modal width */
+    background-color: #fff; /* White background */
+    padding: 20px; /* Padding inside the modal */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow */
+    border-radius: 8px; /* Rounded corners */
+}
+
+
+/* Modal text */
+.modal p {
+    font-size: 18px; /* Slightly larger font for clarity */
+    color: #333; /* Dark text color */
+    text-align: center;
+    margin-bottom: 20px; /* Space between text and buttons */
+}
+
+/* Modal buttons */
+.modal button {
+    width: 120px;
+    padding: 10px 15px;
+    margin: 0 10px; /* Space between buttons */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal button:first-of-type {
+    background-color: #dc3545; /* Red for "Yes" button */
+    color: white;
+}
+
+.modal button:last-of-type {
+    background-color: #6c757d; /* Gray for "No" button */
+    color: white;
+}
+
+.modal button:hover {
+    opacity: 0.9; /* Slight opacity change on hover */
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay background */
+    z-index: 19; /* Below modal but above other elements */
+    display: none; /* Hidden by default */
+}
+
+.item p {
+    color: #757575;
+}
+
+
+/* Responsive Styles for the Sidebar */
+@media (max-width: 768px) {
+    /* For mobile devices, collapse the sidebar by default */
+    .sidebar {
+        /* width: 0; */
+        position: absolute;
+        z-index: 10;
+        height: 100%;
+    }
+
+    .sidebar.closed {
+        width: 250px; /* Full width when open */
+        position: absolute;
+        z-index: 10;
+    }
+
+    .main-content {
+        margin-left: 0; /* No margin to the left when sidebar is collapsed */
+    }
+
+    .main-content.expanded {
+        margin-left: 250px; /* Expand the main content when sidebar is open */
+    }
+
+    .toggle-btn {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 11;
+        background: none;
+        color: #007bff;
+        font-size: 1.5rem;
+    }
+}
+
