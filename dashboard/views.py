@@ -29,6 +29,10 @@ def my_listings_view(request):
     return render(request, 'listing/my_listing.html', context)
 
 @login_required
+def dashboard_chat(request):
+    return render(request, 'dashboard/messages.html')
+
+@login_required
 def dashboard_profile_view(request):
     if request.user.is_realtor:
         return render(request, 'dashboard/my_profile.html', {'profile_pic': request.user.profile.image.url})

@@ -1,0 +1,184 @@
+{% extends 'dashboard/nav.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'dashboard/chats.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+/>
+
+<style>
+  input[type="search"] {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-image: url("{% static 'dashboard/search-icon.svg' %}");
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+  }
+</style>
+
+<div class="container">
+  <div class="list-of-chats">
+    <div class="header">
+      <h2>Messaging <sup class="no-of-unread">157</sup></h2>
+      <div class="filter">
+          <p>Agents </p>
+          <img src="{% static 'dashboard/sort-icon.svg' %}" alt="Sort by">
+      </div>
+    </div>
+    <div class="search">
+      <input type="search" placeholder="Search chats" />
+    </div>
+    <div class="lists">
+      <ul>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="chat">
+            <img src="{% static 'dashboard/photo-person.png' %}" alt="Person photo">
+            <div class="message-info">
+                <h4 class="sender">Eten Hunt</h4>
+                <p class="message-summary">Thank you very much, I'm glad ...</p>
+            </div>
+            <div class="read-status">
+                <p>4m ago</p>
+                <i class="fa fa-circle"></i>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="chat-section"></div>
+</div>
+
+{% endblock %}
