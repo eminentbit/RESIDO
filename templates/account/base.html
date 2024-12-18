@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RESIDO{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+    <style>
+         /* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #f5f5dc, #ff7f50); /* Gradient background */
+    margin: 0;
+    padding: 0;
+    color: #003366; /* Dark Navy text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main container for forms */
+.form-container {
+    background: rgba(255, 255, 255, 0.9); /* Glassmorphism background */
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #003366; /* Dark Navy */
+}
+
+/* Input fields */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ADD8E6; /* Light blue border */
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF; /* Bright Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+a {
+    color: #008080; /* Teal */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #007BFF; /* Bright Blue */
+}
+
+/* Error messages */
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+    </style>
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>

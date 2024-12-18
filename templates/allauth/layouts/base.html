@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.svg' %}" type="image/x-icon">
+    <title>{% block title %}Authentication{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/allauth.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="auth-container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="error-message">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        
+        {% block content %}
+        <!-- Add form, buttons, or links here -->
+        {% endblock %}
+    </div>
+    <br>
+    <footer class="auth-footer">
+        <p>&copy; 2024 RESIDO. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

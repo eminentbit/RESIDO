@@ -64,7 +64,7 @@ CSRF_COOKIE_SECURE = False
 
 
 # Set the site ID
-SITE_ID = 1
+SITE_ID = 2
 
 MIGRATION_MODULES = {
     'contenttypes': 'django.contrib.contenttypes.migrations',
@@ -192,10 +192,17 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'SCOPE' : [
+            'profile',
+            'email'
+        ],
         'APP': {
             'client_id': config('O2AUTH_CLIENT_ID'),
             'secret': config('O2AUTH_CLIENT_SECRET'),
             'key': ''
+        },
+        'AUTH_PARAMS': {
+            'access_type':'online',
         }
     }
 }

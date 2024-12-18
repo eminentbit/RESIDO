@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'signup/style.css' %}">
@@ -29,7 +30,7 @@
           <!-- Social media sign-in options -->
           <div class="social-container">
               <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-              <a href="/auth/google/login/?process=login" target="_blank" class="social"><i class="fab fa-google"></i></a>
+              <a href="{% provider_login_url 'google' %}" target="_blank" class="social"><i class="fab fa-google"></i></a>
           </div>
           <span>or use your email to log in</span>
           
