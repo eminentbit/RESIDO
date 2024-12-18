@@ -1,21 +1,54 @@
 {% load static %}
-{% block head%}
+{% load socialaccount %}
+
+{% block head %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Page</title>
         <link rel="stylesheet" href="{% static 'signup/style.css' %}">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <script src="https://accounts.google.com/gsi/client" async></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="{% static 'logo.png' %}" type="image/x-icon">
+        <style>
+            .image-container {
+                position: relative;
+                background: url("{% static 'signup/house.svg' %}") no-repeat center center / cover;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: #FFFFFF;
+                font-size: 24px;
+                font-weight: bold;
+                overflow: hidden;
+            }
+
+            .image-container::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.2); /* Semi-transparent black overlay */
+                z-index: 1;
+            }
+
+            .image-container p {
+                z-index: 2; /* Ensures text is above the overlay */
+                margin: 0;
+                padding: 0 20px; /* Optional padding for better text spacing */
+            }
+        </style>
 {% endblock %}
 
 {% block body %}
     <body>
         <div class="main-container">
-            <div class="image-container">
-                <img src="{% static 'signup/signup-image.jpeg' %}" alt="Real Estate Image">
-            </div>
             <div class="form-container">
+                <img class="logo" src="{% static 'signup/logo.svg' %}" alt="Logo">
                 <form  id="registerForm" action="{% url 'register' %}" method="POST">
                     {% csrf_token %}
                     <h1>Create Account</h1>
@@ -25,10 +58,11 @@
                     
                     <!-- Social media sign-in options -->
                     <div class="social-container">
-                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                        <a href="{% url 'google_login_by_token' %}" target="_blank" class="social"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social"><img src="{% static 'signup/apple.svg' %}" alt="Apple"></a>
+                        <a href="{% provider_login_url 'google' %}" target="_blank" class="social"><img src="{% static 'signup/google.svg' %}" alt="Google"></a>
                     </div>
                     <span>or use your email for registration</span>
+                    <br><br>
                     <div class="error-message">{{message}}</div>
                     
                     <label for="first_name">First Name:</label>
@@ -75,6 +109,9 @@
                     <p class="footer-text">Already have an account? <a href="{% url 'login' %}">Log In</a></p>
                 </form>
             </div>
+            <div class="image-container">
+                <p style="color: white;">Homes as unique as you</p>
+            </div>
         </div>
         
     </body>
@@ -87,41 +124,6 @@
             margin-bottom: 15px; /* Space between error and next field */
         }
         
-        /* Button */
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50; /* Green color for button */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        
-        button:hover {
-            background-color: #45a049; /* Darker green on hover */
-        }
-        
-        /* Login link */
-        .login {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .login p {
-            font-size: 0.9em; /* Smaller font size for the login text */
-        }
-        
-        .login a {
-            color: #4CAF50; /* Same green color for links */
-            text-decoration: none; /* Remove underline */
-        }
-        
-        .login a:hover {
-            text-decoration: underline; /* Underline on hover */
-        }
 
         </style>
         <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>

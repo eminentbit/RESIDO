@@ -133,7 +133,8 @@
       const mainContent = document.getElementById("main-content");
       const logoutModal = document.getElementById("logout-modal");
       const backdrop = document.getElementById("backdrop");
-
+      
+      const container = document.querySelector('.container')
       const icons = document.querySelectorAll(".nav-links img");
       const items = document.querySelectorAll(".nav-links .item");
       const texts = document.querySelectorAll(".nav-links .item p");
@@ -194,6 +195,8 @@
         toggleBtn.textContent = isSidebarOpen ? "x" : "➕"; // Update arrow direction
         toggleBtn.style.position = isSidebarOpen ? "absolute" : "fixed";
         toggleBtn.style.left = isSidebarOpen ? "210px" : "0";
+        container.style.paddingLeft = isSidebarOpen ? '0' : '12px';
+        // container.style.paddingLeft = '12px';
       });
 
       function showLogoutMsg() {

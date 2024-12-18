@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,258 +7,210 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    width: 100%;
     height: 100vh;
-    padding: 20px;
-    background: hsla(207, 73%, 29%, 1);
 }
 
 .main-container {
+    padding: 2em;
     display: flex;
-    flex-direction: row;
-    background: -webkit-linear-gradient(225deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
-    background: -moz-linear-gradient(225deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
-    background: linear-gradient(225deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
-    margin-inline: 10%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    max-width: 1200px;
-    width: 100%;
+    height: 100%;
+    gap: 6em;
+    border: 1px solid black;
+    font-family: inherit;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.05);
 }
 
 .image-container {
     width: 50%;
+    text-align: center;
+    height: 95%;
+    border-radius: 30px;
+    color: white;
+}
+
+.image-container p {
+    position: absolute;
+    right: 25%;
+    bottom: 50%;
+    color: #000;
+    font-size: bold;
 }
 
 .image-container img {
-    width: 100%;
     height: 100%;
-    object-fit: cover;
 }
+
 
 .form-container {
-    padding: 50px 40px;
-    width: 50%;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.15);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    flex-grow: 1;
 }
 
-h1 {
-    color: #003366;
-    margin-bottom: 20px;
+.form-container form {
+    padding: 4em;
+}
+
+/* General form styles */
+#registerForm {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 15px;
+    color: #003366; /* Dark Navy for text */
+}
+
+/* Header styles */
+#registerForm h1 {
     font-size: 24px;
     text-align: center;
+    margin-bottom: 20px;
+    color: #003366;
 }
 
-input {
+/* Error messages */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* Social container */
+.social-container {
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    margin-bottom: 20px;
+}
+
+.social-container + span {
+    text-align: center;
+    padding-left: 4em;
+}  
+
+.social img {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.social img:hover {
+    transform: scale(1.1);
+}
+
+/* Labels and inputs */
+#registerForm label {
+    font-size: 14px;
+    color: #666666; /* Medium Gray */
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#registerForm input {
     width: 100%;
-    padding: 15px;
-    margin: 15px 0;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid hsl(233, 100%, 13%); /* Light blue border */
     border-radius: 5px;
-    border: 1px solid #ADD8E6;
-    background-color: #FFFFFF;
-    color: #444444;
-    font-size: 16px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #ffffff; /* White background */
+    color: #000842; 
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: inherit;
 }
 
-input:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+#registerForm input:focus {
+    outline: none;
+    border-color: hsl(233, 100%, 3%); /* Bright Blue focus */
+    box-shadow: 0 0 5px hsla(233, 100%, 3%, 0.8);
 }
 
-input::placeholder {
-    color: #666666;
-}
-
+/* Password container */
 .password-container {
     position: relative;
 }
 
-.password-container input {
-    padding-right: 40px;
-}
-
-.toggle-password {
-    display: inline;
+#togglePassword {
     position: absolute;
-    top: 1.8em;
-    bottom: auto;
-    left: auto;
+    top: 50%;
     right: 10px;
+    transform: translateY(-50%);
     cursor: pointer;
-    color: #666666;
-    font-size: 1.2rem;
+    color: #666666; /* Medium Gray */
 }
 
-/* Icon hover effect */
-.toggle-password:hover {
-    color: #333333;
+#togglePassword:hover {
+    color: #003366; /* Dark Navy */
 }
 
-/* Accessibility: Focus outline */
-input:focus, button:focus {
-    outline: 3px solid #007BFF; /* Highlight on focus */
-    outline-offset: 2px;
-}
-
-.forgot-pass {
-    margin: auto;
-}
-
-span  {
-    color: #333333;
-}
-
-button {
-    padding: 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
+/* Button styles */
+#registerForm button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0B5565; /* Bright Blue */
+    color: #ffffff; /* White text */
     font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 32px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 1rem;
-    margin-inline: auto;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.02); /* Slight grow on hover */
-    transition: transform 0.3s ease;
+#registerForm button:hover {
+    background-color: hsl(191, 80%, 28%); 
+    transform: scale(1.05);
 }
 
-.social-container {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
-    padding: 5px;
-}
-
-.social {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    padding: 10px;
-    margin: 0 10px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background-color: rgba(255, 255, 255, 0.15);
-    transition: background-color 0.3s ease;
-}
-
-/* Social icons hover transition */
-.social:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    transform: scale(1.1);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-span {
-    display: block;
-    margin: 15px 0;
-    font-size: 14px;
-    color: black;
+/* Footer text */
+.footer-text {
     text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666666; 
 }
 
 .footer-text a {
-    color: #008080;
+    color: #0B5565; 
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 .footer-text a:hover {
-    color: #007BFF;
-    text-decoration: underline;
+    color: hsl(191, 80%, 30%); 
 }
 
-.secondary-button {
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #f5f5dc;
-    color: #003366;
-    border: 1px solid #ADD8E6;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.secondary-button:hover {
-    background-color: #e3ddc8;
-}
-
-/* Responsive Design */
-@media only screen and (max-width: 768px) {
-    body {
-        background: hsla(207, 73%, 29%, 1);
-        background: -moz-linear-gradient(180deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
-        background: -webkit-linear-gradient(180deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
-        background: linear-gradient(180deg, hsla(207, 73%, 29%, 1) 20%, hsla(210, 22%, 80%, 1) 65%, hsla(275, 19%, 88%, 1) 100%);
-        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#145080", endColorstr="#C2CDD8", GradientType=1 );
-    }
-    
-
-    .main-container {
-        flex-direction: column;
-        margin-inline: 5%;
-        margin: auto;
+/* Responsive design */
+@media (max-width: 480px) {
+    #registerForm {
+        padding: 15px;
     }
 
-    .image-container {
-        width: 100%;
-        height: 250px;
+    #registerForm h1 {
+        font-size: 20px;
     }
 
-    .form-container {
-        width: 100%;
-        padding: 20px;
+    #registerForm input {
+        font-size: 12px;
     }
 
-    .social-container {
-        justify-content: space-between;
-        margin: 15px 0;
-    }
-
-    button {
-        padding: 12px;
+    #registerForm button {
         font-size: 14px;
     }
 }
 
-@media only screen and (max-width: 480px) {
-    .main-container {
-        margin-inline: 3%;
-    }
-     
-    .image-container {
-        height: 200px;
-    }
-
-    h1 {
-        font-size: 20px;
-    }
-
-    input {
-        padding: 10px;
-        font-size: 12px;
-    }
-
-    button {
-        padding: 10px;
-        font-size: 12px;
+@media (min-width: 768px)  {
+    .image-container p {
+        position: static;
     }
 }
