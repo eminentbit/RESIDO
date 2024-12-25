@@ -1,15 +1,19 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{% static 'base.css' %}" />
     <title>RESIDO</title>
-    {% block head %}
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
+    {% block head %}
     {% endblock %}
     <link rel="shortcut icon" href="{% static 'favicon.svg' %}" type="image/x-icon">
   </head>

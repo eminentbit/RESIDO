@@ -4,14 +4,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', 'Inter' sans-serif;
 }
 
 /* General styling */
 body {
   font-family: 'Inter', sans-serif;
   background-color: #fff;
-  min-height: 150vh;
+  min-height: 500vh;
   max-width: 100vw;
 }
 
@@ -282,6 +282,10 @@ select {
     display: flex;
     flex-direction: column;
   }
+
+  body {
+    min-height: min-content;
+  }
 }
 
 /* Section Styles */
@@ -385,6 +389,8 @@ select {
   background-color: #fff;
   color: black;
   text-align: center;
+  position: relative;
+  overflow: scroll;
 }
 
 .how-it-works p {

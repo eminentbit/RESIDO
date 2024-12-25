@@ -2,11 +2,12 @@ Django
 djangorestframework
 djangorestframework-simplejwt
 Pillow
-psycopg2
+# psycopg2
 googlemaps
 geopy
 python-decouple
 requests
+django-decouple
 humanfriendly
 django-humanize
 django-allauth

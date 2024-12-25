@@ -11,7 +11,7 @@
     --body-bg-color: #EAF4F6; /* Light blueish-gray for body */
 
     /* Font */
-    --font-family-primary: 'Inter', sans-serif;
+    --font-family-primary: 'Poppins', sans-serif;
     --font-size-logo: 2rem;
     --font-size-footer: 1rem;
 
@@ -43,7 +43,6 @@ body {
     padding: 0;
     font-family: var(--font-family-primary);
     background-color: var(--body-bg-color);
-    min-height: 100vh;
     position: relative;
 }
 

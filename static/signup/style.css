@@ -7,18 +7,20 @@
 }
 
 body {
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', 'Inter', Helvetica, sans-serif;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .main-container {
     padding: 2em;
     display: flex;
-    height: 100%;
     gap: 6em;
-    border: 1px solid black;
+    width: 90%;
+    margin-inline: auto;
+    margin-block: 2em;
     font-family: inherit;
+    /* border: 1px solid black; */
 }
 
 .logo {
@@ -32,7 +34,7 @@ body {
 .image-container {
     width: 50%;
     text-align: center;
-    height: 95%;
+    max-height: 90vh;
     border-radius: 30px;
     color: white;
 }
@@ -52,10 +54,6 @@ body {
 
 .form-container {
     flex-grow: 1;
-}
-
-.form-container form {
-    padding: 4em;
 }
 
 /* General form styles */

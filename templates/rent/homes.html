@@ -1,198 +1,153 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 
 <title>Homes | Rent</title>
 
-<style>
-    /* General Styles */
-    body {
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-        color: #e0e0e0;
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+<link rel="stylesheet" href="{% static 'css/home-sales.css' %}" />
+<link rel="stylesheet" href="{% static 'home/style.css' %}" />
 
-    /* Hero Section */
-    .hero-rentals {
-        text-align: center;
-        padding: 100px 20px;
-        color: rgb(169, 45, 45);
-        background: linear-gradient(to bottom right, #2e2e3a, #1e1e28);
-        border-bottom: 2px solid #444;
-    }
+<script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&loading=async&callback=initMap"
+></script>
 
-    .hero-rentals h1 {
-        font-size: 3rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        animation: pulse 2s infinite alternate;
-    }
+{% endblock %} {% block content %}
 
-    .hero-rentals p {
-        font-size: 1.2rem;
-        margin-top: 10px;
-    }
+<div id="map"></div>
 
-    .glow-btn {
-        background: transparent;
-        border: 2px solid #0ef;
-        color: #0ef;
-        padding: 15px 30px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 15px #0ef;
-    }
-
-    .glow-btn:hover {
-        background: #0ef;
-        color: black;
-        box-shadow: 0 0 25px #0ef, 0 0 50px #0ef;
-    }
-
-    /* Listing Section */
-    .rental-listings h2 {
-        text-align: center;
-        margin-top: 50px;
-        font-size: 2rem;
-        text-shadow: 0 0 10px #0ef;
-    }
-
-    .listing-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin: 40px 10px;
-        padding: 20px;
-    }
-
-    /* Neon Card Style */
-    .neon-card {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        overflow: hidden;
-        transition: transform 0.4s, box-shadow 0.4s;
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    }
-
-    .neon-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), 0 0 60px rgba(0, 255, 255, 0.3);
-    }
-
-    .listing img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .listing h3 {
-        margin: 15px 0 10px;
-        font-size: 1.5rem;
-        text-align: center;
-        color: #0ef;
-    }
-
-    .details-btn {
-        background: transparent;
-        border: 2px solid #0ef;
-        color: #0ef;
-        padding: 10px 20px;
-        margin: 10px auto;
-        display: block;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 10px #0ef;
-    }
-
-    .details-btn:hover {
-        background: #0ef;
-        color: black;
-        box-shadow: 0 0 20px #0ef, 0 0 40px #0ef;
-    }
-
-    /* Rental Tips Section */
-    .rental-tips {
-        margin: 50px auto;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.08);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-
-    .rental-tips h2 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-        color: #0ef;
-        text-shadow: 0 0 10px #0ef;
-    }
-
-    .rental-tips ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .rental-tips li {
-        margin: 10px 0;
-        font-size: 1.2rem;
-    }
-
-    /* Animation */
-    @keyframes pulse {
-        from {
-            text-shadow: 0 0 10px #0ef, 0 0 20px #0ef, 0 0 30px #0ef;
-        }
-        to {
-            text-shadow: 0 0 20px #0ef, 0 0 40px #0ef, 0 0 60px #0ef;
-        }
-    }
-</style>
-
-<section class="hero-rentals">
-    <h1>Explore Futuristic Rentals</h1>
-    <p>Discover homes designed for tomorrow's lifestyle</p>
-    <button type="button" class="cta-btn glow-btn">Search Rentals</button>
-</section>
-
-<section class="rental-listings">
-    <h2>Available Homes for Rent</h2>
-    <div class="listing-grid">
-        <div class="listing neon-card">
-            <img src="{% static 'images/property1.jpg' %}" alt="Rental Property 1">
-            <h3>2 Bedroom Smart Apartment</h3>
-            <p>$1,200/month</p>
-            <p>Location: Central City</p>
-            <button type="button" class="details-btn">View Details</button>
+<section class="featured-properties">
+  <h2>Featured Properties</h2>
+  <div class="listing-grid">
+    {% for item in list %}
+    <div class="listing">
+      <img src="{% static 'home/listing-1.png' %}" alt="Listing {{ item }}"/>
+      <h3>White Stylish Loft</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+        voluptatum?
+      </p>
+      <br />
+      <hr />
+      <div class="listing-details">
+        <p>$550,000</p>
+        <div class="listing-sub-section">
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/area-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>250m<sup>2</sup></p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bedroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>4</p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bathroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>1</p>
+          </div>
         </div>
-        <div class="listing neon-card">
-            <img src="{% static 'images/property2.jpg' %}" alt="Rental Property 2">
-            <h3>3 Bedroom VR-Ready House</h3>
-            <p>$2,500/month</p>
-            <p>Location: Suburbs</p>
-            <button type="button" class="details-btn">View Details</button>
-        </div>
-        <div class="listing neon-card">
-            <img src="{% static 'images/property3.jpg' %}" alt="Rental Property 3">
-            <h3>Futuristic Studio Loft</h3>
-            <p>$900/month</p>
-            <p>Location: Downtown</p>
-            <button type="button" class="details-btn">View Details</button>
-        </div>
+      </div>
     </div>
+    <div class="listing">
+      <img src="{% static 'home/listing-1.png' %}" alt="Listing {{ item }}"/>
+      <h3>White Stylish Loft</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+        voluptatum?
+      </p>
+      <br />
+      <hr />
+      <div class="listing-details">
+        <p>$550,000</p>
+        <div class="listing-sub-section">
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/area-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>250m<sup>2</sup></p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bedroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>4</p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bathroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="listing">
+      <img src="{% static 'home/listing-1.png' %}" alt="Listing {{ item }}"/>
+      <h3>White Stylish Loft</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+        voluptatum?
+      </p>
+      <br />
+      <hr />
+      <div class="listing-details">
+        <p>$550,000</p>
+        <div class="listing-sub-section">
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/area-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>250m<sup>2</sup></p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bedroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>4</p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bathroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </section>
 
-<section class="rental-tips">
-    <h2>Smart Rental Tips</h2>
-    <ul>
-        <li>Explore homes with automation features.</li>
-        <li>Check connectivity with smart home systems.</li>
-        <li>Set budgets with future savings in mind.</li>
-        <li>Contact our virtual agents for a guided experience.</li>
-    </ul>
-</section>
+<script type="module" src="{% static 'map/index.js' %}"></script>
 
 {% endblock %}

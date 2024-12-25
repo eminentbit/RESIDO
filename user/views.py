@@ -445,38 +445,41 @@ def browse_homes(request):
 def all_homes_view(request):
     return render(request, 'all_homes.html')
 
+list = [0, 1, 2, 3]
+
+context = {'google_maps_api_key': settings.GOOGLE_API_KEY, 'list': list}
 
 # SALE
 def homes_for_sale(request):
-    return render(request, 'sale/homes.html')
+    return render(request, 'sale/homes.html', context)
 
 def construction_for_sale(request):
-    return render(request, 'sale/new_construction.html')
+    return render(request, 'sale/new_construction.html', context)
 
 def appartments_for_sale(request):
-    return render(request, 'sale/appartments.html')
+    return render(request, 'sale/appartments.html', context)
 
 def townhouses_for_sale(request):
-    return render(request, 'sale/townhouses.html')
+    return render(request, 'sale/townhouses.html', context)
 
 def construction_for_sale(request):
-    return render(request, 'sale/new_construction.html')
+    return render(request, 'sale/new_construction.html', context)
 
 def office_for_sale(request):
-    return render(request, 'sale/office_spaces.html')
+    return render(request, 'sale/office_spaces.html', context)
 
 # RENT
 def homes_for_rent(request):
-    return render(request, 'rent/homes.html')
+    return render(request, 'rent/homes.html', context)
 
 def construction_for_rent(request):
-    return render(request, 'rent/new_construction.html')
+    return render(request, 'rent/new_construction.html', context)
 
 def appartments_for_rent(request):
-    return render(request, 'rent/appartments.html')
+    return render(request, 'rent/appartments.html', context)
 
 def townhouses_for_rent(request):
-    return render(request, 'rent/townhouses.html')
+    return render(request, 'rent/townhouses.html', context)
 
 def office_for_rent(request):
-    return render(request, 'rent/office_spaces.html')
+    return render(request, 'rent/office_spaces.html', context)

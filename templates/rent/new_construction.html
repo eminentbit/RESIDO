@@ -1,53 +1,158 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 
-{% block content %}
+<title>Constructions | Rent</title>
 
-<link rel="stylesheet" href="{% static 'css/home-sales.css' %}">
+<link rel="stylesheet" href="{% static 'css/home-sales.css' %}" />
+<link rel="stylesheet" href="{% static 'home/style.css' %}" />
 
-<title> Construction | Rent </title>
+<script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&loading=async&callback=initMap"
+></script>
 
-<section class="hero-rentals">
-    <h1>Explore Construction for Rent</h1>
-    <p>Find a home that fits your lifestyle and budget</p>
-    <button type="button" class="cta-btn">Search Rentals</button>
-</section>
+{% endblock %} {% block content %}
 
-<section class="rental-listings">
-    <h2>Available Construction for Rent</h2>
-    <div class="listing-grid">
-        <div class="listing">
-            <img src="{% static 'property1.jpg' %}" alt="Rental Property 1">
-            <h3>2 Bedroom Apartment in Central City</h3>
-            <p>$1,200/month</p>
-            <p>Location: Central City</p>
-            <button type="button">View Details</button>
+<div class="center">
+    <h1>CONSTRUCTIONS FOR RENT</h1>
+    <input type="search" name="search-by-location" id="location-search" placeholder="Search by location...">
+</div>
+
+<div id="map"></div>
+
+<section class="featured-properties">
+  <h2>Featured Properties</h2>
+  <div class="listing-grid">
+    {% for item in list %}
+    <div class="listing">
+      <img src="{% static 'home/listing-1.png' %}" alt="Listing {{ item }}"/>
+      <h3>White Stylish Loft</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+        voluptatum?
+      </p>
+      <br />
+      <hr />
+      <div class="listing-details">
+        <p>$550,000</p>
+        <div class="listing-sub-section">
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/area-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>250m<sup>2</sup></p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bedroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>4</p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bathroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>1</p>
+          </div>
         </div>
-        <div class="listing">
-            <img src="{% static 'property2.jpg' %}" alt="Rental Property 2">
-            <h3>3 Bedroom House in Suburbs</h3>
-            <p>$2,500/month</p>
-            <p>Location: Suburbs</p>
-            <button type="button">View Details</button>
-        </div>
-        <div class="listing">
-            <img src="{% static 'property3.jpg' %}" alt="Rental Property 3">
-            <h3>Studio Apartment Downtown</h3>
-            <p>$900/month</p>
-            <p>Location: Downtown</p>
-            <button type="button">View Details</button>
-        </div>
+      </div>
     </div>
+    <div class="listing">
+      <img src="{% static 'home/listing-1.png' %}" alt="Listing {{ item }}"/>
+      <h3>White Stylish Loft</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+        voluptatum?
+      </p>
+      <br />
+      <hr />
+      <div class="listing-details">
+        <p>$550,000</p>
+        <div class="listing-sub-section">
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/area-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>250m<sup>2</sup></p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bedroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>4</p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bathroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="listing">
+      <img src="{% static 'home/listing-1.png' %}" alt="Listing {{ item }}"/>
+      <h3>White Stylish Loft</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
+        voluptatum?
+      </p>
+      <br />
+      <hr />
+      <div class="listing-details">
+        <p>$550,000</p>
+        <div class="listing-sub-section">
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/area-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>250m<sup>2</sup></p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bedroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>4</p>
+          </div>
+          <div class="sub-properties">
+            <img
+              src="{% static 'home/bathroom-shape.svg' %}"
+              alt="Area"
+              width="20px"
+              height="20px"
+            />
+            <p>1</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </section>
 
-<section class="rental-tips">
-    <h2>Rental Tips</h2>
-    <ul>
-        <li>Review the lease carefully before signing.</li>
-        <li>Consider proximity to public transportation and amenities.</li>
-        <li>Set your budget and stick to it.</li>
-        <li>Get in touch with one of our agents for personalized assistance.</li>
-    </ul>
-</section>
+<script type="module" src="{% static 'map/index.js' %}"></script>
 
 {% endblock %}
